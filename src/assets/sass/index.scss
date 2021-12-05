@@ -1,0 +1,76 @@
+$colorMain: #77e1fd;
+$fontColor-1: #2c3e50;
+$fontColor-2: #fff;
+
+@mixin flex {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flexCenter {
+    @include flex;
+    justify-content: center;
+}
+
+@mixin flexBetween {
+    @include flex;
+    justify-content: space-between;
+}
+
+@mixin bg-item {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+@mixin btn-common {
+    background: $colorMain;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #110f19;
+    cursor: pointer;
+    @include flexCenter;
+}
+
+.modal-common {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    @include flexCenter;
+
+    main {
+        width: 1000px;
+        height: 700px;
+        background: #110f19;
+        border-radius: 12px;
+    }
+}
+
+.cat-sell-label {
+    @include flex;
+    line-height: 30px;
+    font-size: 26px;
+    font-weight: 400;
+    color: #61616b;
+    letter-spacing: -1.3px;
+}
+
+.box-cat-sell-input {
+    padding: 0 52px 0 22px;
+
+    .van-cell__value {
+        @include flex;
+
+        .van-field__control {
+            font-size: 32px;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: -1.3px;
+        }
+    }
+}
