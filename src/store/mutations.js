@@ -1,6 +1,6 @@
 export default {
     setAccount(state, value) {
-        state.accounts = value;
+        state.walletAccounts = value;
     },
     setClientType(state, value) {
         state.isApp = value;

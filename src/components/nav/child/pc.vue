@@ -20,7 +20,7 @@
                 </nav>
 
                 <!-- 钱包 -->
-                <div class="box-wallet">{{ curWallet }}</div>
+                <div class="box-wallet">{{ curWallet.address | addressFormat }}</div>
             </div>
         </div>
     </div>
@@ -34,6 +34,15 @@ export default {
     components: {},
     //静态
     props: {},
+    filters: {
+        addressFormat(add) {
+            if (!add) {
+                return;
+            }
+            const res = add.substring(0, 6) + '***' + add.substr(-4, 4);
+            return res;
+        }
+    },
     //对象内部的属性监听，也叫深度监听
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
@@ -41,7 +50,7 @@ export default {
     //数据
     data() {
         return {
-            curWallet: '0xD67C***65E7'
+
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；

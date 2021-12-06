@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 export default {
     //部件
     components: {},
@@ -18,6 +18,9 @@ export default {
         ...mapState([
             'navList',
             'curNav'
+        ]),
+        ...mapGetters([
+            'curWallet'
         ])
     },
     //数据

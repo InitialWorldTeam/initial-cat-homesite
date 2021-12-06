@@ -1,5 +1,7 @@
 export default {
-    curAccount(state, getters) {
-        return state.accounts[0];
+    curWallet(state, getters) {
+        return state.walletAccounts[state.curWalletIndex] || {
+            address: ''
+        };
     }
 };

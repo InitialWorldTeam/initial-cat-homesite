@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
     //部件
     components: {},
@@ -13,7 +13,7 @@ export default {
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {
-        ...mapState(["curWallet"]),
+        ...mapGetters(["curWallet"]),
         isShowSellModal() {
             return Boolean(this.curSellCat);
         }

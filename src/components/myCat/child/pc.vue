@@ -124,6 +124,7 @@ export default {
             font-weight: 400;
             color: #818189;
             margin-top: 18px;
+            letter-spacing: -1.3px;
             @include flex;
 
             .btn-copy {

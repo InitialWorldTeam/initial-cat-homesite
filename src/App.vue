@@ -10,9 +10,11 @@
 <script>
 import { mapMutations } from "vuex";
 import Nav from './components/nav';
+import InitWallet from './common/initWallet';
 
 export default {
     name: "App",
+    mixins: [ InitWallet ],
     components: {
         Nav
     },
@@ -38,7 +40,6 @@ export default {
             }
 
             this.setClientType(this.isApp);
-            console.log('移动端：', this.$store.state.isApp);
         }
     },
     created() {
