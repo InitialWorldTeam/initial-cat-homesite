@@ -25,7 +25,9 @@ export default {
     },
     //数据
     data(){
-      return {}
+      return {
+          isShowMenu: false,
+      }
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
@@ -33,13 +35,22 @@ export default {
             'setCurNav'
         ]),
         goToPage(item) {
-            this.setCurNav(item.name);
-            if (!item.path || this.$route.path === item.path) {
+            this.isShowMenu = false;
+            $("body").removeClass("disable");
+            if(!item) {
+                return false;
+            }
+            this.setCurNav(item?.name);
+            if (!item.path || this.$route.path === item?.path) {
                 return false;
             };
             this.$router.push({
                 path: item.path
             });
+        },
+        handleShowMenuModal() {
+            this.isShowMenu = true;
+            $("body").addClass("disable");
         }
     },
     //请求数据

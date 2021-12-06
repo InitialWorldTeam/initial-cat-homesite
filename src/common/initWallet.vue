@@ -70,7 +70,7 @@ export default {
             ss58Format: 0 // 默认42-Substrate, 0-polkdot, 2-Kusama
         });
         this.queryBalance(allAccounts);
-        console.log('所有钱包： ', allAccounts);
+        console.log('所有钱包：', allAccounts);
     },
 }
 </script>

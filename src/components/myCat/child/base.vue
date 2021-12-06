@@ -44,11 +44,13 @@ export default {
         },
         // 点击事件-选择出售Cat
         sellCat(item) {
+            $("body").addClass('disable');
             this.curSellCat = item;
         },
         // 取消出售
         clearCellCat() {
             this.curSellCat = null;
+            $("body").removeClass('disable');
         }
     },
     //请求数据

@@ -33,6 +33,12 @@ $fontColor-2: #fff;
     @include flexCenter;
 }
 
+@mixin ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .modal-common {
     width: 100vw;
     height: 100vh;
@@ -71,6 +77,23 @@ $fontColor-2: #fff;
             font-weight: 400;
             color: #ffffff;
             letter-spacing: -1.3px;
+        }
+    }
+}
+
+.container-myCat-app {
+    .cat-sell-label {
+        line-height: 16px;
+        font-size: 13px;
+        letter-spacing: -1px;
+    }
+
+    .box-cat-sell-input {
+        padding: 0 26px 0 11px;
+
+        .van-field__control {
+            line-height: 16px;
+            font-size: 16px;
         }
     }
 }

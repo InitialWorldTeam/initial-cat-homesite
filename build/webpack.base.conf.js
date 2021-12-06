@@ -24,9 +24,8 @@ module.exports = {
     vue: 'Vue',
     vant: 'vant',
     lodash: '_',
-    'web3': 'Web3',
-    'web3modal': 'Web3Modal',
     'element-ui': 'ELEMENT',
+    'jquery': '$',
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
