@@ -158,7 +158,6 @@ export default {
                 left: rs,
                 behavior: "smooth"
             });
-            console.log(left);
         }
     },
     //请求数据

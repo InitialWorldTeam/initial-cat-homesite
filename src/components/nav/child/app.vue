@@ -1,12 +1,15 @@
 <template>
-    <div class="container-navbar-top">
+    <div 
+        class="container-navbar-top"
+    >
         <div class="container-cat-common-content flexBetween">
             <!-- Logo -->
             <div class="box-logo bg-item"></div>
 
             <div class="box-right flex">
                 <!-- 钱包 -->
-                <div class="box-wallet">{{ curWallet.address | addressFormat }}</div>
+                <div class="box-wallet" v-if="curWallet">{{ curWallet.address | addressFormat }}</div>
+                <div class="btn-connect-wallet" v-else @click="initWallet">Connect Wallet</div>
 
                 <!-- 菜单按钮 -->
                 <div class="btn-menu" @click="handleShowMenuModal"></div>
@@ -85,8 +88,6 @@ export default {
     }
 
     .box-right {
-        font-size: 20px;
-        line-height: 24px;
         font-weight: 400;
     }
 
@@ -94,6 +95,17 @@ export default {
         color: #77E1FD;
         margin-right: 11px;
         font-size: 11px;
+        line-height: 15px;
+    }
+
+    .btn-connect-wallet {
+        @include btn-common;
+        height: 17px;
+        // width: 85px;
+        font-size: 10px;
+        padding: 0 10px;
+        margin-right: 9px;
+        letter-spacing: -1px;
     }
 
     .btn-menu {

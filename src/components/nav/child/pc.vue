@@ -20,7 +20,8 @@
                 </nav>
 
                 <!-- 钱包 -->
-                <div class="box-wallet">{{ curWallet.address | addressFormat }}</div>
+                <div class="box-wallet" v-if="curWallet">{{ curWallet.address | addressFormat }}</div>
+                <div class="box-wallet" v-else></div>
             </div>
         </div>
     </div>

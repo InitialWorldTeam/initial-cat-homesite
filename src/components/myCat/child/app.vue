@@ -4,7 +4,7 @@
             <!-- My Wallet Address -->
             <div class="box-wallet-adderss">
                 <h1 class="h1">My Wallet Address</h1>
-                <h2>
+                <h2 v-if="curWallet">
                     <span v-text="curWallet.address"></span>
                     <i
                         class="btn-copy"
@@ -12,6 +12,7 @@
                         v-clipboard:success="onCopy"
                     ></i>
                 </h2>
+                <h2 v-else>--</h2>
                 <section>
                     <div class="box-wallet-info-item box-1">
                         <h3>My Cat</h3>
@@ -35,7 +36,7 @@
             <!-- My Cat -->
             <div class="box-my-cat">
                 <h1 class="h1">My Cat</h1>
-                <section>
+                <section v-if="curWallet">
                     <div
                         v-for="item in myCatList"
                         :key="item.id"
@@ -45,6 +46,9 @@
                         <div class="btn-sell" @click="sellCat(item)">Sell</div>
                     </div>
                 </section>
+                <section class="section-empty" v-else>
+                    <div class="btn-connect" @click="initWallet">Connect Wallet</div>
+                </section>
             </div>
         </main>
 
@@ -52,24 +56,28 @@
         <transition name="fade">
             <div class="box-sell-modal" v-if="isShowSellModal" @click="clearCellCat">
                 <main @click.stop>
-                    <h1>Sell</h1>
-                    <img class="box-sell-img" :src="curSellCat.path">
-                    <h3 v-text="curSellCat.name"></h3>
-                    <div class="box-input">
-                        <!-- 允许输入数字，调起带符号的纯数字键盘 -->
-                        <van-field 
-                            class="box-cat-sell-input"
-                            v-model="sellPrice" 
-                            type="number"
-                            label="Selling price(KSM)"
-                            label-width="200"
-                            label-class="cat-sell-label"
-                            input-align="right"
-                            :border="false"
-                        />
-                    </div>
-                    <div class="btn-approve" @click="clearCellCat">Approve NFT</div>
-                    <p>After the transaction is successful, a 2.5% handling fee will be charged.</p>
+                    <template>
+                        <h1>Sell</h1>
+                        <img class="box-sell-img" :src="curSellCat.path">
+                        <h3 v-text="curSellCat.name"></h3>
+                        <div class="box-input">
+                            <!-- 允许输入数字，调起带符号的纯数字键盘 -->
+                            <van-field 
+                                class="box-cat-sell-input"
+                                v-model="sellPrice" 
+                                type="number"
+                                label="Selling price(KSM)"
+                                label-width="200"
+                                label-class="cat-sell-label"
+                                input-align="right"
+                                :border="false"
+                            />
+                        </div>
+                        <div class="btn-approve" @click="clearCellCat">Approve NFT</div>
+                        <p>After the transaction is successful, a 2.5% handling fee will be charged.</p>
+                    </template>
+                    <!-- 关闭 -->
+                    <div class="btn-close" @click="clearCellCat"></div>
                 </main>
             </div>
         </transition>
@@ -222,7 +230,7 @@ export default {
 
     .box-my-cat {
         margin-top: 55px;
-
+        
         section {
             margin-top: 19px;
             display: flex;
@@ -251,6 +259,21 @@ export default {
                 }
             }
         }
+
+        .section-empty {
+            @include flexCenter;
+            margin-top: 36px;
+            padding-top: 98px;
+            padding-left: 0;
+            background: url(../../../assets/img/common/img-wallet-empty.png) no-repeat center top / 84px 79px;
+
+            .btn-connect {
+                @include btn-common;
+                width: 140px;
+                height: 35px;
+                font-size: 14px;
+            }
+        }
     }
 }
 
@@ -272,6 +295,17 @@ export default {
         padding: 28px 20px 0;
         @include flex;
         flex-direction: column;
+        position: relative;
+
+        .btn-close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+            width: 21px;
+            height: 20px;
+            background: url(../../../assets/img/common/btn-close.png) no-repeat left bottom / 10px auto;
+        }
 
         h1 {
             font-size: 23px;

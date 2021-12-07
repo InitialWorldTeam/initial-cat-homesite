@@ -1,5 +1,11 @@
 <template>
-    <div id="app" :class="{'app': isApp}">
+    <div 
+        id="app" 
+        :class="{'app': isApp, 'load': loading}"
+        v-loading="loading"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
         <!-- 顶部导航 -->
         <Nav></Nav>
         <!-- 路由视图 -->
@@ -10,11 +16,11 @@
 <script>
 import { mapMutations } from "vuex";
 import Nav from './components/nav';
-import InitWallet from './common/initWallet';
+import common from './common/common';
 
 export default {
     name: "App",
-    mixins: [ InitWallet ],
+    mixins: [ common ],
     components: {
         Nav
     },
@@ -23,9 +29,7 @@ export default {
             isApp: false
         };
     },
-    computed: {
-        
-    },
+    computed: {},
     methods: {
         ...mapMutations(["setClientType"]),
         isMobile() {
@@ -46,6 +50,7 @@ export default {
         this.isMobile();
     },
     mounted() {
+        this.initWallet();
         window.addEventListener("resize", () => {
             this.isMobile();
         });
@@ -67,6 +72,11 @@ export default {
 
     &.app {
         min-width: 100vw;
+    }
+
+    &.load {
+        height: 100vh;
+        overflow: hidden;
     }
 }
 </style>

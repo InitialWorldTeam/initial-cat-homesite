@@ -84,6 +84,60 @@ export default {
                     text: '0/1',
                     status: 1 // 1-默认，2-已出售
                 },
+                {
+                    name: 'A Reward Cat',
+                    path: require("../../../assets/img/box/A@2x.png"),
+                    text: '0/1',
+                    status: 1 // 1-默认，2-已出售
+                },
+                {
+                    name: 'B Reward Cat',
+                    path: require("../../../assets/img/box/B@2x.png"),
+                    text: '0/1',
+                    status: 2 // 1-默认，2-已出售
+                },
+                {
+                    name: 'C Reward Cat',
+                    path: require("../../../assets/img/box/C@2x.png"),
+                    text: '0/1',
+                    status: 1 // 1-默认，2-已出售
+                },
+                {
+                    name: 'A Reward Cat',
+                    path: require("../../../assets/img/box/A@2x.png"),
+                    text: '0/1',
+                    status: 1 // 1-默认，2-已出售
+                },
+                {
+                    name: 'B Reward Cat',
+                    path: require("../../../assets/img/box/B@2x.png"),
+                    text: '0/1',
+                    status: 2 // 1-默认，2-已出售
+                },
+                {
+                    name: 'C Reward Cat',
+                    path: require("../../../assets/img/box/C@2x.png"),
+                    text: '0/1',
+                    status: 1 // 1-默认，2-已出售
+                },
+                {
+                    name: 'A Reward Cat',
+                    path: require("../../../assets/img/box/A@2x.png"),
+                    text: '0/1',
+                    status: 1 // 1-默认，2-已出售
+                },
+                {
+                    name: 'B Reward Cat',
+                    path: require("../../../assets/img/box/B@2x.png"),
+                    text: '0/1',
+                    status: 2 // 1-默认，2-已出售
+                },
+                {
+                    name: 'C Reward Cat',
+                    path: require("../../../assets/img/box/C@2x.png"),
+                    text: '0/1',
+                    status: 1 // 1-默认，2-已出售
+                },
             ],
             rankList: [
                 '1 - 50',
@@ -297,16 +351,27 @@ export default {
             this.curRankIdx = index;
         },
         clearGetModal() {
+            $("body").removeClass("disable");
             this.isShowGetModal = false;
         },
         clearChangeModal() {
+            $("body").removeClass("disable");
             this.isShowChangeModal = false;
         },
         handleGetAll() {
+            $("body").addClass("disable");
             this.isShowGetModal = true;
         },
         handleChangeBox() {
+            $("body").addClass("disable");
             this.isShowChangeModal = true;
+        },
+        confirmGetCat() {
+            this.clearGetModal();
+            this.$toast({
+                message: 'The purchase is successful, please go to my cat to check.',
+                className: 'commonToast-1'
+            })
         }
     },
     //请求数据

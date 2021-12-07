@@ -6,7 +6,10 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
+import common from '@/common/common'
+
 export default {
+    mixins: [ common ],
     //部件
     components: {},
     //静态

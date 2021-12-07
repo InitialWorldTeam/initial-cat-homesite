@@ -117,7 +117,7 @@
                             <h5>{{ item.name }}</h5>
                         </div>
                     </div>
-                    <div class="btn-confirm" @click="clearGetModal">OK</div>
+                    <div class="btn-confirm" @click="confirmGetCat">OK</div>
                 </main>
             </div>
         </transition>
@@ -484,10 +484,12 @@ export default {
 
     main {
         width: 1000px;
-        height: 570px;
+        min-height: 570px;
+        max-height: 90vh;
+        height: auto;
         background: #110f19;
         border-radius: 12px;
-        padding: 47px 70px 0;
+        padding: 47px 70px 65px;
         @include flex;
         flex-direction: column;
 
@@ -499,15 +501,19 @@ export default {
         }
 
         .box-get-list {
-            @include flexCenter;
+            display: flex;
+            justify-content: center;
             margin-top: 58px;
+            width: 100%;
+            flex-wrap: wrap;
+            max-height: calc(100% - 100px);
+            overflow-y: auto;
 
             .box-get-item {
                 width: 142px;
-
-                &:not(:last-child) {
-                    margin-right: 44px;
-                }
+                flex-shrink: 0;
+                margin-bottom: 36px;
+                margin-right: 44px;
 
                 img {
                     display: block;
@@ -531,6 +537,7 @@ export default {
             font-size: 24px;
             font-weight: 600;
             margin-top: 84px;
+            flex-shrink: 0;
         }
     }
 }
@@ -686,6 +693,7 @@ export default {
                         left: 0;
                         top: 0;
                         z-index: 1;
+                        border-radius: 8px;
                         background-color: rgba($color: #000000, $alpha: 0.7);
                     }
                     &::after {

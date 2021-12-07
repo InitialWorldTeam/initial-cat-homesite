@@ -57,6 +57,24 @@ $fontColor-2: #fff;
     }
 }
 
+.modal-common-app {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    background-color: rgba($color: #000000, $alpha: 0.9);
+    @include flexCenter;
+
+    main {
+        width: 90%;
+        height: 90%;
+        background: #110f19;
+        border-radius: 12px;
+    }
+}
+
 .cat-sell-label {
     @include flex;
     line-height: 30px;
@@ -96,4 +114,18 @@ $fontColor-2: #fff;
             font-size: 16px;
         }
     }
+}
+
+.el-loading-spinner i {
+    color: $colorMain;
+    font-size: 30px;
+}
+
+.commonToast-1 {
+    background-color: #fff;
+    color: #110F19;
+    font-size: 12px;
+    max-width: 325px;
+    padding: 14px 20px;
+    box-sizing: border-box;
 }

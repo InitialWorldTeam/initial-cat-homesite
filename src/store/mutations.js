@@ -7,5 +7,8 @@ export default {
     },
     setCurNav(state, value) {
         state.curNav = value;
-    }
+    },
+    setLoading(state, value) {
+        state.loading = value;
+    },
 };
