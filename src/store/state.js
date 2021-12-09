@@ -29,5 +29,24 @@ export default {
             name: 'FAQ',
             path: ''
         },
-    ]
+    ],
+    providers: {
+        kusama: {
+            Parity: 'wss://kusama-rpc.polkadot.io',
+            OnFinality: 'wss://kusama.api.onfinality.io/public-ws',
+            'Patract Elara': 'wss://pub.elara.patract.io/kusama',
+            'Geometry Labs': 'wss://kusama.geometry.io/websockets',
+            Dwellir: 'wss://kusama-rpc.dwellir.com',
+            'light client': 'light://substrate-connect/kusama'
+        },
+        polkadot: {
+            Parity: 'wss://rpc.polkadot.io',
+            OnFinality: 'wss://polkadot.api.onfinality.io/public-ws',
+            'Patract Elara': 'wss://pub.elara.patract.io/polkadot',
+            'Geometry Labs': 'wss://polkadot.geometry.io/websockets',
+            // Dwellir: 'wss://polkadot-rpc.dwellir.com',
+            'light client': 'light://substrate-connect/polkadot'
+            // Pinknode: 'wss://rpc.pinknode.io/polkadot/explorer' // https://github.com/polkadot-js/apps/issues/5721
+        }
+    }
 };
