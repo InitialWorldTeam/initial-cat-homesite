@@ -50,7 +50,10 @@ export default {
         this.isMobile();
     },
     mounted() {
-        this.initWallet();
+        // Auto connect if mobile
+        if (this.isApp) {
+            this.initWallet();
+        }
         window.addEventListener("resize", () => {
             this.isMobile();
         });

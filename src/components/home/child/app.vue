@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- Memorial NFT -->
-                <div class="box-section-common box-memorialNFT">
+                <div class="box-section-common box-memorialNFT" v-if="false">
                     <h1>Memorial NFT</h1>
                     <h2>Dream Card has a total release of 10,000 cards on Kusama</h2>
                     <div class="box-airdrop">

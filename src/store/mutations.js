@@ -11,4 +11,7 @@ export default {
     setLoading(state, value) {
         state.loading = value;
     },
+    setCatAssetList(state, value) {
+        state.myCatAssets = value;
+    }
 };

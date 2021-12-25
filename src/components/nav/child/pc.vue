@@ -7,21 +7,36 @@
             <div class="box-right flex">
                 <!-- 导航 -->
                 <nav class="box-nav flex">
-                    <div
-                        class="box-nav-item"
-                        :class="{ cur: curNav === item.name }"
-                        v-for="item in navList"
-                        :key="item.name"
-                        v-text="item.name"
-                        @click="goToNav(item)"
-                    ></div>
                     <!-- 滚动条 -->
                     <div class="block-line" ref="navLine"></div>
+                    <template v-for="item in navList">
+                        <div
+                            v-if="item.path"
+                            class="box-nav-item"
+                            :class="{ cur: curNav === item.name }"
+                            :key="item.name"
+                            v-text="item.name"
+                            @click="goToNav(item)"
+                        >
+                        </div>
+                        <el-tooltip
+                            v-else
+                            :key="item.name"
+                            class="box-nav-item" 
+                            effect="dark" 
+                            content="Coming soon"
+                            placement="bottom"
+                            popper-class="popper-coming"
+                        >
+                            <div @click="goToNav(item)"><span v-text="item.name"></span></div>
+                        </el-tooltip>
+                    </template>
+                    
                 </nav>
 
                 <!-- 钱包 -->
                 <div class="box-wallet" v-if="curWallet">{{ curWallet.address | addressFormat }}</div>
-                <div class="box-wallet" v-else></div>
+                <div class="btn-connect-wallet" v-else @click="initWallet">Connect Wallet</div>
             </div>
         </div>
     </div>
@@ -51,15 +66,17 @@ export default {
     //数据
     data() {
         return {
-
+            showComing: false
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
         goToNav(item) {
-            const e = event.target;
-            const LEFT = e.offsetLeft + e.clientWidth / 2;
-            this.$refs.navLine.style.left = LEFT + 'px';
+            if (item.path) {
+                const e = event.target;
+                const LEFT = e.offsetLeft + e.clientWidth / 2;
+                this.$refs.navLine.style.left = LEFT + 'px';
+            }
             this.goToPage(item);
         }
     },
@@ -75,13 +92,13 @@ export default {
 }
 .container-cat-common-content {
     .box-logo {
-        height: 44px;
-        width: 164px;
-        background-image: url(../../../assets/img/common/img-logo-cat.png);
+        height: 23px;
+        width: 124px;
+        background-image: url(../../../assets/img/common/img-logo-world.png);
     }
 
     .box-right {
-        font-size: 20px;
+        font-size: 14px;
         line-height: 24px;
         font-weight: 400;
     }
@@ -91,11 +108,11 @@ export default {
 
         .block-line {
             position: absolute;
-            width: 31px;
+            width: 24px;
             height: 2px;
             background: #77e1fd;
             border-radius: 4px;
-            left: 27px;
+            left: 18px;
             bottom: -14px;
             transform: translate(-50%, 0);
             transition: all .3s;
@@ -104,6 +121,11 @@ export default {
         .box-nav-item {
             position: relative;
             cursor: pointer;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            margin-left: 0;
+            color: #fff;
 
             &:not(:last-child) {
                 margin-right: 36px;
@@ -114,6 +136,16 @@ export default {
     .box-wallet {
         color: #77E1FD;
         margin-left: 80px;
+    }
+
+    .btn-connect-wallet {
+        @include btn-common;
+        height: 28px;
+        width: 114px;
+        font-size: 14px;
+        padding: 0 10px;
+        margin-left: 35px;
+        letter-spacing: -1px;
     }
 }
 </style>

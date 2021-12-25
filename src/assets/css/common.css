@@ -1,6 +1,6 @@
 .container-cat-common {
     width: 100vw;
-    min-width: 1400px;
+    min-width: 1000px;
     overflow: hidden;
     user-select: none;
     display: flex;
@@ -8,7 +8,7 @@
     justify-content: center;
 }
 .container-cat-common-content {
-    width: 1400px;
+    width: 1000px;
     height: 100%;
 }
 

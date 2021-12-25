@@ -33,7 +33,7 @@ $fontColor-2: #fff;
     @include flexCenter;
 }
 
-@mixin ellipsis {
+@mixin ellipsis{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -77,21 +77,21 @@ $fontColor-2: #fff;
 
 .cat-sell-label {
     @include flex;
-    line-height: 30px;
-    font-size: 26px;
+    line-height: 20px;
+    font-size: 24px;
     font-weight: 400;
     color: #61616b;
     letter-spacing: -1.3px;
 }
 
 .box-cat-sell-input {
-    padding: 0 52px 0 22px;
+    padding: 0 23px 0 19px;
 
     .van-cell__value {
         @include flex;
 
         .van-field__control {
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 400;
             color: #ffffff;
             letter-spacing: -1.3px;
@@ -128,4 +128,25 @@ $fontColor-2: #fff;
     max-width: 325px;
     padding: 14px 20px;
     box-sizing: border-box;
+}
+
+.common-pc-width {
+    width: 1000px;
+}
+
+.popper-coming {
+    width: 150px;
+    height: 40px;
+    background: #292732 !important;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: Myriad Pro;
+    font-weight: 400;
+    color: #9F9FA3 !important;
+    padding: 0;
+    @include flexCenter;
+
+    .popper__arrow::after {
+        border-bottom-color: #292732 !important;
+    }
 }

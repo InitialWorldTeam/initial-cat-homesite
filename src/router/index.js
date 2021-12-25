@@ -14,8 +14,8 @@ export default new Router({
             component: Home
         },
         {
-            path: '/myCat',
-            name: 'MyCat',
+            path: '/myNft',
+            name: 'MyNFTs',
             component: MyCat
         },
         {

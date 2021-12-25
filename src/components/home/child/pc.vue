@@ -1,11 +1,11 @@
 <template>
     <div class="container-home container-pc">
-        <!-- Banner -->
-        <div class="box-banner flexCenter">
-            <img :src="bannerImg" />
-        </div>
-
         <section class="flex">
+            <!-- Banner -->
+            <div class="box-banner flexCenter">
+                <img :src="bannerImg" />
+            </div>
+
             <div>
                 <!-- Introduction -->
                 <div class="box-section-common">
@@ -36,17 +36,24 @@
                     </div>
                 </div>
 
-                <!-- Special Loot Box -->
+                <!-- Mystery Box -->
                 <div class="box-section-common box-specialLoot">
-                    <h1>Special Loot Box</h1>
+                    <h1>Mystery Box</h1>
                     <h2>Your Own Private NFTs from Loot Box</h2>
                     <main>
                         <div class="box-left">
                             <img class="img-block" :src="lootBoxImg">
                         </div>
                         <div class="box-right">
-                            <p>Our experience tells us, "Luck is also a part of success. You never know what will happen next second." Although the unknown is big, we bring you a different Loot Box experience. It only costs $250. You can play between 400% and 90%, which sounds exciting. And you can also get a unique commemorative NFT, which belongs to you only. </p>
-                            <div class="btn-enter">Enter</div>
+                            <p>You can get the Rare NFTs of Initial World from the Mystery Box. They may be "Race Memorial NFT", "SubMetaverse NFT" or user-created NFTs. Special NFTs can get airdrops, which sounds exciting, wish you have a good time in Initial World.</p>
+                            <el-tooltip
+                                effect="dark"
+                                content="Coming soon"
+                                placement="bottom"
+                                popper-class="popper-coming"
+                            >
+                                <div class="btn-enter">Enter</div>
+                            </el-tooltip>
                         </div>
                     </main>
                 </div>
@@ -67,14 +74,45 @@
                                 {{ item.name }}
                             </div>
                         </div>
-                        <div class="box-content">
-                            <img :src="ecoTabList[cueEcoIdx].content" alt="">
+                        <div 
+                            class="box-content" 
+                            :class="[
+                                'box-eco-type-' + curEcoItem.type,
+                                'box-eco-tab-' + cueEcoIdx
+                            ]"
+                        >
+                            <template v-if="curEcoItem.type === 1">
+                                <div class="box-left">
+                                    <video 
+                                        :src="curEcoItem.content"
+                                        muted
+                                        autoplay
+                                        loop
+                                    ></video>
+                                </div>
+                                <div class="box-right">
+                                    <h2 v-text="curEcoItem.name"></h2>
+                                    <p v-text="curEcoItem.des"></p>
+                                </div>
+                            </template>
+                            <template v-if="curEcoItem.type === 2">
+                                <div class="box-left">
+                                    <img :src="curEcoItem.content"/>
+                                </div>
+                                <div class="box-right">
+                                    <h2 v-text="curEcoItem.name"></h2>
+                                    <p v-text="curEcoItem.des"></p>
+                                </div>
+                            </template>
+                            <template v-if="curEcoItem.type === 3">
+                                <img :src="curEcoItem.content" alt="">
+                            </template>
                         </div>
                     </main>
                 </div>
 
                 <!-- Memorial NFT -->
-                <div class="box-section-common box-memorialNFT">
+                <div class="box-section-common box-memorialNFT" v-if="false">
                     <h1>Memorial NFT</h1>
                     <h2>Dream Card has a total release of 10,000 cards on Kusama</h2>
                     <div class="box-airdrop">
@@ -125,10 +163,44 @@
                         >
                             <img :src="item.icon" alt="">
                             <h4 v-text="item.title"></h4>
-                            <div class="btn-join">Join us</div>
+                            <el-tooltip
+                                effect="dark"
+                                content="Coming soon"
+                                placement="bottom"
+                                popper-class="popper-coming"
+                            >
+                                <div class="btn-join">Join us</div>
+                            </el-tooltip>
                         </div>
                     </main>
                 </div>
+
+                <!-- Footer -->
+                <footer class="box-footer">
+                    <div class="box-left">
+                        <div class="box-logo"></div>
+                        <div class="box-copyright">@Initial World Team. 2021</div>
+                    </div>
+                    <div class="box-mid">
+                        <div v-for="item in menuList" :key="item.id" class="box-menu-item">
+                            {{ item }}
+                        </div>
+                    </div>
+                    <div class="box-right">
+                        <h2>Subscribe to our newsletter</h2>
+                        <h3>Stay up-to-date about new features and supported apps & games.</h3>
+                        <div class="box-subscribe">
+                            <div class="box-input">
+                                <input 
+                                    type="text" 
+                                    placeholder="Your e-mail address"
+                                    v-model="userEmail"
+                                />
+                            </div>
+                            <div class="btn-sub" @click="handleSubEmail(userEmail)">Subscribe</div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </section>
     </div>
@@ -161,10 +233,11 @@ export default {
         var mySwiper = new Swiper(".swiper-container", {
             loop: true, // 循环模式选项
             autoplay: {
-                delay: 5000,
+                delay: 4000,
+                disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
             },
-            slidesPerView: 3,
-            spaceBetween: 22,
+            slidesPerView: 4,
+            spaceBetween: 12,
 
             // 如果需要前进后退按钮
             navigation: {
@@ -180,38 +253,44 @@ export default {
 .box-swiper {
     width: 100%;
     position: relative;
+    margin-top: 29px;
 
     .swiper-container {
-        width: calc(100% - 124px);
-        height: 340px;
-        margin-top: 58px;
+        // width: calc(100% - 124px);
+        height: 206px;
     }
     .swiper-slide {
-        width: 410px;
-        height: 332px;
+        width: 240px;
+        height: 100%;
         color: #000;
         border-radius: 10px;
         overflow: hidden;
 
         .box-img {
-            height: 250px;
+            height: 146px;
 
             img {
                 display: block;
                 height: 100%;
+                width: 100%;
             }
         }
 
         .box-content {
-            height: 82px;
+            height: 60px;
             background: #161722;
-            padding: 0 14px 0 16px;
-            font-size: 20px;
-            line-height: 24px;
+            padding: 0 10px;
+            font-size: 14px;
+            line-height: 18px;
             
             h3 {
-                font-size: 20px;
+                font-size: 14px;
                 color: #fff;
+                // @include ellipsis;
+                display: -webkit-box;    
+                -webkit-box-orient: vertical;    
+                -webkit-line-clamp: 2;
+                overflow: hidden;
             }
 
             .btn-go {
@@ -220,12 +299,13 @@ export default {
                 padding-right: 16px;
                 cursor: pointer;
                 background: url(../../../assets/img/home/icon-arrow-right.png) no-repeat right center / auto 16.5px;
+                margin-left: 10px;
             }
         }
     }
     .swiper-button-next, .swiper-button-prev {
-        width: 48px;
-        height: 48px;
+        width: 30px;
+        height: 30px;
         background: url(../../../assets/img/home/img-swiper-btn.png) no-repeat center / 100% 100%;
         cursor: pointer;
 
@@ -234,93 +314,92 @@ export default {
         }
     }
     .swiper-button-next {
-        right: 0;
+        right: -54px;
         transform: rotate(180deg);
     }
     .swiper-button-prev {
-        left: 0;
+        left: -54px;
     }
 }
 .container-pc {
     padding-bottom: 150px;
 }
 .container-home {
-    .box-banner {
-        height: 500px;
-
-        img {
-            display: block;
-            height: 100%;
-            width: 1920px;
-        }
-    }
 
     > section {
         flex-direction: column;
-        padding-top: 124px;
-
         > div {
-            width: 1400px;
+            width: 1000px;
+        }
+
+        .box-banner {
+            height: 300px;
+            margin-bottom: 56px;
+
+            img {
+                display: block;
+                height: 100%;
+                width: 100%;
+            }
         }
 
         .box-section-common {
             position: relative;
 
             > h1 {
-                font-size: 52px;
-                line-height: 40px;
+                font-size: 34px;
+                line-height: 25px;
             }
 
             > h2 {
-                line-height: 20px;
-                font-size: 26px;
+                line-height: 18px;
+                font-size: 18px;
                 font-weight: 400;
                 color: #3e3e47;
-                margin-top: 21px;
+                margin-top: 12px;
             }
         }
     }
 
     .box-specialLoot {
-        margin-top: 136px;
+        margin-top: 79px;
 
         main {
-            margin: 51px auto 0;
-            width: 1230px;
-            height: 416px;
+            margin: 30px auto 0;
+            height: 356px;
             background: #08070C;
             border-radius: 12px;
             @include flex;
-            padding-left: 85px;
-            padding-right: 80px;
+            padding-left: 70px;
+            padding-right: 70px;
 
             .box-left {
-                width: 300px;
-                height: 300px;
+                width: 250px;
+                height: 250px;
                 flex-shrink: 0;
                 margin-right: 75px;
             }
 
             .box-right {
                 p {
-                    font-size: 20px;
+                    font-size: 18px;
                     font-family: Myriad Pro;
                     font-weight: 400;
                     color: #FFFFFF;
-                    line-height: 32px;
+                    line-height: 28px;
                     letter-spacing: -1px;
                 }
                 .btn-enter {
-                    width: 230px;
-                    height: 64px;
+                    width: 180px;
+                    height: 50px;
                     background: #77E1FD;
                     border-radius: 32px;
-                    font-size: 28px;
+                    font-size: 22px;
                     font-family: MyriadPro;
                     font-weight: 600;
                     color: #110F19;
                     @include flexCenter;
-                    margin-top: 24px;
+                    margin-top: 44px;
                     cursor: pointer;
                 }
             }
@@ -328,21 +407,21 @@ export default {
     }
 
     .box-ecosystem {
-        margin-top: 134px;
+        margin-top: 87px;
 
         main {
-            margin: 56px auto 0;
-            width: 1014px;
+            margin: 34px auto 0;
 
             .box-tab{
-                height: 70px;
+                height: 56px;
                 background: #1E1C27;
                 border-radius: 35px;
+                padding: 0 34px;
                 @include flexBetween;
-                padding: 0 30px;
             
                 .box-tab-item {
-                    font-size: 22px;
+                    padding: 0 30px;
+                    font-size: 18px;
                     line-height: 24px;
                     font-weight: 600;
                     color: #FEFEFE;
@@ -354,21 +433,110 @@ export default {
                     &.cur {
                         background: #77E1FD;
                         border-radius: 35px;
-                        padding: 0 35px;
+                        padding: 0 32px;
+                        color: #110F19;
                     }
                 }
             }
 
             .box-content {
-                height: 528px;
+                height: 430px;
                 background: #08070C;
                 border-radius: 12px;
-                margin-top: 28px;
-                padding: 45px 50px;
+                margin-top: 13px;
 
                 img {
                     display: block;
+                    width: 100%;
                     height: 100%;
+                }
+
+                &.box-eco-type-1 {
+                    @include flex;
+                    padding: 34px 108px 34px 133px;
+
+                    .box-left {
+                        width: 290px;
+                        height: 362px;
+                        margin-right: 92px;
+                        flex-shrink: 0;
+
+                        video {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+
+                    .box-right {
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        color: #fff;
+
+                        h2 {
+                            line-height: 17px;
+                            font-size: 24px;
+                        }
+                        p {
+                            line-height: 28px;
+                            font-size: 18px;
+                            margin-top: 56px;
+                            letter-spacing: -1px;
+                        }
+                    }
+                }
+
+                &.box-eco-type-2 {
+                    @include flex;
+                    padding: 58px 114px;
+
+                    .box-left {
+                        width: 298px;
+                        height: 313px;
+                        margin-right: 93px;
+                        flex-shrink: 0;
+                    }
+
+                    .box-right {
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        color: #fff;
+
+                        h2 {
+                            line-height: 17px;
+                            font-size: 24px;
+                        }
+                        p {
+                            line-height: 28px;
+                            font-size: 18px;
+                            margin-top: 56px;
+                            letter-spacing: -1px;
+                        }
+                    }
+                }
+
+                &.box-eco-type-3 {
+                    img {
+                        height: auto;
+                    }
+                }
+
+                &.box-eco-tab-2 {
+                    padding: 48px 90px 60px 93px;
+                }
+                &.box-eco-tab-3 {
+                    padding: 55px 45px 67px 40px;
+                }
+                &.box-eco-tab-4 {
+                    padding: 70px 79px 67px 70px;
+
+                    .box-left {
+                        width: 477px;
+                        height: 226px;
+                        margin-right: 79px;
+                    }
                 }
             }
         }
@@ -441,17 +609,16 @@ export default {
     }
 
     .box-partners {
-        margin-top: 184px;
+        margin-top: 87px;
 
         main {
-            margin-top: 49px;
-            padding-left: 200px;
-            width: 1300px;
+            margin-top: 43px;
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
 
             .box-partner-item {
-                width: 243px;
+                width: 216px;
                 height: 66px;
                 border-radius: 8px;
                 transition: all .3s;
@@ -472,60 +639,150 @@ export default {
 
                 img {
                     display: block;
-                    width: 170px;
+                    width: 149px;
                     height: auto;
 
-                    &.img-1 { width: 157px; }
-                    &.img-5 { width: 136px; }
-                    &.img-6 { width: 87px; }
+                    &.img-1 { width: 51px; }
+                    &.img-3 { width: 111px; }
+                    &.img-5 { width: 90px; }
+                    &.img-6 { width: 90px; }
+                    &.img-7 { width: 119px; }
                 }
             }
         }
     }
 
     .box-community {
-        margin-top: 120px;
+        margin-top: 110px;
 
         main {
-            margin-top: 52px;
-            padding-left: 230px;
+            margin-top: 44px;
+            padding-left: 40px;
             @include flex;
 
             .box-community-item {
-                width: 280px;
-                height: 290px;
-                border-radius: 12px;
-                margin-right: 52px;
+                width: 200px;
+                height: 220px;
                 @include flexCenter;
                 @include bg-item;
                 background-image: url(../../../assets/img/home/bg-community-item.png);
                 flex-direction: column;
 
+                &:not(:last-child) {
+                    margin-right: 40px;
+                }
+
                 img {
-                    width: 76px;
-                    height: 76px;
+                    width: 61px;
+                    height: 61px;
                 }
 
                 h4 {
-                    font-size: 18px;
-                    line-height: 20px;
+                    font-size: 15px;
+                    line-height: 10px;
                     font-weight: 400;
                     color: #FFFFFF;
-                    margin-top: 10px;
+                    margin-top: 8px;
                 }
 
                 .btn-join {
-                    width: 120px;
-                    height: 36px;
+                    width: 98px;
+                    height: 29px;
                     background: #77E1FD;
                     border-radius: 18px;
-                    margin-top: 28px;
-                    font-size: 18px;
-                    line-height: 24px;
+                    margin-top: 23px;
+                    font-size: 15px;
+                    line-height: 20px;
                     font-weight: 600;
                     color: #110F19;
                     cursor: pointer;
                     @include flexCenter;
+                }
+            }
+        }
+    }
+
+    .box-footer {
+        margin-top: 167px;
+        display: flex;
+
+        .box-left {
+            .box-logo {
+                height: 26px;
+                width: 148px;
+                @include bg-item;
+                background-image: url(../../../assets/img/common/img-logo-world.png);
+            }
+
+            .box-copyright {
+                font-size: 12px;
+                line-height: 10px;
+                color: #3E3E47;
+                margin-top: 17px;
+            }
+        }
+
+        .box-mid {
+            margin-left: 108px;
+            display: flex;
+            flex-wrap: wrap;
+            width: 200px;
+
+            .box-menu-item {
+                width: 100px;
+                line-height: 20px;
+                height: 26px;
+                font-size: 16px;
+                @include flex;
+                font-weight: 400;
+                color: #FFFFFF;
+                margin-bottom: 28px;
+            }
+        }
+
+        .box-right {
+            margin-left: 150px;
+            width: 390px;
+
+            h2 {
+                line-height: 15px;
+                font-size: 20px;
+            }
+            h3 {
+                line-height: 13px;
+                font-size: 14px;
+                color: #5C5D67;
+                margin-top: 14px;
+                letter-spacing: -1.3px;
+            }
+            .box-subscribe {
+                width: 390px;
+                height: 54px;
+                background: #1E1C27;
+                border-radius: 30px;
+                margin-top: 19px;
+                @include flexBetween;
+
+                .box-input {
+                    padding-left: 23px;
+
+                    input {
+                        background-color: transparent;
+                        font-size: 16px;
+                        font-family: MyriadPro;
+                        font-weight: 600;
+                        color: #585861;
+                        border: none;
+                        width: 200px;
+                        height: 40px;
+                    }
+                }
+
+                .btn-sub {
+                    @include btn-common;
+                    width: 120px;
+                    height: 54px;
+                    font-size: 16px;
                 }
             }
         }

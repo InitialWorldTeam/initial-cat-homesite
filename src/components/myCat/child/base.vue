@@ -4,7 +4,8 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
-import common from '@/common/common'
+import common from '@/common/common';
+
 export default {
     mixins: [common],
     //部件
@@ -15,7 +16,12 @@ export default {
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {
-        ...mapGetters(["curWallet"]),
+        ...mapGetters([
+            "curWallet"
+        ]),
+        ...mapState([
+            "myCatAssets"
+        ]),
         isShowSellModal() {
             return Boolean(this.curSellCat);
         }
@@ -24,19 +30,7 @@ export default {
     data() {
         return {
             sellPrice: 0, // 出售价格
-            curSellCat: null, // 当前出售Cat
-            myCatList: [
-                {
-                    name: 'Last Reward Cat',
-                    path: require('../../../assets/img/myCat/img-mycat-demo-1.png'),
-                    url: ""
-                },
-                {
-                    name: 'Last Reward Cat',
-                    path: require('../../../assets/img/myCat/img-mycat-demo-2.png'),
-                    url: ""
-                }
-            ]
+            curSellCat: null // 当前出售Cat
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -56,8 +50,12 @@ export default {
         }
     },
     //请求数据
-    created() {},
-    mounted() {}
+    async created() {
+        
+    },
+    async mounted() {
+        
+    }
 };
 </script>
 

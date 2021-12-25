@@ -55,8 +55,8 @@ input:-webkit-autofill {
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar
 {
-  width: 1px;
-  height: 1.5px;
+  width: .5px;
+  height: .5px;
   background-color: transparent;
   border-radius: 40px;
   overflow: hidden;

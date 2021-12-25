@@ -4,7 +4,7 @@
             <!-- My Wallet Address -->
             <div class="box-wallet-adderss">
                 <h1 class="h1">My Wallet Address</h1>
-                <h2>
+                <h2 v-if="curWallet">
                     <span v-text="curWallet.address"></span>
                     <i
                         class="btn-copy"
@@ -14,7 +14,7 @@
                 </h2>
                 <section>
                     <div class="box-wallet-info-item">
-                        <h3>My Cat</h3>
+                        <h3>My NFTs</h3>
                         <div class="box-num">03</div>
                     </div>
                     <div class="box-wallet-info-item">
@@ -30,19 +30,32 @@
                 </section>
             </div>
 
-            <!-- My Cat -->
+            <!-- My NFTs -->
             <div class="box-my-cat">
-                <h1 class="h1">My Cat</h1>
-                <section>
-                    <div
-                        v-for="item in myCatList"
-                        :key="item.id"
-                        class="box-cat-item"
-                    >
-                        <img :src="item.path" />
-                        <div class="btn-sell" @click="sellCat(item)">Sell</div>
-                    </div>
-                </section>
+                <h1 class="h1">My NFTs</h1>
+                <template v-if="curWallet">
+                    <!-- own NFT -->
+                    <section v-if="myCatAssets.length">
+                        <template
+                            v-for="item in myCatAssets"
+                        >
+                            <cat-item
+                                :key="item.id"
+                                :catItem="item"
+                                @sell="sellCat"
+                                :showSell="true"
+                            ></cat-item>
+                        </template>
+                    </section>
+                    <!-- no NFT -->
+                    <template v-else>
+                        <div class="box-empty-nft"></div>
+                    </template>
+                </template>
+                
+                <div class="box-no-connect" v-else>
+                    <div class="btn-connect-wallet" @click="initWallet">Connect Wallet</div>
+                </div>
             </div>
         </main>
 
@@ -51,8 +64,13 @@
             <div class="box-sell-modal" v-if="isShowSellModal" @click="clearCellCat">
                 <main @click.stop>
                     <h1>Sell</h1>
-                    <img class="box-sell-img" :src="curSellCat.path">
-                    <h3 v-text="curSellCat.name"></h3>
+                    <div>
+                        <cat-item
+                            class="box-sell-modal-img"
+                            :catItem="curSellCat"
+                        ></cat-item>
+                    </div>
+                    <h3 v-text="curSellCat.symbol"></h3>
                     <div class="box-input">
                         <!-- 允许输入数字，调起带符号的纯数字键盘 -->
                         <van-field 
@@ -76,11 +94,14 @@
 
 <script>
 import Base from "./base";
+import CatItem from '@/common/catItem';
 
 export default {
     mixins: [Base],
     //部件
-    components: {},
+    components: {
+        CatItem
+    },
     //静态
     props: {},
     //对象内部的属性监听，也叫深度监听
@@ -104,13 +125,13 @@ export default {
     padding-top: 70px;
 
     main {
-        width: 1400px;
+        @extend .common-pc-width;
         margin: 0 auto;
         padding-bottom: 188px;
     }
 
     .h1 {
-        font-size: 42px;
+        font-size: 34px;
         line-height: 44px;
         font-family: FuturaT;
         font-weight: normal;
@@ -119,8 +140,8 @@ export default {
 
     .box-wallet-adderss {
         h2 {
-            font-size: 26px;
-            line-height: 28px;
+            font-size: 20px;
+            line-height: 24px;
             font-weight: 400;
             color: #818189;
             margin-top: 18px;
@@ -138,9 +159,9 @@ export default {
         }
 
         section {
-            height: 240px;
+            height: 172px;
             background-color: #fff;
-            padding: 60px 0 0 94px;
+            padding: 43px 0 0 66px;
             display: flex;
             margin-top: 44px;
 
@@ -148,18 +169,18 @@ export default {
                 flex: 1;
 
                 h3 {
-                    font-size: 32px;
-                    line-height: 32px;
+                    font-size: 22px;
+                    line-height: 16px;
                     font-weight: 400;
                     color: #110f19;
                     margin-bottom: 24px;
                 }
                 .box-num {
-                    padding-left: 52px;
+                    padding-left: 37px;
                     background: url(../../../assets/img/common/img-logo-auto.png)
-                        no-repeat left center / 40px auto;
-                    font-size: 46px;
-                    line-height: 48px;
+                        no-repeat left center / 29px auto;
+                    font-size: 32px;
+                    line-height: 30px;
                     font-weight: bold;
                     color: #110f19;
 
@@ -169,44 +190,49 @@ export default {
                 }
 
                 p {
-                    font-size: 24px;
-                    line-height: 24px;
+                    font-size: 18px;
+                    line-height: 16px;
                     font-weight: 400;
                     color: #818189;
-                    padding-left: 52px;
-                    margin-top: 12px;
+                    padding-left: 39px;
+                    margin-top: 7px;
                 }
             }
         }
     }
 
     .box-my-cat {
-        margin-top: 87px;
+        margin-top: 75px;
 
         section {
             margin-top: 35px;
             display: flex;
             flex-wrap: wrap;
             padding-left: 46px;
+        }
 
-            .box-cat-item {
-                width: 166px;
-                margin-bottom: 36px;
+        .box-empty-nft {
+            height: 170px;
+            margin-top: 58px;
+            background: url(../../../assets/img/myCat/img-noNft.png) no-repeat center top / 240px auto;      
+        }
 
-                &:not(:last-child) {
-                    margin-right: 80px;
-                }
+        .box-no-connect {
+            margin-top: 57px;
+            padding-top: 146px;
+            @include flexCenter;
+            background: url(../../../assets/img/common/img-wallet-empty.png) no-repeat center top / 124px auto;
 
-                img {
-                    display: block;
-                    height: 250px;
-                    margin-bottom: 24px;
-                }
-
-                .btn-sell {
-                    height: 54px;
-                    @include btn-common;
-                }
+            .btn-connect-wallet {
+                @include btn-common;
+                height: 50px;
+                width: 210px;
+                font-size: 20px;
+                line-height: 24px;
+                padding: 0 10px;
+                margin-right: 9px;
+                color: #110F19;
+                letter-spacing: 0px;
             }
         }
     }
@@ -222,12 +248,12 @@ export default {
     background-color: rgba($color: #000000, $alpha: 0.5);
     @include flexCenter;
 
-    main {
-        width: 700px;
-        height: 800px;
+    >main {
+        width: 600px;
+        height: 680px;
         background: #110f19;
         border-radius: 12px;
-        padding: 45px 70px 0;
+        padding: 35px 50px 0;
         @include flex;
         flex-direction: column;
 
@@ -240,25 +266,25 @@ export default {
         }
 
         .box-sell-img {
-            width: 195px;
-            height: 294px;
+            width: 180px;
+            height: 270px;
         }
 
         h3 {
-            line-height: 16px;
-            font-size: 22px;
+            line-height: 13px;
+            font-size: 18px;
             font-family: Myriad Pro;
             font-weight: 400;
             color: #FFFFFF;
-            margin-top: 17px;
+            margin-top: 14px;
         }
 
         .box-input {
-            width: 560px;
-            height: 86px;
+            width: 500px;
+            height: 66px;
             border: 2px solid #818189;
             border-radius: 12px;
-            margin-top: 62px;
+            margin-top: 48px;
         }
 
         .box-cat-sell-input {
@@ -268,20 +294,20 @@ export default {
 
         .btn-approve {
             @include btn-common;
-            width: 560px;
-            height: 86px;
+            width: 500px;
+            height: 66px;
             border-radius: 12px;
-            font-size: 32px;
-            margin-top: 27px;
+            font-size: 22px;
+            margin-top: 21px;
         }
 
         p {
-            font-size: 18px;
-            line-height: 20px;
+            font-size: 14px;
+            line-height: 14px;
             font-family: Myriad Pro;
             font-weight: 400;
             color: #61616B;
-            margin-top: 14px;
+            margin-top: 18px;
             letter-spacing: -1px;
         }
     }

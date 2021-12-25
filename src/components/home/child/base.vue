@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import UTILS from '@/config/util';
+
 export default {
     //部件
     components: {},
@@ -11,10 +13,15 @@ export default {
     //对象内部的属性监听，也叫深度监听
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
-    computed: {},
+    computed: {
+        curEcoItem() {
+            return this.ecoTabList[this.cueEcoIdx];
+        }
+    },
     //数据
     data() {
         return {
+            userEmail: '',
             lootBoxImg: require('../../../assets/img/home/bg-loot-box.png').default,
             bannerImg: require("../../../assets/img/home/bg-home-banner.png").default,
             memorialNftImg: {
@@ -36,17 +43,27 @@ export default {
                     title: "Application of multi-resource NFT",
                     img: require("../../../assets/img/home/img-introduction-3.png").default,
                     url: ''
+                },
+                 {
+                    title: "Application of multi-resource NFT",
+                    img: require("../../../assets/img/home/img-introduction-2.png").default,
+                    url: ''
+                },
+                {
+                    title: "Application of multi-resource NFT",
+                    img: require("../../../assets/img/home/img-introduction-3.png").default,
+                    url: ''
                 }
             ],
             partnerList: [
-                require("../../../assets/img/home/icon-coinMarketCap.png"),
-                require("../../../assets/img/home/icon-coinGecko.png"),
-                require("../../../assets/img/home/icon-mathwallet.png"),
-                require("../../../assets/img/home/icon-metamask.png"),
-                require("../../../assets/img/home/icon-tokenPocket.png"),
-                require("../../../assets/img/home/icon-imToken.png"),
-                require("../../../assets/img/home/icon-dapp.png"),
-                require("../../../assets/img/home/icon-dappRadar.png"),
+                require("../img/icon-partner-1.png"),
+                require("../img/icon-partner-2.png"),
+                require("../img/icon-partner-3.png"),
+                require("../img/icon-partner-4.png"),
+                require("../img/icon-partner-5.png"),
+                require("../img/icon-partner-6.png"),
+                require("../img/icon-partner-7.png"),
+                require("../img/icon-partner-8.png"),
             ],
             communityList: [
                 {
@@ -64,33 +81,52 @@ export default {
                     title: 'Discord',
                     url: ''
                 },
+                {
+                    icon: require("../img/icon-medium.png"),
+                    title: 'Medium',
+                    url: ''
+                },
             ],
-            cueEcoIdx: 2, // 当前EcoTab索引值 
+            cueEcoIdx: 0, // 当前EcoTab索引值 
             ecoTabList: [
                 {
-                    name: 'Ichiban Kuji',
-                    content: require("../../../assets/img/home/bg-ecosystem.png").default
+                    name: 'Rare NFT',
+                    type: 1,
+                    content: require("../video/video-rareNft.mp4").default,
+                    des: 'You can get rare NFT in many ways. It represents the release of a new theme image of Initial World. Whenever a new theme image is added to Initial World, a new treasure NFT will be issued.'
                 },
                 {
                     name: 'Initial Cat 3D',
-                    content: require("../../../assets/img/home/bg-ecosystem.png").default
+                    type: 2,
+                    content: require("../img/img-eco-initialCat.png"),
+                    des: 'Cat is the first theme image of Initial World. When you enter Initial World, you will get an Initial Cat 3D for free. You can use this Initial Cat to enter any Metaverse connected to Initial World and get Loot to equip it.'
                 },
                 {
                     name: 'Ecosystem',
-                    content: require("../../../assets/img/home/bg-ecosystem.png").default
+                    type: 3,
+                    content: require("../img/img-eco-system.png"),
+                    des: ''
                 },
                 {
                     name: 'Tokenomics',
-                    content: require("../../../assets/img/home/bg-ecosystem.png").default
+                    type: 3,
+                    content: require("../img/img-eco-token.png"),
+                    des: ''
                 },
                 {
-                    name: 'GameFi',
-                    content: require("../../../assets/img/home/bg-ecosystem.png").default
+                    name: 'SubMetaverse',
+                    type: 2,
+                    content: require("../img/img-eco-metaverse.png").default,
+                    des: 'SubMetaverse is made by Initial World Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users. '
                 },
-                {
-                    name: 'Subverse',
-                    content: require("../../../assets/img/home/bg-ecosystem.png").default
-                },
+            ],
+            menuList: [
+                'Home',
+                'Maketplace',
+                'Store',
+                'Farm',
+                'Box',
+                'FAQ',
             ]
         };
     },
@@ -100,7 +136,15 @@ export default {
             this.cueEcoIdx = idx;
         },
         handleGoIntroductDetail(item) {
+            if (!item.url) {
+                return;
+            }
             window.open(item.url, '_blank');
+        },
+        handleSubEmail(email) {
+            if (!UTILS.checkIsEmail(email)) {
+                this.$toast('please enter your vaild email');
+            }
         }
     },
     //请求数据
