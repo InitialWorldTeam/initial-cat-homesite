@@ -24,6 +24,13 @@ module.exports = {
                 pathRewrite: {
                     '^/storageApi': ''
                 }
+            },
+            '/mailApi': {
+                target: "https://mailsub.initialworld.app",
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/mailApi': ''
+                }
             }
         },
 

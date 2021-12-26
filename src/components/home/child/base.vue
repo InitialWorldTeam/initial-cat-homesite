@@ -4,6 +4,7 @@
 
 <script>
 import UTILS from '@/config/util';
+import mailApi from '@/config/mailApi';
 
 export default {
     //部件
@@ -142,9 +143,50 @@ export default {
             window.open(item.url, '_blank');
         },
         handleSubEmail(email) {
-            if (!UTILS.checkIsEmail(email)) {
-                this.$toast('please enter your vaild email');
+            if (!email) {
+                this.$toast({
+                    message: 'Please input your email',
+                    className: 'commonToast-1'
+                });
+                return;
             }
+
+            if (!UTILS.checkIsEmail(email)) {
+                this.$toast({
+                    message: 'Please enter your vaild email',
+                    className: 'commonToast-1'
+                });
+                return;
+            }
+
+            this.subscribeEmail(email);
+        },
+        subscribeEmail(email) {
+            let config = {
+                email
+            };
+            let url = mailApi.subEmail;
+
+            this.$http
+                .post(url, config, "json")
+                .then(res => {
+                    console.log('email:', res);
+                    const { code } = res;
+                    if (code === '0000') {
+                        this.$toast({
+                            message: 'Subscribe Success!',
+                            className: 'commonToast-1'
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.log("err:", err);
+                    this.$toast({
+                        message: 'Something error, please try again',
+                        className: 'commonToast-1'
+                    });
+                    return false;
+                });
         }
     },
     //请求数据
