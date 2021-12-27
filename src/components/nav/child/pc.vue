@@ -71,14 +71,7 @@ export default {
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
-        goToNav(item) {
-            if (item.path) {
-                const e = event.target;
-                const LEFT = e.offsetLeft + e.clientWidth / 2;
-                this.$refs.navLine.style.left = LEFT + 'px';
-            }
-            this.goToPage(item);
-        }
+        
     },
     //请求数据
     created() {},
@@ -93,7 +86,7 @@ export default {
 .container-cat-common-content {
     .box-logo {
         height: 23px;
-        width: 124px;
+        width: 133px;
         background-image: url(../../../assets/img/common/img-logo-world.png);
     }
 

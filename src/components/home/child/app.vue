@@ -27,16 +27,31 @@
                     </section>
                 </div>
 
-                <!-- Special Loot Box -->
+                <!-- Mint Avatar -->
+                <div class="box-section-common box-mintAvatar">
+                    <h1>Free to mint your InitialWorld Avatar</h1>
+                    <h2>You only pay the Kusama Gas Fee.</h2>
+                    <main>
+                        <div class="box-top">
+                            <img src="../img/img-mint-cat.png" alt="">
+                        </div>
+                        <div class="box-bottom">
+                            <p>The mysterious signal has reached the earth, the cat clan from Inital World has been activated, Wormhole is opened, you have been able to establish contact with Inital World, and all decisions belong to you. Are you ready to join the revolution that will change NFT and Metaverse forever? Our goal is to bring power back to the people. It all started in our Inital World. At this moment, they have awakened, and the revolution has begun, either now or never!</p>
+                            <div class="btn-mint">Mint Now</div>
+                        </div>
+                    </main>
+                </div>
+
+                <!-- Mystery Box -->
                 <div class="box-section-common box-specialLoot">
-                    <h1>Special Loot Box</h1>
+                    <h1>Mystery Box</h1>
                     <h2>Your Own Private NFTs from Loot Box</h2>
                     <main>
                         <div class="box-left">
                             <img class="img-block" :src="lootBoxImg">
                         </div>
                         <div class="box-right">
-                            <p>Our experience tells us, "Luck is also a part of success. You never know what will happen next second." Although the unknown is big, we bring you a different Loot Box experience. It only costs $250. You can play between 400% and 90%, which sounds exciting. And you can also get a unique commemorative NFT, which belongs to you only. </p>
+                            <p>You can get the Rare NFTs of Initial World from the Mystery Box. They may be "Race Memorial NFT", "SubMetaverse NFT" or user-created NFTs. Special NFTs can get airdrops, which sounds exciting, wish you have a good time in Initial World.</p>
                             <div class="btn-enter">Enter</div>
                         </div>
                     </main>
@@ -62,8 +77,39 @@
                         <div class="btn-scroll btn-pre" @click="handleScrollX(1)"></div>
                         <div class="btn-scroll btn-next" @click="handleScrollX(2)"></div>
 
-                        <div class="box-content">
-                            <img :src="ecoTabList[cueEcoIdx].content" alt="">
+                        <div 
+                            class="box-content" 
+                            :class="[
+                                'box-eco-type-' + curEcoItem.type,
+                                'box-eco-tab-' + cueEcoIdx
+                            ]"
+                        >
+                            <template v-if="curEcoItem.type === 1">
+                                <div class="box-left">
+                                    <video 
+                                        :src="curEcoItem.content"
+                                        muted
+                                        autoplay
+                                        loop
+                                    ></video>
+                                </div>
+                                <div class="box-right">
+                                    <h2 v-text="curEcoItem.name"></h2>
+                                    <p v-text="curEcoItem.des"></p>
+                                </div>
+                            </template>
+                            <template v-if="curEcoItem.type === 2">
+                                <div class="box-left">
+                                    <img :src="curEcoItem.content"/>
+                                </div>
+                                <div class="box-right">
+                                    <h2 v-text="curEcoItem.name"></h2>
+                                    <p v-text="curEcoItem.des"></p>
+                                </div>
+                            </template>
+                            <template v-if="curEcoItem.type === 3">
+                                <img :src="curEcoItem.content" alt="">
+                            </template>
                         </div>
                     </main>
                 </div>
@@ -124,6 +170,55 @@
                         </div>
                     </main>
                 </div>
+
+                <!-- Footer -->
+                <footer class="box-footer">
+                    <div class="box-top">
+                        <div class="box-mid">
+                            <template v-for="item in navList">
+                                <div
+                                    v-if="item.path"
+                                    class="box-menu-item"
+                                    :class="{ cur: curNav === item.name }"
+                                    :key="item.name"
+                                    v-text="item.name"
+                                    @click="goToNav(item)"
+                                >
+                                </div>
+                                <div class="box-menu-item" :key="item.name" v-else>
+                                    <el-tooltip
+                                        effect="dark"
+                                        content="Coming soon"
+                                        placement="bottom"
+                                        popper-class="popper-coming"
+                                    >
+                                        <div @click="goToNav(item)"><span v-text="item.name"></span></div>
+                                    </el-tooltip>
+                                </div>
+                            
+                            </template>
+                        </div>
+                        <div class="box-right">
+                            <h2>Subscribe to our newsletter</h2>
+                            <h3>Stay up-to-date about new features and supported apps & games.</h3>
+                            <div class="box-subscribe">
+                                <div class="box-input">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Your e-mail address"
+                                        v-model="userEmail"
+                                    />
+                                </div>
+                                <div class="btn-sub" @click="handleSubEmail(userEmail)">Subscribe</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="box-bottom">
+                        <div class="box-logo"></div>
+                        <div class="box-copyright">@Initial World Team. 2021</div>
+                    </div>
+                </footer>
             </div>
         </section>
     </div>
@@ -234,8 +329,9 @@ export default {
             position: relative;
 
             > h1 {
-                font-size: 23px;
+                font-size: 20px;
                 line-height: 26px;
+                letter-spacing: -.5px;
             }
 
             > h2 {
@@ -258,15 +354,62 @@ export default {
         }
     }
 
+    .box-mintAvatar {
+        margin-top: 37px;
+
+        main {
+            margin-top: 18px;
+            background: #08070C;
+            border-radius: 12px;
+            padding: 20px 30px;
+
+            .box-top {
+                height: 150px;
+                @include flexCenter;
+
+                img {
+                    display: block;
+                    height: 100%;
+                    width: auto;
+                }
+            }
+
+            .box-bottom {
+                padding-top: 20px;
+
+                p {
+                    font-size: 11px;
+                    font-weight: 400;
+                    color: #FFFFFF;
+                    line-height: 14px;
+                    letter-spacing: -1px;
+                }
+                .btn-mint {
+                    width: 140px;
+                    height: 38px;
+                    background: #77E1FD;
+                    border-radius: 32px;
+                    font-size: 17px;
+                    line-height: 20px;
+                    font-family: MyriadPro;
+                    font-weight: 600;
+                    color: #110F19;
+                    @include flexCenter;
+                    margin: 19px auto 0;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
     .box-specialLoot {
         margin-top: 39px;
 
         main {
             margin: 18px auto 0;
-            height: 385px;
             background: #08070C;
             border-radius: 12px;
-            padding: 34px 28px 0;
+            padding: 34px 28px;
 
             .box-left {
                 width: 145px;
@@ -367,12 +510,107 @@ export default {
                 height: 189px;
                 background: #08070C;
                 border-radius: 12px;
-                margin-top: 28px;
+                margin-top: 12px;
                 padding: 22px 17px;
 
                 img {
                     display: block;
                     height: 100%;
+                    width: 100%;
+                }
+
+                &.box-eco-type-1 {
+                    @include flex;
+                    padding: 14px 18px;
+
+                    .box-left {
+                        width: 120px;
+                        margin-right: 12px;
+                        flex-shrink: 0;
+
+                        video {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+
+                    .box-right {
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        color: #fff;
+
+                        h2 {
+                            line-height: 18px;
+                            font-size: 14px;
+                        }
+                        p {
+                            line-height: 16px;
+                            font-size: 10px;
+                            margin-top: 9px;
+                            letter-spacing: -.8px;
+                        }
+                    }
+                }
+
+                &.box-eco-type-2 {
+                    @include flex;
+                    padding: 18px 24px;
+
+                    .box-left {
+                        width: 108px;
+                        margin-right: 12px;
+                        flex-shrink: 0;
+                    }
+
+                    .box-right {
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        color: #fff;
+
+                        h2 {
+                            line-height: 18px;
+                            font-size: 14px;
+                        }
+                        p {
+                            line-height: 16px;
+                            font-size: 10px;
+                            margin-top: 10px;
+                            letter-spacing: -.6px;
+                        }
+                    }
+                }
+
+                &.box-eco-type-3 {
+                    img {
+                        height: auto;
+                    }
+                }
+
+                &.box-eco-tab-2 {
+                    @include flex;
+                    padding: 0 24px;
+                }
+                &.box-eco-tab-3 {
+                    @include flex;
+                    padding: 0 20px;
+                }
+                &.box-eco-tab-4 {
+                    padding: 14px;
+
+                    .box-left {
+                        width: 120px;
+                        margin-right: 14px;
+                    }
+
+                    .box-right {
+                        display: -webkit-box;    
+                        -webkit-box-orient: vertical;    
+                        -webkit-line-clamp: 5;
+                        overflow: hidden;
+                    }
                 }
             }
         }
@@ -458,11 +696,7 @@ export default {
                 transition: all .3s;
                 @include flexCenter;
                 cursor: pointer;
-                margin-bottom: 14px;
-
-                &:hover {
-                    // background: #1E1C27;
-                }
+                margin-bottom: 18px;
 
                 &:not(:nth-child(3n)) {
                     margin-right: 30px;
@@ -473,31 +707,36 @@ export default {
                     width: 86px;
                     height: auto;
 
-                    &.img-1 { width: 79px; }
-                    &.img-5 { width: 68px; }
+                    &.img-1 { width: 30px; }
+                    &.img-3 { width: 46px; }
+                    &.img-5 { width: 58px; }
                     &.img-6 { width: 44px; }
+                    &.img-7 { width: 69px; }
+                    
                 }
             }
         }
     }
 
     .box-community {
-        margin-top: 52px;
+        margin-top: 32px;
 
         main {
             margin-top: 19px;
             padding-left: 10px;
             @include flex;
+            flex-wrap: wrap;
 
             .box-community-item {
                 width: 100px;
                 height: 125px;
-                // border-radius: 12px;
-                margin-right: 8px;
+                margin-right: 10px;
+                margin-bottom: 16px;
                 @include flexCenter;
                 @include bg-item;
                 background-image: url(../../../assets/img/home/bg-community-item.png);
                 flex-direction: column;
+                flex-shrink: 0;
 
                 img {
                     width: 38px;
@@ -524,6 +763,100 @@ export default {
                     color: #110F19;
                     cursor: pointer;
                     @include flexCenter;
+                }
+            }
+        }
+    }
+
+    .box-footer {
+        margin-top: 30px;
+
+        .box-bottom {
+            @include flexCenter;
+            flex-direction: column;
+
+            .box-logo {
+                height: 23px;
+                width: 133px;
+                @include bg-item;
+                background-image: url(../../../assets/img/common/img-logo-world.png);
+            }
+
+            .box-copyright {
+                font-size: 12px;
+                line-height: 10px;
+                color: #3E3E47;
+                margin-top: 17px;
+            }
+        }
+
+        .box-top {
+            @include flexBetween;
+            padding-left: 10px;
+        }
+
+        .box-mid {
+            display: flex;
+            flex-wrap: wrap;
+            width: 160px;
+            flex-shrink: 0;
+
+            .box-menu-item {
+                width: 80px;
+                line-height: 20px;
+                height: 26px;
+                font-size: 14px;
+                @include flex;
+                font-weight: 400;
+                color: #FFFFFF;
+                margin-bottom: 28px;
+                cursor: pointer;
+            }
+        }
+
+        .box-right {
+            width: 150px;
+            flex-shrink: 0;
+            margin-top: -20px;
+
+            h2 {
+                line-height: 15px;
+                font-size: 14px;
+            }
+            h3 {
+                line-height: 13px;
+                font-size: 10px;
+                color: #5C5D67;
+                margin-top: 8px;
+                letter-spacing: -1.3px;
+                display: none;
+            }
+            .box-subscribe {
+                margin-top: 14px;
+
+                .box-input {
+                    padding: 0 12px;
+                    background: #1E1C27;
+                    border-radius: 30px;
+
+                    input {
+                        background-color: transparent;
+                        font-size: 12px;
+                        font-family: MyriadPro;
+                        font-weight: 600;
+                        color: #585861;
+                        border: none;
+                        width: 100%;
+                        height: 30px;
+                    }
+                }
+
+                .btn-sub {
+                    @include btn-common;
+                    width: 120px;
+                    height: 30px;
+                    font-size: 14px;
+                    margin-top: 12px;
                 }
             }
         }

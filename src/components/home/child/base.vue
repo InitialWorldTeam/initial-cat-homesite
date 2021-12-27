@@ -5,6 +5,7 @@
 <script>
 import UTILS from '@/config/util';
 import mailApi from '@/config/mailApi';
+import {mapState} from 'vuex';
 
 export default {
     //部件
@@ -15,6 +16,9 @@ export default {
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {
+        ...mapState([
+            'navList',
+        ]),
         curEcoItem() {
             return this.ecoTabList[this.cueEcoIdx];
         }
@@ -120,19 +124,19 @@ export default {
                     content: require("../img/img-eco-metaverse.png").default,
                     des: 'SubMetaverse is made by Initial World Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users. '
                 },
-            ],
-            menuList: [
-                'Home',
-                'Maketplace',
-                'Store',
-                'Farm',
-                'Box',
-                'FAQ',
             ]
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        goToNav(item) {
+            if (!item.path || this.$route.path === item?.path) {
+                return false;
+            };
+            this.$router.push({
+                path: item.path
+            });
+        },
         selectEcoTab(idx) {
             this.cueEcoIdx = idx;
         },

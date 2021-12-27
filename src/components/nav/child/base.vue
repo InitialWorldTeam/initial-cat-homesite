@@ -37,6 +37,14 @@ export default {
         ...mapMutations([
             'setCurNav'
         ]),
+        goToNav(item) {
+            if (item.path) {
+                const e = event.target;
+                const LEFT = e.offsetLeft + e.clientWidth / 2;
+                this.$refs.navLine.style.left = LEFT + 'px';
+            }
+            this.goToPage(item);
+        },
         goToPage(item) {
             this.isShowMenu = false;
             $("body").removeClass("disable");

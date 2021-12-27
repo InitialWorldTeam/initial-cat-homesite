@@ -36,6 +36,21 @@
                     </div>
                 </div>
 
+                <!-- Mint Avatar -->
+                <div class="box-section-common box-mintAvatar">
+                    <h1>Free to mint your InitialWorld Avatar</h1>
+                    <h2>You only pay the Kusama Gas Fee.</h2>
+                    <main>
+                        <div class="box-left">
+                            <p>The mysterious signal has reached the earth, the cat clan from Inital World has been activated, Wormhole is opened, you have been able to establish contact with Inital World, and all decisions belong to you. Are you ready to join the revolution that will change NFT and Metaverse forever? Our goal is to bring power back to the people. It all started in our Inital World. At this moment, they have awakened, and the revolution has begun, either now or never!</p>
+                            <div class="btn-mint">Mint Now</div>
+                        </div>
+                        <div class="box-right">
+                            <img src="../img/img-mint-cat.png" alt="">
+                        </div>
+                    </main>
+                </div>
+
                 <!-- Mystery Box -->
                 <div class="box-section-common box-specialLoot">
                     <h1>Mystery Box</h1>
@@ -182,9 +197,28 @@
                         <div class="box-copyright">@Initial World Team. 2021</div>
                     </div>
                     <div class="box-mid">
-                        <div v-for="item in menuList" :key="item.id" class="box-menu-item">
-                            {{ item }}
-                        </div>
+                        <template v-for="item in navList">
+                            <div
+                                v-if="item.path"
+                                class="box-menu-item"
+                                :class="{ cur: curNav === item.name }"
+                                :key="item.name"
+                                v-text="item.name"
+                                @click="goToNav(item)"
+                            >
+                            </div>
+                            <div class="box-menu-item" :key="item.name" v-else>
+                                 <el-tooltip
+                                    effect="dark"
+                                    content="Coming soon"
+                                    placement="bottom"
+                                    popper-class="popper-coming"
+                                >
+                                    <div @click="goToNav(item)"><span v-text="item.name"></span></div>
+                                </el-tooltip>
+                            </div>
+                           
+                        </template>
                     </div>
                     <div class="box-right">
                         <h2>Subscribe to our newsletter</h2>
@@ -348,7 +382,7 @@ export default {
 
             > h1 {
                 font-size: 34px;
-                line-height: 25px;
+                line-height: 34px;
             }
 
             > h2 {
@@ -361,8 +395,57 @@ export default {
         }
     }
 
+    .box-mintAvatar {
+        margin-top: 87px;
+
+        main {
+            margin-top: 32px;
+            height: 356px;
+            background: #08070C;
+            border-radius: 12px;
+            @include flex;
+            padding-left: 97px;
+            padding-right: 100px;
+
+            .box-right {
+                width: 182px;
+                height: 257px;
+                flex-shrink: 0;
+                margin-left: 66px;
+            }
+
+            .box-left {
+                width: 554px;
+                padding-top: 7px;
+
+                p {
+                    font-size: 16px;
+                    font-family: Myriad Pro;
+                    font-weight: 400;
+                    color: #FFFFFF;
+                    line-height: 28px;
+                    letter-spacing: -.9px;
+                }
+                .btn-mint {
+                    width: 180px;
+                    height: 50px;
+                    background: #77E1FD;
+                    border-radius: 32px;
+                    font-size: 22px;
+                    font-family: MyriadPro;
+                    font-weight: 600;
+                    color: #110F19;
+                    @include flexCenter;
+                    margin-top: 30px;
+                    cursor: pointer;
+                    letter-spacing: -1px;
+                }
+            }
+        }
+    }
+
     .box-specialLoot {
-        margin-top: 79px;
+        margin-top: 88px;
 
         main {
             margin: 30px auto 0;
@@ -737,6 +820,7 @@ export default {
                 font-weight: 400;
                 color: #FFFFFF;
                 margin-bottom: 28px;
+                cursor: pointer;
             }
         }
 

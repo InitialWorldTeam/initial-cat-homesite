@@ -83,8 +83,8 @@ export default {
     padding: 0 20px;
     .box-logo {
         height: 19px;
-        width: 78px;
-        background-image: url(../../../assets/img/common/img-logo-cat.png);
+        width: 109px;
+        background-image: url(../../../assets/img/common/img-logo-world.png);
     }
 
     .box-right {
