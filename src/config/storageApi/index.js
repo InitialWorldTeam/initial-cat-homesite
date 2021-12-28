@@ -1,7 +1,7 @@
 
 const debug = process.env.NODE_ENV != 'production';
 
-let baseurl = debug ? "/storageApi" : "https://storage.initialworld.app";
+let baseurl = debug ? "/storageApi" : "https://storage.initialworld.net";
 
 export default {
 

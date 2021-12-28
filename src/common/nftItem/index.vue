@@ -1,16 +1,16 @@
 <template>
-    <div class="box-cat-item">
+    <div class="box-cat-item" :class="{'app': app}">
         <!-- NFT展示 -->
         <main>
             <div 
-                v-for="(item, index) in catItem.priority" 
+                v-for="(item, index) in nftItem.priority" 
                 :key="item.id"
                 class="box-cat-part-item"
                 :style="{'z-index': 100 - index}"
             >   
-                <template v-if="checkIsArray(catItem.preview[item])">
+                <template v-if="checkIsArray(nftItem.preview[item])">
                     <div 
-                        v-for="catChild in catItem.preview[item]" 
+                        v-for="catChild in nftItem.preview[item]" 
                         :key="catChild.id"
                         class="box-cat-item-img"
                         :style="{'z-index': catChild.z}"
@@ -20,7 +20,7 @@
                 </template>
                 <template v-else>
                     <div class="box-cat-item-img">
-                        <img :src="catItem.preview[item]" alt="">
+                        <img :src="nftItem.preview[item]" alt="">
                     </div>
                 </template>
             </div>
@@ -28,7 +28,7 @@
         <!-- 按钮 -->
         <div 
             class="btn-sell" 
-            @click="sellCat(catItem)"
+            @click="sellCat(nftItem)"
             v-if="showSell"
         >Sell</div>
     </div>
@@ -42,14 +42,18 @@ export default {
     components: {},
     //静态
     props: {
-        catItem: {
+        nftItem: {
             type: Object,
             default: {}
         },
         showSell: {
             type: Boolean,
             default: false
-        }
+        },
+        app: {
+            type: Boolean,
+            default: false
+        },
     },
     //对象内部的属性监听，也叫深度监听
     watch: {},
@@ -79,6 +83,14 @@ export default {
 <style scoped lang="scss">
 .box-cat-item {
     width: 150px;
+
+    &.app {
+        width: 83px;
+
+        main {
+            min-height: 125px;
+        }
+    }
     
     .div-#{index}{
         z-index: 100 - index;

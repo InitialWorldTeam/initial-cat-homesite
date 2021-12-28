@@ -15,7 +15,13 @@ import { mapMutations, mapState, mapGetters } from "vuex";
 import StatusApi from "@/config/statusApi";
 import StorageApi from "@/config/storageApi";
 import UTILS from '@/config/util';
-import {Providers_Test, Providers_Product, Env_Debug} from '@/config/util/const';
+import {
+    Providers_Test, 
+    Providers_Product, 
+    Env_Debug,
+    OwnWalletNameSpace,
+    OwnWalletIdxNameSpace
+} from '@/config/util/const';
 
 export default {
     //部件
@@ -23,7 +29,14 @@ export default {
     //静态
     props: {},
     //对象内部的属性监听，也叫深度监听
-    watch: {},
+    watch: {
+        walletAccounts(val) {
+            if (val.length) {
+                UTILS.setLocal(OwnWalletNameSpace, val);
+                UTILS.setLocal(OwnWalletIdxNameSpace, this.curWalletIndex);
+            }
+        }
+    },
     filters: {
         polkdotUnit(num) {
             return +num / Math.pow(10, 10);
@@ -33,11 +46,24 @@ export default {
     computed: {
         ...mapState([
             "loading",
-            "walletAccounts"
+            "walletAccounts",
+            "apiProvider",
+            "myNftAssets",
+            "loadingNftSta",
+            "curWalletIndex",
         ]),
         ...mapGetters([
             "curWallet"
-        ])
+        ]),
+        getCurWallet() {
+            const wallets = JSON.parse(UTILS.getLocal(OwnWalletNameSpace));
+            const curIdx = UTILS.getLocal(OwnWalletIdxNameSpace);
+            if (wallets) {
+                this.setAccount(wallets);
+                this.setCurWalletIdx(curIdx);
+            }
+            return wallets;
+        }
     },
     //数据
     data() {
@@ -50,7 +76,10 @@ export default {
         ...mapMutations([
             "setAccount", 
             "setLoading",
-            "setCatAssetList"
+            "setCatAssetList",
+            "setApiProvider",
+            "setLoadingNftSta",
+            "setCurWalletIdx",
         ]),
         // 获取NFT真实地址
         async getNftUrl(ipfsUrl) {
@@ -62,7 +91,7 @@ export default {
             return this.$http
                 .post(url, config, "json")
                 .then(res => {
-                    console.log('getURL:', res);
+                    // console.log('getURL:', res);
                     const { data } = res;
                     if (data) {
                         return data?.external_url;
@@ -175,22 +204,41 @@ export default {
         // 查询所有钱包的NFT资产
         async queryNftAsset() {
             const allNfts = await this.getAllNfts();
+            // 更新NFT列表
             const NFT_DATA  = await this.queryNftData(allNfts);
             this.setCatAssetList(NFT_DATA);
-            this.setLoading(false);
+            // 更新NFT加载状态
+            const NFT_STA = NFT_DATA.length ? 1 : 2;
+            this.setLoadingNftSta(NFT_STA);
         },
         // 查询钱包余额
-        queryBalance(wallets) {
-            wallets.map(async (item, index, array) => {
-                const { data: balance } = await this.api.query.system.account(
+        queryBalance() {
+            // this.setLoadingNftSta(0);
+            this.walletAccounts.map(async (item, index, array) => {
+                const { data: balance } = await this.apiProvider.query.system.account(
                     item.address
                 );
                 item.balance = JSON.parse(balance);
             });
-            this.setAccount(wallets);
+            this.setAccount(this.walletAccounts);
             this.$nextTick(() => {
                 this.queryNftAsset();
             })
+        },
+        // 校验当前路由是否为My NFTs
+        checkRouterIsMyNfts () {
+            const { name } = this.$route;
+            if (name === 'MyNFTs') {
+                this.queryBalance();
+            }
+        },
+        checkCurrentRoute () {
+            const routeName = this.$route.name;
+            if (routeName != 'Home') {
+                this.$router.replace({
+                    path: '/'
+                })
+            }
         },
         // 初始化钱包
         async initWallet() {
@@ -207,14 +255,14 @@ export default {
             let apiProvider;
             if (Env_Debug) {
                 apiProvider = new HttpProvider(Providers_Test.http);
-                // apiProvider = new WsProvider(Providers_Test.ws);
             } else {
                 apiProvider = new WsProvider(Providers_Product.kusama.Parity);
             }
             
-            const api = (this.api = await ApiPromise.create({
+            const api = await ApiPromise.create({
                 provider: apiProvider
-            }));
+            });
+            this.setApiProvider(api);
 
             // Retrieve the last timestamp
             const now = await api.query.timestamp.now();
@@ -223,8 +271,12 @@ export default {
             let allAccounts = await web3Accounts({
                 ss58Format: 2 // 默认42-Substrate, 0-polkdot, 2-Kusama
             });
-            this.queryBalance(allAccounts);
-            console.log(allAccounts);
+            this.setAccount(allAccounts);
+
+            this.$nextTick(() => {
+                this.checkRouterIsMyNfts();
+                this.setLoading(false);
+            });
         }
     },
     //请求数据

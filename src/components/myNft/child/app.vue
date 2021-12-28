@@ -16,7 +16,7 @@
                 <section>
                     <div class="box-wallet-info-item box-1">
                         <h3>My Cat</h3>
-                        <div class="box-num">03</div>
+                        <div class="box-num" v-text="myNftAssets.length"></div>
                     </div>
                     <div class="flex">
                         <div class="box-wallet-info-item box-2">
@@ -33,22 +33,39 @@
                 </section>
             </div>
 
-            <!-- My Cat -->
+            <!-- My NFTs -->
             <div class="box-my-cat">
-                <h1 class="h1">My Cat</h1>
-                <section v-if="curWallet">
-                    <div
-                        v-for="item in myCatList"
-                        :key="item.id"
-                        class="box-cat-item"
-                    >
-                        <img :src="item.path" />
-                        <div class="btn-sell" @click="sellCat(item)">Sell</div>
-                    </div>
-                </section>
-                <section class="section-empty" v-else>
-                    <div class="btn-connect" @click="initWallet">Connect Wallet</div>
-                </section>
+                <h1 class="h1">My NFTs</h1>
+                <!-- Connect Wallet -->
+                <div
+                    class="box-NftList"
+                    v-if="curWallet"
+                    v-loading="loadingNftSta === 0"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-background="rgba(0, 0, 0, 0)"
+                >
+                    <!-- own NFT -->
+                    <section v-if="loadingNftSta === 1">
+                        <template
+                            v-for="item in myNftAssets"
+                        >
+                            <nft-item
+                                :key="item.id"
+                                :nftItem="item"
+                                @sell="sellCat"
+                                :app="true"
+                            ></nft-item>
+                        </template>
+                    </section>
+                    <!-- no NFT -->
+                    <template v-if="loadingNftSta === 2">
+                        <div class="box-empty-nft"></div>
+                    </template>
+                </div>
+                <!-- Disconnect -->
+                <div class="box-no-connect" v-else>
+                    <div class="btn-connect-wallet" @click="initWallet">Connect Wallet</div>
+                </div>
             </div>
         </main>
 
@@ -86,11 +103,14 @@
 
 <script>
 import Base from "./base";
+import NftItem from '@/common/nftItem';
 
 export default {
     mixins: [Base],
     //部件
-    components: {},
+    components: {
+        NftItem
+    },
     //静态
     props: {},
     //对象内部的属性监听，也叫深度监听
@@ -104,7 +124,12 @@ export default {
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {},
     //请求数据
-    created() {},
+    created() {
+        // 已连接钱包且未查询NFT时
+        if (this.walletAccounts.length && !this.myNftAssets.length) {
+            this.queryBalance();
+        }
+    },
     mounted() {}
 };
 </script>
@@ -203,11 +228,12 @@ export default {
                     margin-bottom: 10px;
                 }
                 .box-num {
-                    padding-left: 21px;
+                    padding-left: 24px;
                     background: url(../../../assets/img/common/img-logo-auto.png)
                         no-repeat left center / 17px auto;
                     font-size: 18px;
-                    line-height: 18px;
+                    height: 20px;
+                    @include flex;
                     font-weight: bold;
                     color: #110f19;
 
@@ -230,9 +256,13 @@ export default {
 
     .box-my-cat {
         margin-top: 55px;
+
+        .box-NftList {
+            margin-top: 19px;
+            min-height: 125px;
+        }
         
         section {
-            margin-top: 19px;
             display: flex;
             flex-wrap: wrap;
             padding-left: 38px;

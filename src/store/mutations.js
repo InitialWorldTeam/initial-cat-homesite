@@ -2,6 +2,9 @@ export default {
     setAccount(state, value) {
         state.walletAccounts = value;
     },
+    setCurWalletIdx(state, value) {
+        state.curWalletIndex = value;
+    },
     setClientType(state, value) {
         state.isApp = value;
     },
@@ -12,6 +15,12 @@ export default {
         state.loading = value;
     },
     setCatAssetList(state, value) {
-        state.myCatAssets = value;
-    }
+        state.myNftAssets = value;
+    },
+    setApiProvider(state, value) {
+        state.apiProvider = value;
+    },
+    setLoadingNftSta(state, value) {
+        state.loadingNftSta = value;
+    },
 };

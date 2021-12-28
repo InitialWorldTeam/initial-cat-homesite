@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home';
-import MyCat from '@/components/myCat';
+import MyNft from '@/components/myNft';
 import Box from '@/components/box';
 
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',
@@ -16,7 +17,7 @@ export default new Router({
         {
             path: '/myNft',
             name: 'MyNFTs',
-            component: MyCat
+            component: MyNft
         },
         {
             path: '/box',

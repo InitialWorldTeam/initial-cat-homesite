@@ -1,7 +1,7 @@
 
 const debug = process.env.NODE_ENV != 'production';
 
-let baseurl = debug ? "/mailApi" : "https://mailsub.initialworld.app";
+let baseurl = debug ? "/mailApi" : "https://mailsub.initialworld.net";
 
 const Api = {
     /**

@@ -12,21 +12,21 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/api': {
-                target: "https://tapi.initialworld.app",
+                target: "https://tapi.initialworld.net",
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''
                 }
             },
             '/storageApi': {
-                target: "https://tstorage.initialworld.app",
+                target: "https://tstorage.initialworld.net",
                 changeOrigin: true,
                 pathRewrite: {
                     '^/storageApi': ''
                 }
             },
             '/mailApi': {
-                target: "https://mailsub.initialworld.app",
+                target: "https://mailsub.initialworld.net",
                 changeOrigin: true,
                 pathRewrite: {
                     '^/mailApi': ''

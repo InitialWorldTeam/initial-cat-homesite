@@ -79,7 +79,6 @@ export default {
             }
         }).then(
             (response) => {
-                console.log('response', response);
                 return checkStatus(response)
             }
         ).then(

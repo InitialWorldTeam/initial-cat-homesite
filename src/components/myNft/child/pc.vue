@@ -15,7 +15,7 @@
                 <section>
                     <div class="box-wallet-info-item">
                         <h3>My NFTs</h3>
-                        <div class="box-num">03</div>
+                        <div class="box-num" v-text="myNftAssets.length"></div>
                     </div>
                     <div class="box-wallet-info-item">
                         <h3>Balance</h3>
@@ -31,28 +31,34 @@
             </div>
 
             <!-- My NFTs -->
-            <div class="box-my-cat">
+            <div class="box-my-nft">
                 <h1 class="h1">My NFTs</h1>
-                <template v-if="curWallet">
+                <!-- Connect Wallet -->
+                <div
+                    class="box-NftList"
+                    v-if="curWallet"
+                    v-loading="loadingNftSta === 0"
+                    element-loading-spinner="el-icon-loading"
+                    element-loading-background="rgba(0, 0, 0, 0.8)"
+                >
                     <!-- own NFT -->
-                    <section v-if="myCatAssets.length">
+                    <section v-if="loadingNftSta === 1">
                         <template
-                            v-for="item in myCatAssets"
+                            v-for="item in myNftAssets"
                         >
-                            <cat-item
+                            <nft-item
                                 :key="item.id"
-                                :catItem="item"
+                                :nftItem="item"
                                 @sell="sellCat"
-                                :showSell="true"
-                            ></cat-item>
+                            ></nft-item>
                         </template>
                     </section>
                     <!-- no NFT -->
-                    <template v-else>
+                    <template v-if="loadingNftSta === 2">
                         <div class="box-empty-nft"></div>
                     </template>
-                </template>
-                
+                </div>
+                <!-- Disconnect -->
                 <div class="box-no-connect" v-else>
                     <div class="btn-connect-wallet" @click="initWallet">Connect Wallet</div>
                 </div>
@@ -65,10 +71,10 @@
                 <main @click.stop>
                     <h1>Sell</h1>
                     <div>
-                        <cat-item
+                        <nft-item
                             class="box-sell-modal-img"
-                            :catItem="curSellCat"
-                        ></cat-item>
+                            :nftItem="curSellCat"
+                        ></nft-item>
                     </div>
                     <h3 v-text="curSellCat.symbol"></h3>
                     <div class="box-input">
@@ -94,13 +100,13 @@
 
 <script>
 import Base from "./base";
-import CatItem from '@/common/catItem';
+import NftItem from '@/common/nftItem';
 
 export default {
     mixins: [Base],
     //部件
     components: {
-        CatItem
+        NftItem
     },
     //静态
     props: {},
@@ -115,7 +121,12 @@ export default {
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {},
     //请求数据
-    created() {},
+    created() {
+        // 已连接钱包且未查询NFT时
+        if (this.walletAccounts.length && !this.myNftAssets.length) {
+            this.queryBalance();
+        }
+    },
     mounted() {}
 };
 </script>
@@ -176,7 +187,7 @@ export default {
                     margin-bottom: 24px;
                 }
                 .box-num {
-                    padding-left: 37px;
+                    padding-left: 42px;
                     background: url(../../../assets/img/common/img-logo-auto.png)
                         no-repeat left center / 29px auto;
                     font-size: 32px;
@@ -201,14 +212,20 @@ export default {
         }
     }
 
-    .box-my-cat {
+    .box-my-nft {
         margin-top: 75px;
 
-        section {
+        .box-NftList {
+            min-height: 226px;
             margin-top: 35px;
-            display: flex;
-            flex-wrap: wrap;
-            padding-left: 46px;
+            border-radius: 10px;
+            overflow: hidden;
+
+            section {
+                display: flex;
+                flex-wrap: wrap;
+                padding-left: 46px;
+            }
         }
 
         .box-empty-nft {

@@ -30,5 +30,7 @@ export default {
             path: ''
         },
     ],
-    myCatAssets: [], // 当前钱包拥有的NFT列表
+    myNftAssets: [], // 当前钱包拥有的NFT列表
+    apiProvider: null, // 钱包环境Api
+    loadingNftSta: 0, // 加载NFT状态, 默认0:Loading, 1:有NFT, 2:空NFT
 };

@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
 import common from '@/common/common';
 
 export default {
@@ -16,12 +15,6 @@ export default {
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {
-        ...mapGetters([
-            "curWallet"
-        ]),
-        ...mapState([
-            "myCatAssets"
-        ]),
         isShowSellModal() {
             return Boolean(this.curSellCat);
         }

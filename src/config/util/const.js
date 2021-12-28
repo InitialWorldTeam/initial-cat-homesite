@@ -1,5 +1,5 @@
 // Base素材库命名空间
-const BaseNameSpace = 'InitialWorldBase';
+const BaseNameSpace = 'Initial_World_Base';
 
 // 测试环境Provider
 const Providers_Test = {
@@ -31,9 +31,17 @@ const Providers_Product = {
 // 当前环境
 const Env_Debug = process.env.NODE_ENV != 'production';
 
+// 已查询到钱包命名空间
+const OwnWalletNameSpace = 'Initial_World_Wallets';
+
+// 已查询到当前钱包索引
+const OwnWalletIdxNameSpace = 'Initial_World_Wallet_Index';
+
 export {
     BaseNameSpace,
     Providers_Test,
     Providers_Product,
-    Env_Debug
+    Env_Debug,
+    OwnWalletNameSpace,
+    OwnWalletIdxNameSpace
 }

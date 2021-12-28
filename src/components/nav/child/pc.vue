@@ -35,8 +35,13 @@
                 </nav>
 
                 <!-- 钱包 -->
-                <div class="box-wallet" v-if="curWallet">{{ curWallet.address | addressFormat }}</div>
-                <div class="btn-connect-wallet" v-else @click="initWallet">Connect Wallet</div>
+                <div class="box-wallet-status">
+                    <!-- 已连接 -->
+                    <div class="box-cur-wallet" v-if="curWallet">{{ curWallet.address | addressFormat }}</div>
+                    <!-- 未连接 -->
+                    <div class="btn-connect-wallet" v-else @click="initWallet">Connect Wallet</div>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -126,19 +131,32 @@ export default {
         }
     }
 
-    .box-wallet {
-        color: #77E1FD;
-        margin-left: 80px;
-    }
+    .box-wallet-status {
+        position: relative;
 
-    .btn-connect-wallet {
-        @include btn-common;
-        height: 28px;
-        width: 114px;
-        font-size: 14px;
-        padding: 0 10px;
-        margin-left: 35px;
-        letter-spacing: -1px;
+        .box-switch {
+            position: absolute;
+            width: 200px;
+            height: 150px;
+            left: 0;
+            bottom: -50px;
+            background-color: #fff;
+        }
+
+        .box-cur-wallet {
+            color: #77E1FD;
+            margin-left: 80px;
+        }
+
+        .btn-connect-wallet {
+            @include btn-common;
+            height: 28px;
+            width: 114px;
+            font-size: 14px;
+            padding: 0 10px;
+            margin-left: 35px;
+            letter-spacing: -1px;
+        }
     }
 }
 </style>
