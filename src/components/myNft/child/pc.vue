@@ -1,5 +1,5 @@
 <template>
-    <div class="container-myCat">
+    <div class="container-myNft">
         <main>
             <!-- My Wallet Address -->
             <div class="box-wallet-adderss">
@@ -132,8 +132,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container-myCat {
-    padding-top: 70px;
+.container-myNft {
+    padding-top: 156px;
 
     main {
         @extend .common-pc-width;
@@ -173,6 +173,7 @@ export default {
             height: 172px;
             background-color: #fff;
             padding: 43px 0 0 66px;
+            border-radius: 8px;
             display: flex;
             margin-top: 44px;
 

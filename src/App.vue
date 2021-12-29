@@ -74,10 +74,9 @@ export default {
     -webkit-text-size-adjust: 100%;
     color: #fff;
     position: relative;
-    overflow: hidden;
     background-color: #121018;
     min-height: 100vh;
-    min-width: 1400px;
+    // min-width: 1200px;
 
     &.app {
         min-width: 100vw;

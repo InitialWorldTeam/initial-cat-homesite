@@ -1,5 +1,5 @@
 <template>
-    <div class="container-home container-pc">
+    <div class="container-home container-pc" :class="pageType">
         <section class="flex">
             <!-- Banner -->
             <div class="box-banner flexCenter">
@@ -250,34 +250,67 @@ export default {
     //静态
     props: {},
     //对象内部的属性监听，也叫深度监听
-    watch: {},
+    watch: {
+        pageType(val) {
+            if (val === 'normal') {
+                this.initSwiper();
+            } else {
+                this.initSwiperSmall();
+            }
+        }
+    },
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {},
     //数据
     data() {
         return {
-            
+            mySwiper: null,
+            pageType: ''
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
-    methods: {},
+    methods: {
+        initSwiper() {
+            this.mySwiper && this.mySwiper.destroy(false);
+            this.mySwiper = new Swiper(".swiper-container", {
+                loop: true, // 循环模式选项
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
+                },
+                slidesPerView: 4,
+                spaceBetween: 20,
+
+                // 如果需要前进后退按钮
+                /* navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                } */
+            });
+        },
+        initSwiperSmall() {
+            this.mySwiper && this.mySwiper.destroy(false);
+            this.mySwiper = new Swiper(".swiper-container", {
+                loop: true, // 循环模式选项
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
+                },
+                slidesPerView: 3,
+                spaceBetween: 20,
+            });
+        },
+        getPageType() {
+            let width = window.innerWidth;
+            this.pageType = width >= 1200 ? 'normal' : 'small';
+        }
+    },
     //请求数据
     created() {},
     mounted() {
-        var mySwiper = new Swiper(".swiper-container", {
-            loop: true, // 循环模式选项
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
-            },
-            slidesPerView: 4,
-            spaceBetween: 12,
-
-            // 如果需要前进后退按钮
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev"
-            }
+        this.getPageType();
+        window.addEventListener("resize", () => {
+            this.getPageType();
         });
     }
 };
@@ -291,7 +324,7 @@ export default {
 
     .swiper-container {
         // width: calc(100% - 124px);
-        height: 206px;
+        min-height: 206px;
     }
     .swiper-slide {
         width: 240px;
@@ -301,11 +334,13 @@ export default {
         overflow: hidden;
 
         .box-img {
-            height: 146px;
+            min-height: 146px;
+            overflow: hidden;
 
             img {
                 display: block;
-                height: 100%;
+                min-height: 146px;
+                height: auto;
                 width: 100%;
             }
         }
@@ -360,19 +395,79 @@ export default {
 }
 .container-home {
 
+    &.small {
+        .swiper-button-next, .swiper-button-prev {
+            display: none;
+        }
+        .box-mintAvatar main {
+            padding: 0 30px;
+        }
+        .box-ecosystem main {
+            .box-tab {
+                .box-tab-item {
+                    font-size: 12px;
+                }
+            }
+            .box-content {
+                &.box-eco-tab-0 {
+                    padding: 48px 30px;
+                }
+                &.box-eco-tab-1 {
+                    padding: 25px 30px;
+                }
+                &.box-eco-tab-2 {
+                    padding: 30px;
+                }
+                &.box-eco-type-3 {
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+                &.box-eco-tab-4 {
+                    padding: 30px;
+
+                    .box-left {
+                        width: 350px;
+                        height: 180px;
+                    }
+                    .box-right {
+                        p {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+        .box-footer {
+            justify-content: space-between;
+
+            .box-right {
+                margin-left: 0;
+            }
+
+            .box-mid {
+                margin-left: 16px;
+            }
+        }
+    }
+
     > section {
         flex-direction: column;
         > div {
-            width: 1000px;
+            @extend .common-pc-width;
         }
 
         .box-banner {
-            height: 300px;
+            height: auto;
+            max-height: 400px;
+            width: 100%;
             margin-bottom: 56px;
+            overflow: hidden;
 
             img {
                 display: block;
-                height: 100%;
+                height: auto;
                 width: 100%;
             }
         }
@@ -403,7 +498,7 @@ export default {
             height: 356px;
             background: #08070C;
             border-radius: 12px;
-            @include flex;
+            @include flexBetween;
             padding-left: 97px;
             padding-right: 100px;
 
@@ -411,11 +506,11 @@ export default {
                 width: 182px;
                 height: 257px;
                 flex-shrink: 0;
-                margin-left: 66px;
+                // margin-left: 66px;
             }
 
             .box-left {
-                width: 554px;
+                width: calc(100% - 250px);
                 padding-top: 7px;
 
                 p {
@@ -543,6 +638,8 @@ export default {
                         height: 362px;
                         margin-right: 92px;
                         flex-shrink: 0;
+                        border-radius: 10px;
+                        overflow: hidden;
 
                         video {
                             display: block;
@@ -579,6 +676,8 @@ export default {
                         height: 313px;
                         margin-right: 93px;
                         flex-shrink: 0;
+                        border-radius: 10px;
+                        overflow: hidden;
                     }
 
                     .box-right {
@@ -601,8 +700,10 @@ export default {
                 }
 
                 &.box-eco-type-3 {
+                    @include flexCenter;
                     img {
-                        height: auto;
+                        height: 100%;
+                        width: auto;
                     }
                 }
 
@@ -701,7 +802,7 @@ export default {
             flex-wrap: wrap;
 
             .box-partner-item {
-                width: 216px;
+                width: 20%;
                 height: 66px;
                 border-radius: 8px;
                 transition: all .3s;
@@ -741,7 +842,7 @@ export default {
         main {
             margin-top: 44px;
             padding-left: 40px;
-            @include flex;
+            @include flexCenter;
 
             .box-community-item {
                 width: 200px;
@@ -788,6 +889,7 @@ export default {
     .box-footer {
         margin-top: 167px;
         display: flex;
+        justify-content: space-between;
 
         .box-left {
             .box-logo {

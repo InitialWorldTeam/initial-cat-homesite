@@ -40,8 +40,9 @@
                     <div class="box-cur-wallet" v-if="curWallet">{{ curWallet.address | addressFormat }}</div>
                     <!-- 未连接 -->
                     <div class="btn-connect-wallet" v-else @click="initWallet">Connect Wallet</div>
+
+                    <!-- <div class="box-switch-wallet"></div> -->
                 </div>
-                
             </div>
         </div>
     </div>
@@ -87,6 +88,11 @@ export default {
 <style scoped lang="scss">
 .container-navbar-top {
     height: 86px;
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    z-index: 10;
 }
 .container-cat-common-content {
     .box-logo {
@@ -134,12 +140,12 @@ export default {
     .box-wallet-status {
         position: relative;
 
-        .box-switch {
+        .box-switch-wallet {
             position: absolute;
             width: 200px;
             height: 150px;
             left: 0;
-            bottom: -50px;
+            bottom: -150px;
             background-color: #fff;
         }
 

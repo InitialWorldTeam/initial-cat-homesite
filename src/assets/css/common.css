@@ -1,17 +1,3 @@
-.container-cat-common {
-    width: 100vw;
-    min-width: 1000px;
-    overflow: hidden;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.container-cat-common-content {
-    width: 1000px;
-    height: 100%;
-}
-
 .shadow {
     box-shadow: 0 4px 10px rgba(204, 204, 204, 0.5);
 }

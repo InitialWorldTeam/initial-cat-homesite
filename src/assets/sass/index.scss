@@ -2,6 +2,11 @@ $colorMain: #77e1fd;
 $fontColor-1: #2c3e50;
 $fontColor-2: #fff;
 
+.common-pc-width {
+    min-width: 1000px;
+    width: calc(100vw - 400px);
+}
+
 @mixin flex {
     display: flex;
     align-items: center;
@@ -37,6 +42,18 @@ $fontColor-2: #fff;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.container-cat-common {
+    width: 100vw;
+    min-width: 1000px;
+    overflow: hidden;
+    user-select: none;
+    @include flexCenter;
+}
+.container-cat-common-content {
+    @extend .common-pc-width;
+    height: 100%;
 }
 
 .modal-common {
@@ -130,10 +147,6 @@ $fontColor-2: #fff;
     box-sizing: border-box;
 }
 
-.common-pc-width {
-    width: 1000px;
-}
-
 .popper-coming {
     width: 150px;
     height: 40px;
@@ -148,5 +161,22 @@ $fontColor-2: #fff;
 
     .popper__arrow::after {
         border-bottom-color: #292732 !important;
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    .common-pc-width {
+        min-width: 800px;
+        width: calc(100vw - 50px);
+    }
+    .container-cat-common {
+        width: 100vw;
+        min-width: 850px;
+        overflow: hidden;
+        user-select: none;
+        @include flexCenter;
+    }
+    #app {
+        min-width: 850px;
     }
 }
