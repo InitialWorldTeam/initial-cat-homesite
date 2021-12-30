@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import Nav from './components/nav';
 import common from './common/common';
 
@@ -25,43 +24,25 @@ export default {
         Nav
     },
     data() {
-        return {
-            isApp: false
-        };
+        return {};
     },
     computed: {},
-    methods: {
-        ...mapMutations(["setClientType"]),
-        isMobile() {
-            if (
-                window.navigator.userAgent.match(
-                    /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
-                )
-            ) {
-                this.isApp = true; // 移动端
-            } else {
-                this.isApp = false; // PC端
-            }
-
-            this.setClientType(this.isApp);
-        }
-    },
+    methods: {},
     created() {
-        this.isMobile();
+        this.checkIsApp();
+        this.checkCurrentRoute();
+        this.checkIsLoadWallet();
     },
     mounted() {
         /**
          * Auto connect
          * if mobile
-         * if has get wallet
          *  */
-        this.checkCurrentRoute();
-
-        if (this.isApp || this.getCurWallet) {
+        if (this.isApp) {
             this.initWallet();
         }
         window.addEventListener("resize", () => {
-            this.isMobile();
+            this.checkIsApp();
         });
     }
 };

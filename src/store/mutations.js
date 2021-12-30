@@ -1,9 +1,15 @@
+import UTILS from '@/config/util';
+import {
+    OwnWalletIdxNameSpace
+} from '@/config/util/const';
+
 export default {
     setAccount(state, value) {
         state.walletAccounts = value;
     },
     setCurWalletIdx(state, value) {
         state.curWalletIndex = value;
+        UTILS.setLocal(OwnWalletIdxNameSpace, value);
     },
     setClientType(state, value) {
         state.isApp = value;

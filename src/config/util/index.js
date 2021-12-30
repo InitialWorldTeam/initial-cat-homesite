@@ -3,6 +3,10 @@ import { BaseNameSpace } from './const';
 const UTILS = {
     // 将数据存在本地LocalStorage中
     setLocal(key, value) {
+        window.localStorage.setItem(key, value);
+    },
+
+    setJsonLocal(key, value) {
         window.localStorage.setItem(key, JSON.stringify(value));
     },
 
@@ -27,7 +31,7 @@ const UTILS = {
         else {
             let obj = {};
             obj[key] = value;
-            this.setLocal(nameSpace, obj);
+            this.setJsonLocal(nameSpace, obj);
         }
     },
     // 获取Base素材
