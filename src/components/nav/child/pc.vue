@@ -106,6 +106,7 @@ export default {
         selectWallet(index) {
             if (+this.curWalletIndex != index) {
                 this.setCurWalletIdx(index);
+                this.queryNftAsset();
             }
             this.showSwitchWallet = false;
         }

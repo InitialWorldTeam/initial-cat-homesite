@@ -217,6 +217,7 @@ export default {
         },
         // 查询所有钱包的NFT资产
         async queryNftAsset() {
+            this.setLoadingNftSta(0);
             const allNfts = await this.getAllNfts();
             // 更新NFT列表
             const NFT_DATA  = await this.queryNftData(allNfts);
@@ -231,7 +232,6 @@ export default {
             if (!api) {
                 api = await this.initApi();
             }
-            this.setLoadingNftSta(0);
             this.walletAccounts.map(async (item, index, array) => {
                 const { data: balance } = await api.query.system.account(
                     item.address
