@@ -26,7 +26,11 @@
                         </div>
                         <div class="box-wallet-info-item box-2">
                             <h3>Balance</h3>
-                            <div class="box-num box-num-ksm">0.00 KSM</div>
+                            <div class="box-num box-num-ksm">
+                                <span v-if="curWallet.balance">{{ curWallet.balance.free | ksmUnit }}</span>
+                                <span v-else>0.00</span>
+                                KSM
+                            </div>
                             <p>$0.00</p>
                         </div>
                     </div>
@@ -34,7 +38,7 @@
             </div>
 
             <!-- My NFTs -->
-            <div class="box-my-cat">
+            <div class="box-my-nft">
                 <h1 class="h1">My NFTs</h1>
                 <!-- Connect Wallet -->
                 <div
@@ -254,12 +258,18 @@ export default {
         }
     }
 
-    .box-my-cat {
+    .box-my-nft {
         margin-top: 55px;
 
         .box-NftList {
             margin-top: 19px;
             min-height: 125px;
+        }
+
+        .box-empty-nft {
+            height: 170px;
+            margin-top: 50px;
+            background: url(../../../assets/img/myCat/img-noNft.png) no-repeat center top / 150px auto;      
         }
         
         section {

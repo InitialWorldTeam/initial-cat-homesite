@@ -1,5 +1,5 @@
 <template>
-    <div class="container-cat-common container-navbar-top">
+    <div class="container-cat-common container-navbar-top container-common-pc">
         <div class="container-cat-common-content flexBetween">
             <!-- Logo -->
             <div class="box-logo bg-item"></div>

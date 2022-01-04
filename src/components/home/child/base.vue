@@ -6,6 +6,7 @@
 import UTILS from '@/config/util';
 import mailApi from '@/config/mailApi';
 import {mapState} from 'vuex';
+import preventDoublePress from '@/config/preventDoublePress';
 
 export default {
     //部件
@@ -124,7 +125,17 @@ export default {
                     content: require("../img/img-eco-metaverse.png").default,
                     des: 'SubMetaverse is made by Initial World Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users. '
                 },
-            ]
+            ],
+            subscribeEmailTip: {
+                tip1: 'Please input your email',
+                tip2: 'Your email address is missing @',
+                tip3: 'Please enter the part after @',
+                tip4: 'Please provide a valid email address.',
+                tip5: 'Thank you, your sign-up request was successful! ',
+                tip6: 'Something error, please try again',
+            },
+            checkEmailTip: '',
+            checkEmailPass: false
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -146,20 +157,28 @@ export default {
             }
             window.open(item.url, '_blank');
         },
-        handleSubEmail(email) {
+        preventDoublePress(callback, delay = 3000) {
+            preventDoublePress.onPress(callback, delay);
+        },
+        handleSubEmail() {
+            let email = this.userEmail;
             if (!email) {
-                this.$toast({
-                    message: 'Please input your email',
-                    className: 'commonToast-1'
-                });
+                this.toastEmailTip(this.subscribeEmailTip.tip1);
+                return;
+            }
+
+            if (!email.includes('@')){
+                this.toastEmailTip(this.subscribeEmailTip.tip2);
+                return;
+            }
+
+            if ( email.indexOf('@') === email.length - 1 ){
+                this.toastEmailTip(this.subscribeEmailTip.tip3);
                 return;
             }
 
             if (!UTILS.checkIsEmail(email)) {
-                this.$toast({
-                    message: 'Please enter your vaild email',
-                    className: 'commonToast-1'
-                });
+                this.toastEmailTip(this.subscribeEmailTip.tip4);
                 return;
             }
 
@@ -174,23 +193,26 @@ export default {
             this.$http
                 .post(url, config, "json")
                 .then(res => {
-                    console.log('email:', res);
                     const { code } = res;
                     if (code === '0000') {
-                        this.$toast({
-                            message: 'Subscribe Success!',
-                            className: 'commonToast-1'
-                        });
+                        this.toastEmailTip(this.subscribeEmailTip.tip5);
+                        this.checkEmailPass = true;
                     }
                 })
                 .catch(err => {
                     console.log("err:", err);
-                    this.$toast({
-                        message: 'Something error, please try again',
-                        className: 'commonToast-1'
-                    });
+                    this.toastEmailTip(this.subscribeEmailTip.tip6);
                     return false;
                 });
+        },
+        toastEmailTip(msg) {
+            this.checkEmailTip = msg;
+
+            let timer = setTimeout(() => {
+                this.checkEmailPass = false;
+                this.checkEmailTip = '';
+                clearTimeout(timer);
+            }, 3000)
         }
     },
     //请求数据

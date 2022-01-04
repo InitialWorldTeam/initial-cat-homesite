@@ -1,5 +1,5 @@
 <template>
-    <div class="container-home container-pc" :class="pageType">
+    <div class="container-home container-common-pc " :class="pageType">
         <section class="flex">
             <!-- Banner -->
             <div class="box-banner flexCenter">
@@ -231,8 +231,16 @@
                                     v-model="userEmail"
                                 />
                             </div>
-                            <div class="btn-sub" @click="handleSubEmail(userEmail)">Subscribe</div>
+                            <div class="btn-sub" @click="preventDoublePress(handleSubEmail)">Subscribe</div>
                         </div>
+                        <transition name="fade">
+                            <div 
+                                class="box-email-tip"
+                                :class="{'error': !checkEmailPass}"
+                                v-if="checkEmailTip"
+                                v-text="checkEmailTip"
+                            ></div>
+                        </transition>
                     </div>
                 </footer>
             </div>
@@ -390,7 +398,7 @@ export default {
         left: -54px;
     }
 }
-.container-pc {
+.container-common-pc  {
     padding-bottom: 150px;
 }
 .container-home {
@@ -972,6 +980,17 @@ export default {
                 }
             }
         }
+    }
+}
+.box-email-tip {
+    font-size: 12px;
+    line-height: 30px;
+    font-weight: bold;
+    color: #fff;
+    padding-left: 14px;
+
+    &.error {
+        color: #f00;
     }
 }
 </style>

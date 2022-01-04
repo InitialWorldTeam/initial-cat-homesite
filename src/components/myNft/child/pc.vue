@@ -24,7 +24,11 @@
                     </div>
                     <div class="box-wallet-info-item">
                         <h3>Balance</h3>
-                        <div class="box-num box-num-ksm">0.00 KSM</div>
+                        <div class="box-num box-num-ksm">
+                            <span v-if="curWallet.balance">{{ curWallet.balance.free | ksmUnit }}</span>
+                            <span v-else>0.00</span>
+                            KSM
+                        </div>
                         <p>$0.00</p>
                     </div>
                 </section>

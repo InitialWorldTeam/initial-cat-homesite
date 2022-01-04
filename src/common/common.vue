@@ -40,7 +40,10 @@ export default {
     filters: {
         polkdotUnit(num) {
             return +num / Math.pow(10, 10);
-        }
+        },
+        ksmUnit(num) {
+            return (+num / Math.pow(10, 12)).toFixed(2);
+        },
     },
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {

@@ -1,6 +1,6 @@
 <template>
     <div 
-        class="container-navbar-top"
+        class="container-navbar-top container-navbar-mobile"
     >
         <div class="container-cat-common-content flexBetween">
             <!-- Logo -->
@@ -78,12 +78,16 @@ export default {
 .container-navbar-top {
     height: 40px;
     @include flexBetween;
+    width: 100vw;
 }
 .container-cat-common-content {
     padding: 0 20px;
+    width: 100%;
+    min-width: auto;
+
     .box-logo {
-        height: 19px;
-        width: 109px;
+        height: 16px;
+        width: 96px;
         background-image: url(../../../assets/img/common/img-logo-world.png);
     }
 

@@ -209,7 +209,14 @@
                                         v-model="userEmail"
                                     />
                                 </div>
-                                <div class="btn-sub" @click="handleSubEmail(userEmail)">Subscribe</div>
+                                <div class="btn-sub" @click="preventDoublePress(handleSubEmail)">Subscribe</div>
+                                <transition name="fade">
+                                    <div
+                                        class="box-email-tip"
+                                        :class="{'error': !checkEmailPass}"
+                                        v-text="checkEmailTip"
+                                    ></div>
+                                </transition>
                             </div>
                         </div>
                     </div>
@@ -313,6 +320,7 @@ export default {
     .box-banner {
         height: 135px;
         @include flexCenter;
+        overflow: hidden;
 
         img {
             display: block;
@@ -776,8 +784,8 @@ export default {
             flex-direction: column;
 
             .box-logo {
-                height: 23px;
-                width: 133px;
+                height: 18px;
+                width: 110px;
                 @include bg-item;
                 background-image: url(../../../assets/img/common/img-logo-world.png);
             }
@@ -832,7 +840,7 @@ export default {
                 display: none;
             }
             .box-subscribe {
-                margin-top: 14px;
+                margin-top: 8px;
 
                 .box-input {
                     padding: 0 12px;
@@ -856,10 +864,23 @@ export default {
                     width: 120px;
                     height: 30px;
                     font-size: 14px;
-                    margin-top: 12px;
+                    margin-top: 10px;
                 }
             }
         }
+    }
+}
+.box-email-tip {
+    font-size: 12px;
+    line-height: 16px;
+    height: 32px;
+    font-weight: bold;
+    color: #fff;
+    padding-left: 4px;
+    margin-top: 4px;
+
+    &.error {
+        color: #f00;
     }
 }
 </style>
