@@ -8,7 +8,7 @@ import {
     isWeb3Injected,
     web3Accounts,
     web3Enable,
-    web3FromAddress
+    web3FromAddress,
 } from "@polkadot/extension-dapp";
 import { stringToU8a, u8aToHex } from "@polkadot/util";
 import { mapMutations, mapState, mapGetters } from "vuex";
@@ -22,6 +22,7 @@ import {
     OwnWalletNameSpace,
     OwnWalletIdxNameSpace
 } from '@/config/util/const';
+import Decimal from 'decimal.js';
 
 export default {
     //部件
@@ -39,10 +40,10 @@ export default {
     },
     filters: {
         polkdotUnit(num) {
-            return +num / Math.pow(10, 10);
+            return new Decimal(+num / Decimal.pow(10, 10)).toFixed(4);
         },
         ksmUnit(num) {
-            return (+num / Math.pow(10, 12)).toFixed(2);
+            return new Decimal(+num / Decimal.pow(10, 12)).toFixed(4);
         },
     },
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
@@ -262,6 +263,24 @@ export default {
                 })
             }
         },
+        // sign and send transaction
+        async transferToken(to, num, from) {
+            // the address we use to use for signing, as injected
+            const SENDER = from || this.curWallet.address;
+
+            // finds an injector for an address
+            const injector = await web3FromAddress(SENDER);
+            const amount = +num * Decimal.pow(10, 12);
+
+            this.apiProvider.tx.balances
+                .transfer(to, amount)
+                .signAndSend(SENDER, {
+                    signer: injector.signer 
+                }, (status) => { 
+                    console.log('====Status', status);
+                });
+        },
+        // 校验浏览器环境，初始化Api
         async initApi() {
             const extensions = await web3Enable("polkadot-js/apps");
             if (extensions.length === 0) {

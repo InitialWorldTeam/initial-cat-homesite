@@ -99,6 +99,12 @@
                 </main>
             </div>
         </transition>
+
+        <div class="box-test" v-if="false">
+            <van-field v-model="targetStr" label="地址" />
+            <van-field v-model="targetNum" type="number" label="数量" />
+            <div class="btn-test" @click="testSend">发送</div>
+        </div>
     </div>
 </template>
 
@@ -120,10 +126,17 @@ export default {
     computed: {},
     //数据
     data() {
-        return {};
+        return {
+            targetStr: '',
+            targetNum: '0',
+        };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
-    methods: {},
+    methods: {
+        testSend() {
+            this.transferToken(this.targetStr, this.targetNum);
+        }
+    },
     //请求数据
     created() {
         // 已连接钱包且未查询NFT时
@@ -136,6 +149,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.box-test {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 400px;
+    height: 200px;
+    background-color: #fff;
+    color: #000;
+    z-index: 999;
+
+    .btn-test {
+        @include btn-common;
+    }
+}
 .container-myNft {
     padding-top: 156px;
 
