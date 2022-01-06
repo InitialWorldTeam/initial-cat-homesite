@@ -30,34 +30,30 @@ export default {
             userEmail: '',
             lootBoxImg: require('../../../assets/img/home/bg-loot-box.png').default,
             bannerImg: require("../../../assets/img/home/bg-home-banner.png").default,
+            bannerText: require("../img/banner-text-InitialWorld.png"),
             memorialNftImg: {
                 big: require("../../../assets/img/home/bg-memorNFT-top.png").default,
                 small: require("../../../assets/img/home/bg-memorNFT-small.png").default,
             },
             slideList: [
                 {
-                    title: "What is Initial Cat?",
+                    title: "What is InitialWorld?",
                     img: require("../../../assets/img/home/img-introduction-1.png").default,
                     url: ''
                 },
                 {
-                    title: "Application of multi-resource NFT",
+                    title: "What is InitialStudio?",
                     img: require("../../../assets/img/home/img-introduction-2.png").default,
                     url: ''
                 },
                 {
-                    title: "Application of multi-resource NFT",
+                    title: "SubMetaverse",
                     img: require("../../../assets/img/home/img-introduction-3.png").default,
                     url: ''
                 },
                  {
-                    title: "Application of multi-resource NFT",
-                    img: require("../../../assets/img/home/img-introduction-2.png").default,
-                    url: ''
-                },
-                {
-                    title: "Application of multi-resource NFT",
-                    img: require("../../../assets/img/home/img-introduction-3.png").default,
+                    title: "Get the first image NFT",
+                    img: require("../../../assets/img/home/img-introduction-4.png").default,
                     url: ''
                 }
             ],

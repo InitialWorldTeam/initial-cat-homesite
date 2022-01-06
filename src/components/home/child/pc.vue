@@ -3,7 +3,8 @@
         <section class="flex">
             <!-- Banner -->
             <div class="box-banner flexCenter">
-                <img :src="bannerImg" />
+                <img :src="bannerImg" class="box-img"/>
+                <img :src="bannerText" class="box-text"/>
             </div>
 
             <div>
@@ -46,7 +47,13 @@
                             <div class="btn-mint">Mint Now</div>
                         </div>
                         <div class="box-right">
-                            <img src="../img/img-mint-cat.png" alt="">
+                            <!-- <img src="../img/img-mint-cat.png" alt=""> -->
+                            <video 
+                                :src='require("../video/video-demo-1.mp4").default'
+                                muted
+                                autoplay
+                                loop
+                            ></video>
                         </div>
                     </main>
                 </div>
@@ -472,11 +479,21 @@ export default {
             width: 100%;
             margin-bottom: 56px;
             overflow: hidden;
+            position: relative;
 
-            img {
+            .box-img {
                 display: block;
                 height: auto;
                 width: 100%;
+            }
+
+            .box-text {
+                position: absolute;
+                width: 285px;
+                height: auto;
+                top: 38%;
+                left: 12vw;
+                z-index: 1;
             }
         }
 
@@ -503,7 +520,7 @@ export default {
 
         main {
             margin-top: 32px;
-            height: 356px;
+            height: 366px;
             background: #08070C;
             border-radius: 12px;
             @include flexBetween;
@@ -512,9 +529,16 @@ export default {
 
             .box-right {
                 width: 182px;
-                height: 257px;
+                // height: 257px;
                 flex-shrink: 0;
-                // margin-left: 66px;
+                border-radius: 10px;
+                overflow: hidden;
+
+                video {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                }
             }
 
             .box-left {
