@@ -7,9 +7,9 @@
                 <img :src="bannerText" class="box-text"/>
             </div>
 
-            <div>
+            <div class="box-main">
                 <!-- Introduction -->
-                <div class="box-section-common">
+                <div class="box-section-common animate__animated">
                     <h1>Introduction</h1>
                     <!-- Swiper -->
                     <div class="box-swiper">
@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- Mint Avatar -->
-                <div class="box-section-common box-mintAvatar">
+                <div class="box-section-common box-mintAvatar animate__animated ">
                     <h1>Free to mint your InitialWorld Avatar</h1>
                     <h2>You only pay the Kusama Gas Fee.</h2>
                     <main>
@@ -59,7 +59,7 @@
                 </div>
 
                 <!-- Mystery Box -->
-                <div class="box-section-common box-specialLoot">
+                <div class="box-section-common box-specialLoot animate__animated">
                     <h1>Mystery Box</h1>
                     <h2>Your Own Private NFTs from Loot Box</h2>
                     <main>
@@ -81,7 +81,7 @@
                 </div>
 
                 <!-- Ecosystem -->
-                <div class="box-section-common box-ecosystem">
+                <div class="box-section-common box-ecosystem animate__animated">
                     <h1>Ecosystem</h1>
                     <h2>We are creating Metaverse and linking different SubVerse</h2>
                     <main>
@@ -161,7 +161,7 @@
                 </div>
 
                 <!-- Strategic Partners -->
-                <div class="box-section-common box-partners">
+                <div class="box-section-common box-partners animate__animated">
                     <h1>Strategic Partners</h1>
                     <main>
                         <div 
@@ -175,7 +175,7 @@
                 </div>
 
                 <!-- Community -->
-                <div class="box-section-common box-community">
+                <div class="box-section-common box-community animate__animated">
                     <h1>Community</h1>
                     <main>
                         <div 
@@ -318,6 +318,19 @@ export default {
         getPageType() {
             let width = window.innerWidth;
             this.pageType = width >= 1200 ? 'normal' : 'small';
+        },
+        onScroll() {
+            const win_h = window.innerHeight;
+            const scroll_top = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop);
+
+            $('.animate__animated').each(function(i) {
+                if ( !$(this).hasClass("animate__fadeInUp") ) {
+                    const top = $(this).offset().top + $('.box-banner').height() - 200;
+                    if (win_h + scroll_top >= top) {
+                        $(this).addClass('animate__fadeInUp');
+                    }
+                }
+            })
         }
     },
     //请求数据
@@ -327,6 +340,13 @@ export default {
         window.addEventListener("resize", () => {
             this.getPageType();
         });
+
+
+        window.addEventListener('scroll', this.onScroll)
+        let timer = setTimeout(() => {
+            this.onScroll();
+            clearTimeout(timer);
+        }, 200)
     }
 };
 </script>
