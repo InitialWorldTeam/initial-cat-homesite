@@ -80,14 +80,14 @@
                         , 22 G Reward and 1 Last Reward (given when purchasing
                         the last NFT in each box), a total of 70 Reward, in
                         addition to the NFT included in A Reward~G Reward, users
-                        will also receive IIC airdrops corresponding to the
+                        will also receive NIC airdrops corresponding to the
                         number of Reward levels.
                     </p>
                     <p>
-                        Airdrop standard: A Reward=20000 IIC, B Reward=15000
-                        IIC, C Reward=12500 IIC, D Reward=10000 IIC, E
-                        Reward=5500 IIC, F Reward=5000 IIC, G Reward=4500 IIC,
-                        Last Reward=20000 IIC .
+                        Airdrop standard: A Reward=20000 NIC, B Reward=15000
+                        NIC, C Reward=12500 NIC, D Reward=10000 NIC, E
+                        Reward=5500 NIC, F Reward=5000 NIC, G Reward=4500 NIC,
+                        Last Reward=20000 NIC .
                     </p>
                     <p>
                         Of course, we have to say that the number of airdrops

@@ -21,7 +21,7 @@
                     <div class="flex">
                         <div class="box-wallet-info-item box-2">
                             <h3>Balance</h3>
-                            <div class="box-num">0.00 IIC</div>
+                            <div class="box-num">0.00 NIC</div>
                             <p>$0.00</p>
                         </div>
                         <div class="box-wallet-info-item box-2">
@@ -83,9 +83,9 @@
                         <h3 v-text="curSellCat.name"></h3>
                         <div class="box-input">
                             <!-- 允许输入数字，调起带符号的纯数字键盘 -->
-                            <van-field 
+                            <van-field
                                 class="box-cat-sell-input"
-                                v-model="sellPrice" 
+                                v-model="sellPrice"
                                 type="number"
                                 label="Selling price(KSM)"
                                 label-width="200"
@@ -209,7 +209,7 @@ export default {
 
             .box-wallet-info-item {
                 height: 100px;
-                
+
                 &.box-1 {
                     @include flexCenter;
                     flex-direction: column;
@@ -269,9 +269,9 @@ export default {
         .box-empty-nft {
             height: 170px;
             margin-top: 50px;
-            background: url(../../../assets/img/myCat/img-noNft.png) no-repeat center top / 150px auto;      
+            background: url(../../../assets/img/myCat/img-noNft.png) no-repeat center top / 150px auto;
         }
-        
+
         section {
             display: flex;
             flex-wrap: wrap;

@@ -11,7 +11,7 @@
                 <div class="box-section-common box-introduction">
                     <h1>Introduction</h1>
                     <section>
-                        <div 
+                        <div
                             class="swiper-slide"
                             v-for="item in slideList"
                             :key="item.title"
@@ -63,8 +63,8 @@
                     <h2>We are creating Metaverse and linking different SubVerse</h2>
                     <main>
                         <div class="box-tab" ref='boxEcoTab'>
-                            <div 
-                                v-for="(item, index) in ecoTabList" 
+                            <div
+                                v-for="(item, index) in ecoTabList"
                                 :key="item.id"
                                 class="box-tab-item"
                                 :class="{'cur': index === cueEcoIdx}"
@@ -77,8 +77,8 @@
                         <div class="btn-scroll btn-pre" @click="handleScrollX(1)"></div>
                         <div class="btn-scroll btn-next" @click="handleScrollX(2)"></div>
 
-                        <div 
-                            class="box-content" 
+                        <div
+                            class="box-content"
                             :class="[
                                 'box-eco-type-' + curEcoItem.type,
                                 'box-eco-tab-' + cueEcoIdx
@@ -86,7 +86,7 @@
                         >
                             <template v-if="curEcoItem.type === 1">
                                 <div class="box-left">
-                                    <video 
+                                    <video
                                         :src="curEcoItem.content"
                                         muted
                                         autoplay
@@ -121,14 +121,14 @@
                     <div class="box-airdrop">
                         <h3>Airdrop: </h3>
                         <div class="flex">
-                            <span class="color1">A Reward=20000 IIC<i>,</i></span>
-                            <span class="color2">B Reward=15000 IIC<i>,</i></span>
-                            <span class="color3">C Reward=12500 IIC<i>,</i></span>
-                            <span class="color4">D Reward=10000 IIC<i>,</i></span>
-                            <span class="color5">E Reward=5500 IIC<i>,</i></span>
-                            <span class="color6">F Reward=5000 IIC<i>,</i></span>
-                            <span class="color7">G Reward=4500 IIC<i>,</i></span>
-                            <span class="color8">Last Reward=20000 IIC<i>.</i></span>
+                            <span class="color1">A Reward=20000 NIC<i>,</i></span>
+                            <span class="color2">B Reward=15000 NIC<i>,</i></span>
+                            <span class="color3">C Reward=12500 NIC<i>,</i></span>
+                            <span class="color4">D Reward=10000 NIC<i>,</i></span>
+                            <span class="color5">E Reward=5500 NIC<i>,</i></span>
+                            <span class="color6">F Reward=5000 NIC<i>,</i></span>
+                            <span class="color7">G Reward=4500 NIC<i>,</i></span>
+                            <span class="color8">Last Reward=20000 NIC<i>.</i></span>
                         </div>
                     </div>
                     <main>
@@ -145,8 +145,8 @@
                 <div class="box-section-common box-partners">
                     <h1>Strategic Partners</h1>
                     <main>
-                        <div 
-                            v-for="(item, index) in partnerList" 
+                        <div
+                            v-for="(item, index) in partnerList"
                             :key="item.id"
                             class="box-partner-item"
                         >
@@ -159,7 +159,7 @@
                 <div class="box-section-common box-community">
                     <h1>Community</h1>
                     <main>
-                        <div 
+                        <div
                             class="box-community-item"
                             v-for="item in communityList"
                             :key="item.id"
@@ -195,7 +195,7 @@
                                         <div @click="goToNav(item)"><span v-text="item.name"></span></div>
                                     </el-tooltip>
                                 </div>
-                            
+
                             </template>
                         </div>
                         <div class="box-right">
@@ -203,8 +203,8 @@
                             <h3>Stay up-to-date about new features and supported apps & games.</h3>
                             <div class="box-subscribe">
                                 <div class="box-input">
-                                    <input 
-                                        type="text" 
+                                    <input
+                                        type="text"
                                         placeholder="Your e-mail address"
                                         v-model="userEmail"
                                     />
@@ -220,7 +220,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="box-bottom">
                         <div class="box-logo"></div>
                         <div class="box-copyright">@Initial World Team. 2021</div>
@@ -247,7 +247,7 @@ export default {
     //数据
     data() {
         return {
-            
+
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -265,7 +265,7 @@ export default {
     //请求数据
     created() {},
     mounted() {
-        
+
     }
 };
 </script>
@@ -292,15 +292,15 @@ export default {
         padding: 0 6px;
         font-size: 10px;
         line-height: 14px;
-        
+
         h3 {
             font-size: 10px;
             color: #fff;
             width: 70%;
             letter-spacing: -1px;
-            display: -webkit-box;    
-            -webkit-box-orient: vertical;    
-            -webkit-line-clamp: 2;    
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
             overflow: hidden;
         }
 
@@ -490,7 +490,7 @@ export default {
                 padding: 0 30px;
                 overflow-x: auto;
                 position: relative;
-            
+
                 .box-tab-item {
                     font-size: 10px;
                     line-height: 14px;
@@ -614,8 +614,8 @@ export default {
                     }
 
                     .box-right {
-                        display: -webkit-box;    
-                        -webkit-box-orient: vertical;    
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
                         -webkit-line-clamp: 5;
                         overflow: hidden;
                     }
@@ -649,7 +649,7 @@ export default {
                     &:not(:last-child) {
                         margin-right: 4px;
                     }
-                    
+
                     &.color1 { color: #E7173E; }
                     &.color2 { color: #D8C62A; }
                     &.color3 { color: #ED6318; }
@@ -720,7 +720,7 @@ export default {
                     &.img-5 { width: 58px; }
                     &.img-6 { width: 44px; }
                     &.img-7 { width: 69px; }
-                    
+
                 }
             }
         }
