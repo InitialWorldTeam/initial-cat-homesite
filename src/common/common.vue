@@ -96,6 +96,9 @@ export default {
             ) {
                 isApp = true; // 移动端
             }
+            else {
+                $('body').addClass('body-pc');
+            }
 
             this.setClientType(isApp);
         },
