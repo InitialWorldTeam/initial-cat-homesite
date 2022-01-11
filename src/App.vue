@@ -57,7 +57,6 @@ export default {
     position: relative;
     background-color: #121018;
     min-height: 100vh;
-    user-select: none;
 
     &.app {
         min-width: 100vw;

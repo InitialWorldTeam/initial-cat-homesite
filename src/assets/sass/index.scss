@@ -43,7 +43,6 @@ $fontColor-2: #fff;
     width: 100vw;
     min-width: 1000px;
     overflow: hidden;
-    user-select: none;
     @include flexCenter;
 }
 .container-cat-common-content {
@@ -173,7 +172,6 @@ $fontColor-2: #fff;
         width: 100vw;
         min-width: 850px;
         overflow: hidden;
-        user-select: none;
         @include flexCenter;
     }
     #app {
