@@ -35,8 +35,7 @@ export default {
     },
     mounted() {
         /**
-         * Auto connect
-         * if mobile
+         * Auto connect wallet if mobile
          *  */
         if (this.isApp) {
             this.initWallet();

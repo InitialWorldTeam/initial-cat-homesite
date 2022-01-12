@@ -25,7 +25,7 @@
                     <div class="box-wallet-info-item">
                         <h3>Balance</h3>
                         <div class="box-num box-num-ksm">
-                            <span v-if="curWallet.balance">{{ curWallet.balance.free | ksmUnit }}</span>
+                            <span v-if="curWallet && curWallet.balance">{{ curWallet.balance.free | ksmUnit }}</span>
                             <span v-else>0.00</span>
                             KSM
                         </div>
@@ -279,7 +279,6 @@ export default {
                 font-size: 20px;
                 line-height: 24px;
                 padding: 0 10px;
-                margin-right: 9px;
                 color: #110F19;
                 letter-spacing: 0px;
             }

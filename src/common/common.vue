@@ -56,6 +56,8 @@ export default {
             "loadingNftSta",
             "curWalletIndex",
             "isApp",
+            "navList",
+            "curNav",
         ]),
         ...mapGetters([
             "curWallet"
@@ -77,6 +79,7 @@ export default {
             "setLoadingNftSta",
             "setCurWalletIdx",
             "setClientType",
+            "setCurNav",
         ]),
         checkIsLoadWallet() {
             const wallets = JSON.parse(UTILS.getLocal(OwnWalletNameSpace));
