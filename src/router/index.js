@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/home';
 import MyNft from '@/components/myNft';
 import Box from '@/components/box';
+import Faq from '@/components/faq';
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
             path: '/box',
             name: 'Box',
             component: Box
+        },
+        {
+            path: '/faq',
+            name: 'Faq',
+            component: Faq
         },
     ]
 })

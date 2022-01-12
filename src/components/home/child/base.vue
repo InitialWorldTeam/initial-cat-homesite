@@ -204,6 +204,7 @@ export default {
                     if (code === '0000') {
                         this.toastEmailTip(this.subscribeEmailTip.tip5);
                         this.checkEmailPass = true;
+                        this.userEmail = '';
                     }
                 })
                 .catch(err => {
