@@ -27,7 +27,7 @@
                         <div class="box-wallet-info-item box-2">
                             <h3>Balance</h3>
                             <div class="box-num box-num-ksm">
-                                <span v-if="curWallet.balance">{{ curWallet.balance.free | ksmUnit }}</span>
+                                <span v-if="curWallet && curWallet.balance">{{ curWallet.balance.free | ksmUnit }}</span>
                                 <span v-else>0.00</span>
                                 KSM
                             </div>
@@ -270,6 +270,24 @@ export default {
             height: 170px;
             margin-top: 50px;
             background: url(../../../assets/img/myCat/img-noNft.png) no-repeat center top / 150px auto;
+        }
+
+        .box-no-connect {
+            margin-top: 30px;
+            padding-top: 90px;
+            @include flexCenter;
+            background: url(../../../assets/img/common/img-wallet-empty.png) no-repeat center top / 70px auto;
+
+            .btn-connect-wallet {
+                @include btn-common;
+                height: 40px;
+                width: 160px;
+                font-size: 14px;
+                line-height: 24px;
+                padding: 0 10px;
+                color: #110F19;
+                letter-spacing: 0px;
+            }
         }
 
         section {

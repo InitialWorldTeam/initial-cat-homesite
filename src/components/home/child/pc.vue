@@ -185,14 +185,15 @@
                         >
                             <img :src="item.icon" alt="">
                             <h4 v-text="item.title"></h4>
-                            <el-tooltip
+                            <div class="btn-join" @click="handleJoinCommunity(item)">Join us</div>
+                            <!-- <el-tooltip
                                 effect="dark"
                                 content="Coming soon"
                                 placement="bottom"
                                 popper-class="popper-coming"
                             >
-                                <div class="btn-join">Join us</div>
-                            </el-tooltip>
+                                <div class="btn-join" @click="handleJoinCommunity(item)">Join us</div>
+                            </el-tooltip> -->
                         </div>
                     </main>
                 </div>
@@ -204,14 +205,14 @@
                         <div class="box-copyright">@Initial World Team. 2021</div>
                     </div>
                     <div class="box-mid">
-                        <template v-for="item in navList">
+                        <template v-for="(item, index) in navList">
                             <div
                                 v-if="item.path"
                                 class="box-menu-item"
                                 :class="{ cur: curNav === item.name }"
                                 :key="item.name"
                                 v-text="item.name"
-                                @click="goToNav(item)"
+                                @click="goToNav(item, index)"
                             >
                             </div>
                             <div class="box-menu-item" :key="item.name" v-else>
@@ -325,7 +326,7 @@ export default {
 
             $('.animate__animated').each(function(i) {
                 if ( !$(this).hasClass("animate__fadeInUp") ) {
-                    const top = $(this).offset().top + $('.box-banner').height() - 200;
+                    const top = $(this).offset().top + $('.box-banner').height() - 300;
                     if (win_h + scroll_top >= top) {
                         $(this).addClass('animate__fadeInUp');
                     }

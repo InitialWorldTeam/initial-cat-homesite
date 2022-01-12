@@ -166,7 +166,7 @@
                         >
                             <img :src="item.icon" alt="">
                             <h4 v-text="item.title"></h4>
-                            <div class="btn-join">Join us</div>
+                            <div class="btn-join" @click="handleJoinCommunity(item)">Join us</div>
                         </div>
                     </main>
                 </div>

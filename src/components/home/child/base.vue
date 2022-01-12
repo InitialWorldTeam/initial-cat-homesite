@@ -5,10 +5,11 @@
 <script>
 import UTILS from '@/config/util';
 import mailApi from '@/config/mailApi';
-import {mapState} from 'vuex';
+import common from '@/common/common';
 import preventDoublePress from '@/config/preventDoublePress';
 
 export default {
+    mixins: [ common ],
     //部件
     components: {},
     //静态
@@ -17,9 +18,6 @@ export default {
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {
-        ...mapState([
-            'navList',
-        ]),
         curEcoItem() {
             return this.ecoTabList[this.cueEcoIdx];
         }
@@ -71,22 +69,22 @@ export default {
                 {
                     icon: require("../../../assets/img/home/icon-twitter.png"),
                     title: 'Twitter',
-                    url: ''
+                    url: 'https://twitter.com/InitialWorldLab'
                 },
                 {
                     icon: require("../../../assets/img/home/icon-telegram.png"),
                     title: 'Telegram',
-                    url: ''
+                    url: 'https://t.me/InitialWorld'
                 },
                 {
                     icon: require("../../../assets/img/home/icon-discord.png"),
                     title: 'Discord',
-                    url: ''
+                    url: 'https://discord.gg/hmmmQt2jGn'
                 },
                 {
                     icon: require("../img/icon-medium.png"),
                     title: 'Medium',
-                    url: ''
+                    url: 'https://medium.com/@InitialWorld'
                 },
             ],
             cueEcoIdx: 0, // 当前EcoTab索引值 
@@ -136,13 +134,26 @@ export default {
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
-        goToNav(item) {
+        // 点击事件，Join Us
+        handleJoinCommunity(item) {
+            if (item.url) {
+                window.open(item.url);
+            }
+        },
+        goToNav(item, index) {
             if (!item.path || this.$route.path === item?.path) {
                 return false;
             };
+            this.setCurNav(item?.name);
             this.$router.push({
                 path: item.path
             });
+            // 定位当前导航
+            const e = $(".box-nav-item").eq(index);
+            const LEFT = e.position().left + e.width() / 2;
+            $('.block-line').css({
+                left: LEFT + 'px'
+            })
         },
         selectEcoTab(idx) {
             this.cueEcoIdx = idx;
