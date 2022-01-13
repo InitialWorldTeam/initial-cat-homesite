@@ -100,7 +100,8 @@
             </div>
         </transition>
 
-        <div class="box-test" v-if="false">
+        <!-- Test Transfer -->
+        <div class="box-test-transfer" v-if="false">
             <van-field v-model="targetStr" label="地址" />
             <van-field v-model="targetNum" type="number" label="数量" />
             <div class="btn-test" @click="testSend">发送</div>
@@ -149,20 +150,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.box-test {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 400px;
-    height: 200px;
-    background-color: #fff;
-    color: #000;
-    z-index: 999;
-
-    .btn-test {
-        @include btn-common;
-    }
-}
 .container-myNft {
     padding-top: 156px;
 

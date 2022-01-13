@@ -284,6 +284,7 @@ export default {
                     signer: injector.signer 
                 }, (status) => { 
                     console.log('====Status', status);
+                    this.queryBalance();
                 });
         },
         // 校验浏览器环境，初始化Api
