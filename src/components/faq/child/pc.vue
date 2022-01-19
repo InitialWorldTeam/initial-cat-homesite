@@ -147,12 +147,7 @@ export default {
     //请求数据
     created() {},
     mounted() {
-        if (this.domId) {
-            const dom = `#${this.domId}`;
-            document.querySelector(dom).scrollIntoView({
-                behavior: "auto", // 定义动画过渡效果， "auto"或 "smooth" 之一。默认为 "auto"
-            });
-        }
+        
     }
 };
 </script>

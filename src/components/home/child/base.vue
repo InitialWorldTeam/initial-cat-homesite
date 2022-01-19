@@ -169,6 +169,9 @@ export default {
                     id: item.domId
                 }
             });
+            if (this.isApp) {
+                return;
+            }
             this.locationNavLine(5);
         },
         preventDoublePress(callback, delay = 3000) {

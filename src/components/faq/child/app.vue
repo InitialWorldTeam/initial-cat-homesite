@@ -8,7 +8,7 @@
                 <p>InitialWorld is a coordinated Metaverse Connector based on blockchain. NFT will be used as a core asset for cross-metaverse transfer.</p>
                 <p>At Initial World, we will build a stream of low-barrier technical tools to help studios and users easily create SubMetaverse and NFT, allowing simple integration into all Metaverse via Initial World.</p>
 
-                <div class="list-item">
+                <div class="list-item" id="userClient">
                     <h3>InitialWorld User Client</h3>
                     <div>1. Coordinate connection between Metaverse and SubMetaverse</div>
                     <div>2. Use and trade the NFT obtained from Metaverse (Connected)</div>
@@ -49,12 +49,12 @@
                     <div>Before the launch of InitialStudio, InitialWorld will customize a standardized Home for users. Users can display their NFTs in their Homes and get more rewards.</div>
                 </div>
 
-                <div class="list-item">
+                <div class="list-item" id="metaverse">
                     <h3>SubMetaverse</h3>
                     <div>SubMetaverse is made by Initial World Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users.</div>
                 </div>
 
-                <div class="list-item">
+                <div class="list-item" id="mysteryBox">
                     <h3>Mystery Box</h3>
                     <div>Users can obtain NFTs launched by SubMetaverse and InitialWorld through Mystery Box. After InitialStudio is opened, users can obtain user-made NFTs through Mystery Box.</div>
                 </div>
