@@ -26,7 +26,7 @@ export default {
             path: ''
         },
         {
-            name: 'FAQ',
+            name: 'Faq',
             path: '/faq'
         },
     ],

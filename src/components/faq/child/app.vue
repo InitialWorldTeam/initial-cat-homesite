@@ -3,8 +3,8 @@
         <main>
             <h1 class="title">InitialWorld FAQ</h1>
             <section>
-                <h2>InitialWorld</h2>
-                <h2>Preface</h2>
+                <!-- <h2>InitialWorld</h2> -->
+                <!-- <h2>Preface</h2> -->
                 <p>InitialWorld is a coordinated Metaverse Connector based on blockchain. NFT will be used as a core asset for cross-metaverse transfer.</p>
                 <p>At Initial World, we will build a stream of low-barrier technical tools to help studios and users easily create SubMetaverse and NFT, allowing simple integration into all Metaverse via Initial World.</p>
 

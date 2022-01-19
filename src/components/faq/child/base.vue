@@ -21,14 +21,18 @@ export default {
     },
     //数据
     data(){
-      return {}
+      return {
+          domId: null
+      }
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
         
     },
     //请求数据
-    created() {},
+    created() {
+        this.domId = this.$route.params.id;
+    },
     mounted() {},
 }
 </script>

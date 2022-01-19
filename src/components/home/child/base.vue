@@ -37,22 +37,22 @@ export default {
                 {
                     title: "What is InitialWorld?",
                     img: require("../../../assets/img/home/img-introduction-1.png").default,
-                    url: ''
+                    domId: ''
                 },
                 {
                     title: "What is InitialStudio?",
                     img: require("../../../assets/img/home/img-introduction-2.png").default,
-                    url: ''
+                    domId: 'userClient'
                 },
                 {
                     title: "SubMetaverse",
                     img: require("../../../assets/img/home/img-introduction-3.png").default,
-                    url: ''
+                    domId: 'metaverse'
                 },
-                 {
+                {
                     title: "Get the first image NFT",
                     img: require("../../../assets/img/home/img-introduction-4.png").default,
-                    url: ''
+                    domId: 'mysteryBox'
                 }
             ],
             partnerList: [
@@ -148,6 +148,9 @@ export default {
             this.$router.push({
                 path: item.path
             });
+            this.locationNavLine(index);
+        },
+        locationNavLine(index) {
             // 定位当前导航
             const e = $(".box-nav-item").eq(index);
             const LEFT = e.position().left + e.width() / 2;
@@ -159,10 +162,14 @@ export default {
             this.cueEcoIdx = idx;
         },
         handleGoIntroductDetail(item) {
-            if (!item.url) {
-                return;
-            }
-            window.open(item.url, '_blank');
+            this.setCurNav('FAQ');
+            this.$router.push({
+                name: 'Faq',
+                params: {
+                    id: item.domId
+                }
+            });
+            this.locationNavLine(5);
         },
         preventDoublePress(callback, delay = 3000) {
             preventDoublePress.onPress(callback, delay);
