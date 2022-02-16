@@ -48,15 +48,6 @@ export default class gApp {
         if (options.model) {
             this.view(options.model, '', new Map());
         }
-
-        // 加载Gltf
-        // let url = 'https://rmrk.mypinata.cloud/ipfs/bafybeihfwwnr77s2puuzmdlxwc6gb56j7f5hvk4vzc6zd63kanluvfsghi';
-        // let url = require('./1.gltf').default;
-        // this.view(url);
-
-        // 加载fbx
-        let url = require('./cat.fbx').default;
-        this.view(url, 'fbx');
     }
 
     /**

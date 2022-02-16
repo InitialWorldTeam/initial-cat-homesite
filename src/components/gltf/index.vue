@@ -26,6 +26,15 @@ export default {
     created() {},
     mounted() {
         const app = new gApp(document.body, location);
+
+        // 加载Gltf
+        // let url = 'https://rmrk.mypinata.cloud/ipfs/bafybeihfwwnr77s2puuzmdlxwc6gb56j7f5hvk4vzc6zd63kanluvfsghi';
+        // let url = require('./1.gltf').default;
+        // app.view(url);
+
+        // 加载fbx
+        let url = require('./cat.fbx').default;
+        app.view(url, 'fbx');
     },
 }
 </script>
