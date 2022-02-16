@@ -4,6 +4,7 @@ import Home from '@/components/home';
 import MyNft from '@/components/myNft';
 import Box from '@/components/box';
 import Faq from '@/components/faq';
+import Gltf from '@/components/gltf';
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
             path: '/faq',
             name: 'Faq',
             component: Faq
+        },
+        {
+            path: '/gltf',
+            name: 'Gltf',
+            component: Gltf
         },
     ]
 })
