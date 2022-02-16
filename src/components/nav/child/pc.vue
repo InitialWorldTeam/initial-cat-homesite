@@ -2,7 +2,9 @@
     <div class="container-cat-common container-navbar-top container-common-pc">
         <div class="container-cat-common-content flexBetween">
             <!-- Logo -->
-            <div class="box-logo bg-item"></div>
+            <h1>
+                <a href="//www.initialworld.net" class="box-logo bg-item">Initialworld</a>
+            </h1>
 
             <div class="box-right flex">
                 <!-- 导航 -->
@@ -131,6 +133,8 @@ export default {
         height: 23px;
         width: 133px;
         background-image: url(../../../assets/img/common/img-logo-world.png);
+        font-size: 0;
+        display: block;
     }
 
     .box-right {
