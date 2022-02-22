@@ -4,11 +4,11 @@
             <!-- My Wallet Address -->
             <div class="box-wallet-adderss">
                 <h1 class="h1">My Wallet Address</h1>
-                <h2 v-if="curWallet">
-                    <span v-text="curWallet.address"></span>
+                <h2 v-if="curQueryWallet">
+                    <span v-text="curQueryWallet.address"></span>
                     <i
                         class="btn-copy"
-                        v-clipboard:copy="curWallet.address"
+                        v-clipboard:copy="curQueryWallet.address"
                         v-clipboard:success="onCopy"
                     ></i>
                 </h2>
@@ -25,7 +25,12 @@
                     <div class="box-wallet-info-item">
                         <h3>Balance</h3>
                         <div class="box-num box-num-ksm">
-                            <span v-if="curWallet && curWallet.balance">{{ curWallet.balance.free | ksmUnit }}</span>
+                            <span
+                                v-if="curQueryWallet && curQueryWallet.balance"
+                                >{{
+                                    curQueryWallet.balance.free | ksmUnit
+                                }}</span
+                            >
                             <span v-else>0.00</span>
                             KSM
                         </div>
@@ -40,21 +45,24 @@
                 <!-- Connect Wallet -->
                 <div
                     class="box-NftList"
-                    v-if="curWallet"
+                    v-if="curQueryWallet"
                     v-loading="loadingNftSta === 0"
                     element-loading-spinner="el-icon-loading"
                     element-loading-background="rgba(0, 0, 0, 0.8)"
                 >
                     <!-- own NFT -->
                     <section v-if="loadingNftSta === 1">
-                        <template
-                            v-for="item in myNftAssets"
-                        >
-                            <nft-item
+                        <template v-for="item in myNftAssets">
+                            <div
                                 :key="item.id"
-                                :nftItem="item"
-                                @sell="sellCat"
-                            ></nft-item>
+                                class="box-nft"
+                                @click="goToDetail(item)"
+                            >
+                                <nft-item
+                                    :nftItem="item"
+                                    @sell="sellCat"
+                                ></nft-item>
+                            </div>
                         </template>
                     </section>
                     <!-- no NFT -->
@@ -64,14 +72,20 @@
                 </div>
                 <!-- Disconnect -->
                 <div class="box-no-connect" v-else>
-                    <div class="btn-connect-wallet" @click="initWallet">Connect Wallet</div>
+                    <div class="btn-connect-wallet" @click="initWallet">
+                        Connect Wallet
+                    </div>
                 </div>
             </div>
         </main>
 
         <!-- Sell Modal -->
         <transition name="fade">
-            <div class="box-sell-modal" v-if="isShowSellModal" @click="clearCellCat">
+            <div
+                class="box-sell-modal"
+                v-if="isShowSellModal"
+                @click="clearCellCat"
+            >
                 <main @click.stop>
                     <h1>Sell</h1>
                     <div>
@@ -94,8 +108,13 @@
                             :border="false"
                         />
                     </div>
-                    <div class="btn-approve" @click="clearCellCat">Approve NFT</div>
-                    <p>After the transaction is successful, a 2.5% handling fee will be charged.</p>
+                    <div class="btn-approve" @click="clearCellCat">
+                        Approve NFT
+                    </div>
+                    <p>
+                        After the transaction is successful, a 2.5% handling fee
+                        will be charged.
+                    </p>
                 </main>
             </div>
         </transition>
@@ -111,7 +130,7 @@
 
 <script>
 import Base from "./base";
-import NftItem from '@/common/nftItem';
+import NftItem from "@/common/nftItem";
 
 export default {
     mixins: [Base],
@@ -128,8 +147,8 @@ export default {
     //数据
     data() {
         return {
-            targetStr: '',
-            targetNum: '0',
+            targetStr: "",
+            targetNum: "0"
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -142,7 +161,7 @@ export default {
     created() {
         // 已连接钱包且未查询NFT时
         if (this.walletAccounts.length && !this.myNftAssets.length) {
-            this.queryBalance();
+            // this.queryBalance();
         }
     },
     mounted() {}
@@ -245,19 +264,30 @@ export default {
                 flex-wrap: wrap;
                 padding-left: 46px;
             }
+
+            .box-nft {
+                cursor: pointer;
+                margin-bottom: 40px;
+
+                &:not(:last-child) {
+                    margin-right: 80px;
+                }
+            }
         }
 
         .box-empty-nft {
             height: 170px;
             margin-top: 58px;
-            background: url(../../../assets/img/myCat/img-noNft.png) no-repeat center top / 240px auto;
+            background: url(../../../assets/img/myCat/img-noNft.png) no-repeat
+                center top / 240px auto;
         }
 
         .box-no-connect {
             margin-top: 57px;
             padding-top: 146px;
             @include flexCenter;
-            background: url(../../../assets/img/common/img-wallet-empty.png) no-repeat center top / 124px auto;
+            background: url(../../../assets/img/common/img-wallet-empty.png)
+                no-repeat center top / 124px auto;
 
             .btn-connect-wallet {
                 @include btn-common;
@@ -266,7 +296,7 @@ export default {
                 font-size: 20px;
                 line-height: 24px;
                 padding: 0 10px;
-                color: #110F19;
+                color: #110f19;
                 letter-spacing: 0px;
             }
         }
@@ -283,7 +313,7 @@ export default {
     background-color: rgba($color: #000000, $alpha: 0.5);
     @include flexCenter;
 
-    >main {
+    > main {
         width: 600px;
         height: 680px;
         background: #110f19;
@@ -296,7 +326,7 @@ export default {
             font-size: 32px;
             line-height: 24px;
             font-weight: normal;
-            color: #FFFFFF;
+            color: #ffffff;
             margin-bottom: 42px;
         }
 
@@ -310,7 +340,7 @@ export default {
             font-size: 18px;
             font-family: Myriad Pro;
             font-weight: 400;
-            color: #FFFFFF;
+            color: #ffffff;
             margin-top: 14px;
         }
 
@@ -341,7 +371,7 @@ export default {
             line-height: 14px;
             font-family: Myriad Pro;
             font-weight: 400;
-            color: #61616B;
+            color: #61616b;
             margin-top: 18px;
             letter-spacing: -1px;
         }

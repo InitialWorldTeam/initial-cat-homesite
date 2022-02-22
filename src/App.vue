@@ -30,10 +30,9 @@ export default {
     methods: {},
     created() {
         this.checkIsApp();
-        this.checkCurrentRoute();
         this.checkIsLoadWallet();
     },
-    mounted() {
+    async mounted() {
         /**
          * Auto connect wallet if mobile
          *  */

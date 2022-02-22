@@ -40,10 +40,10 @@
                 <div class="box-wallet-status">
                     <!-- 已连接 -->
                     <div 
-                        v-if="curWallet"
+                        v-if="curRootWallet"
                         class="box-cur-wallet"
                         @click="handletShowSelectWallet"
-                    >{{ curWallet.address | addressFormat }}</div>
+                    >{{ curRootWallet.address | addressFormat }}</div>
                     <!-- 未连接 -->
                     <div class="btn-connect-wallet" v-else @click="initWallet">Connect Wallet</div>
                 </div>
@@ -156,6 +156,7 @@ export default {
             bottom: -14px;
             transform: translate(-50%, 0);
             transition: all .3s;
+            opacity: 0;
         }
 
         .box-nav-item {

@@ -11,6 +11,9 @@ export default {
         state.curWalletIndex = value;
         UTILS.setLocal(OwnWalletIdxNameSpace, value);
     },
+    setQueryWallet(state, value) {
+        state.curQueryWallet = value;
+    },
     setClientType(state, value) {
         state.isApp = value;
     },

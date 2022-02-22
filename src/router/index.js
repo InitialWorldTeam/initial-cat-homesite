@@ -5,6 +5,7 @@ import MyNft from '@/components/myNft';
 import Box from '@/components/box';
 import Faq from '@/components/faq';
 import Gltf from '@/components/gltf';
+import Collectibles from '@/components/collectibles';
 
 Vue.use(Router)
 
@@ -17,9 +18,9 @@ export default new Router({
             component: Home
         },
         {
-            path: '/myNft',
-            name: 'MyNFTs',
-            component: MyNft
+            path: '/myNft/:id',
+            name: 'My NFTs',
+            component: MyNft,
         },
         {
             path: '/box',
@@ -35,6 +36,11 @@ export default new Router({
             path: '/gltf',
             name: 'Gltf',
             component: Gltf
+        },
+        {
+            path: '/collectibles/:id',
+            name: 'Collectibles',
+            component: Collectibles
         },
     ]
 })

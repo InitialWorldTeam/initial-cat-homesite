@@ -37,11 +37,15 @@ const OwnWalletNameSpace = 'Initial_World_Wallets';
 // 已查询到当前钱包索引
 const OwnWalletIdxNameSpace = 'Initial_World_Wallet_Index';
 
+// 可直接访问ipfs静态资源替换域名
+const IpfsSwitchDomain = 'https://test-initialworld.mypinata.cloud/';
+
 export {
     BaseNameSpace,
     Providers_Test,
     Providers_Product,
     Env_Debug,
     OwnWalletNameSpace,
-    OwnWalletIdxNameSpace
+    OwnWalletIdxNameSpace,
+    IpfsSwitchDomain
 }

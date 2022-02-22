@@ -1,7 +1,7 @@
 
 const debug = process.env.NODE_ENV != 'production';
 
-let baseurl = debug ? "/api" : "https://api.initialworld.net";
+let baseurl = debug ? "/api" : "https://apiv1.initialworld.net";
 
 const Api = {
     /**

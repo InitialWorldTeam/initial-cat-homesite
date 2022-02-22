@@ -1,16 +1,13 @@
 <template>
-    <div class="box-cat-item" :class="{'app': app}">
+    <div class="box-cat-item" :class="{'app': app}" v-if="nftItem.preview">
         <!-- NFT展示 -->
         <main>
             <div 
-                v-for="(item, index) in nftItem.priority" 
-                :key="item.id"
                 class="box-cat-part-item"
-                :style="{'z-index': 100 - index}"
-            >   
-                <template v-if="checkIsArray(nftItem.preview[item])">
+            >
+                <template v-if="checkIsArray(nftItem.preview)">
                     <div 
-                        v-for="catChild in nftItem.preview[item]" 
+                        v-for="catChild in nftItem.preview" 
                         :key="catChild.id"
                         class="box-cat-item-img"
                         :style="{'z-index': catChild.z}"
@@ -20,7 +17,7 @@
                 </template>
                 <template v-else>
                     <div class="box-cat-item-img">
-                        <img :src="nftItem.preview[item]" alt="">
+                        <img :src="nftItem.preview" alt="">
                     </div>
                 </template>
             </div>
@@ -96,15 +93,13 @@ export default {
         z-index: 100 - index;
     };
 
-    &:not(:last-child) {
-        margin-right: 80px;
-    }
 
     main {
         position: relative;
-        min-height: 226px;
+        min-height: 210px;
         border-radius: 4px;
         overflow: hidden;
+        background-color: #fff;
 
         .box-cat-part-item {
             position: absolute;
@@ -121,6 +116,7 @@ export default {
         display: block;
         width: 100%;
         height: 100%;
+        object-fit: fill;
     }
 
     .btn-sell {

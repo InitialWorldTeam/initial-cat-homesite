@@ -29,11 +29,13 @@ export default {
 
         // 加载Gltf
         // let url = 'https://rmrk.mypinata.cloud/ipfs/bafybeihfwwnr77s2puuzmdlxwc6gb56j7f5hvk4vzc6zd63kanluvfsghi';
+        // let url = 'https://test-initialworld.mypinata.cloud/ipfs/bafybeicxwe67wjcdmryrvmno5tyfscxwvhenbxjpwi62p2jlybyw3pzjxy';
         // let url = require('./1.gltf').default;
         // app.view(url);
 
         // 加载fbx
-        let url = require('./cat.fbx').default;
+        // let url = require('./cat.fbx').default;
+        let url = "https://test-initialworld.mypinata.cloud/ipfs/bafybeicyudydmtuidjae5w4h7nbbiaiordh5esvc3aso5nfgtqqatftofi";
         app.view(url, 'fbx');
     },
 }

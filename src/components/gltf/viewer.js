@@ -90,7 +90,7 @@ export class Viewer {
             textureEncoding: 'sRGB',
             ambientIntensity: 0.3,
             ambientColor: 0xFFFFFF,
-            directIntensity: 0.8 * Math.PI, // TODO(#116)
+            directIntensity: 0.8 * Math.PI,
             directColor: 0xFFFFFF,
             bgColor1: '#ffffff',
             bgColor2: '#353535'
@@ -212,12 +212,12 @@ export class Viewer {
                 loader = new FBXLoader()
                     .setCrossOrigin('anonymous');
                 loader.load(url, (obj) => {
-                    console.log('obj: ', obj);//查看加载后返回的模型对象
+                    console.log('fbx: ', obj);//查看加载后返回的模型对象
                     // 适当平移fbx模型位置
                     obj.translateY(0);
 
                     const scene = obj;
-                    const clips = [];
+                    const clips = obj.animations || [];
 
                     this.setContent(scene, clips);
                 })

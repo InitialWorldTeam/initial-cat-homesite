@@ -4,11 +4,11 @@
             <!-- My Wallet Address -->
             <div class="box-wallet-adderss">
                 <h1 class="h1">My Wallet Address</h1>
-                <h2 v-if="curWallet">
-                    <span v-text="curWallet.address"></span>
+                <h2 v-if="curQueryWallet">
+                    <span v-text="curQueryWallet.address"></span>
                     <i
                         class="btn-copy"
-                        v-clipboard:copy="curWallet.address"
+                        v-clipboard:copy="curQueryWallet.address"
                         v-clipboard:success="onCopy"
                     ></i>
                 </h2>
@@ -27,7 +27,7 @@
                         <div class="box-wallet-info-item box-2">
                             <h3>Balance</h3>
                             <div class="box-num box-num-ksm">
-                                <span v-if="curWallet && curWallet.balance">{{ curWallet.balance.free | ksmUnit }}</span>
+                                <span v-if="curQueryWallet && curQueryWallet.balance">{{ curQueryWallet.balance.free | ksmUnit }}</span>
                                 <span v-else>0.00</span>
                                 KSM
                             </div>
@@ -43,7 +43,7 @@
                 <!-- Connect Wallet -->
                 <div
                     class="box-NftList"
-                    v-if="curWallet"
+                    v-if="curQueryWallet"
                     v-loading="loadingNftSta === 0"
                     element-loading-spinner="el-icon-loading"
                     element-loading-background="rgba(0, 0, 0, 0)"

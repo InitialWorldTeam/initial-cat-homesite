@@ -17,6 +17,9 @@ export default {
     computed: {
         isShowSellModal() {
             return Boolean(this.curSellCat);
+        },
+        address() {
+            return this.$route.params?.id;
         }
     },
     //数据
@@ -40,15 +43,21 @@ export default {
         clearCellCat() {
             this.curSellCat = null;
             $("body").removeClass('disable');
+        },
+        goToDetail(item) {
+            const PATH = '/collectibles/' + item.id;
+            this.$router.push({
+                path: PATH
+            });
         }
     },
     //请求数据
     async created() {
-        
+        if (this.address !== this.curRootWallet.address || !this.curQueryWallet) {
+            this.queryBalance(this.address);
+        }
     },
-    async mounted() {
-        
-    }
+    async mounted() {}
 };
 </script>
 

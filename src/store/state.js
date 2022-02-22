@@ -1,6 +1,7 @@
 export default {
-    walletAccounts: [], // 维护所有钱包数据
+    walletAccounts: [], // 维护所有钱包数据，默认加载 Polkadot已有钱包
     curWalletIndex: 0, // 当前钱包索引
+    curQueryWallet: null, // 当前Url参数中的钱包数据
     isApp: false, // 是否移动端
     loading: false, // 全局Loading
     curNav: 'Home', // 标记当前路由页面
@@ -11,7 +12,7 @@ export default {
         },
         {
             name: 'My NFTs',
-            path: '/myNft'
+            path: '/myNft/'
         },
         {
             name: 'Box',

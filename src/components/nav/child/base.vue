@@ -1,15 +1,12 @@
 <template>
-    <div>
-    
-    </div>
+    <div></div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex';
-import common from '@/common/common'
+import common from "@/common/common";
 
 export default {
-    mixins: [ common ],
+    mixins: [common],
     //部件
     components: {},
     //静态
@@ -17,46 +14,43 @@ export default {
     //对象内部的属性监听，也叫深度监听
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
-    computed: {
-        ...mapState([
-            'navList',
-            'curNav'
-        ]),
-        ...mapGetters([
-            'curWallet'
-        ])
-    },
+    computed: {},
     //数据
-    data(){
-      return {
-          isShowMenu: false,
-      }
+    data() {
+        return {
+            isShowMenu: false
+        };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
-        ...mapMutations([
-            'setCurNav'
-        ]),
         goToNav(item) {
             if (item.path) {
                 const e = event.target;
                 const LEFT = e.offsetLeft + e.clientWidth / 2;
-                this.$refs.navLine.style.left = LEFT + 'px';
+                this.$refs.navLine.style.left = LEFT + "px";
             }
             this.goToPage(item);
         },
-        goToPage(item) {
+        async goToPage(item) {
             this.isShowMenu = false;
             $("body").removeClass("disable");
-            if(!item) {
+            if (!item) {
                 return false;
             }
             this.setCurNav(item?.name);
             if (!item.path || this.$route.path === item?.path) {
                 return false;
-            };
+            }
+            const arr = ["My NFTs"];
+            if (!this.curRootWallet) {
+                await this.initWallet();
+            }
+
+            const PATH = arr.includes(item.name)
+                ? item.path + this.curRootWallet.address
+                : item.path;
             this.$router.push({
-                path: item.path
+                path: PATH
             });
         },
         handleShowMenuModal() {
@@ -66,10 +60,8 @@ export default {
     },
     //请求数据
     created() {},
-    mounted() {},
-}
+    mounted() {}
+};
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

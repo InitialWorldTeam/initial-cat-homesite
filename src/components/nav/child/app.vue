@@ -8,7 +8,7 @@
 
             <div class="box-right flex">
                 <!-- 钱包 -->
-                <div class="box-wallet" v-if="curWallet">{{ curWallet.address | addressFormat }}</div>
+                <div class="box-wallet" v-if="curRootWallet">{{ curRootWallet.address | addressFormat }}</div>
                 <div class="btn-connect-wallet" v-else @click="initWallet">Connect Wallet</div>
 
                 <!-- 菜单按钮 -->

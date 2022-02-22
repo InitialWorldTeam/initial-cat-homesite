@@ -1,5 +1,6 @@
 export default {
-    curWallet(state, getters) {
+    // 当前浏览器(Polkadot)环境钱包
+    curRootWallet(state, getters) {
         return state.walletAccounts[state.curWalletIndex] || null;
     },
     // token精度
