@@ -6,5 +6,5 @@ export default {
     // token精度
     tokenDecimals(state) {
         return state.apiProvider?.registry?.chainDecimals[0] || 9999;
-    }
+    },
 };

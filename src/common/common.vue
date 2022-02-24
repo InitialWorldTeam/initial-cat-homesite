@@ -24,6 +24,7 @@ import {
     IpfsSwitchDomain
 } from "@/config/util/const";
 import Decimal from "decimal.js";
+import axios from 'axios';
 
 export default {
     //部件
@@ -61,13 +62,15 @@ export default {
             "curNav",
             "curQueryWallet",
         ]),
-        ...mapGetters(["curRootWallet"])
+        ...mapGetters(["curRootWallet"]),
+        // 标记当前路由页面
+        curNav() {
+            return this.$route.name;
+        }
     },
     //数据
     data() {
-        return {
-            apiProvider: null
-        };
+        return {};
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
@@ -79,7 +82,6 @@ export default {
             "setLoadingNftSta",
             "setCurWalletIdx",
             "setClientType",
-            "setCurNav",
             "setQueryWallet"
         ]),
         checkIsLoadWallet() {
@@ -105,13 +107,15 @@ export default {
 
             this.setClientType(isApp);
         },
+        replaceIpfsUrl(ipfsUrl) {
+            return ipfsUrl.replace("ipfs://", IpfsSwitchDomain);
+        },
         // 获取NFT真实地址
         async getNftUrl(ipfsUrl, type = "replace") {
             // type 获取Url的方式. replace 直接替换为可以访问地址，post 请求服务器获取对应Url
-
             if (type === "replace") {
                 return new Promise((resolve, reject) => {
-                    ipfsUrl = ipfsUrl.replace("ipfs://", IpfsSwitchDomain);
+                    ipfsUrl = this.replaceIpfsUrl(ipfsUrl);
                     resolve(ipfsUrl);
                 });
             } else {
@@ -144,10 +148,12 @@ export default {
             return this.$http
                 .post(url, config, "json")
                 .then(res => {
+                    console.log('all Nft: ', res);
                     return res?.data;
                 })
                 .catch(err => {
                     console.log("err:", err);
+
                     return false;
                 });
         },
@@ -194,19 +200,58 @@ export default {
             let Images = null;
             const { resources, priority } = nft;
 
+            const META_TYPE = {
+                threeD: ['gltf', 'fbx']
+            }
             // 根据优先级ID 查询并输入资源
-            let queryResource = priorityId => {
+            let queryResource = async priorityId => {
                 let res = false;
                 // 在 resources 中未找到 priorityId 对应资源，则返回false。继续查询下一个 priorityId
                 for (let item of resources) {
                     if (item.id === priorityId) {
-                        res = getAssets(item);
+                        if (item.metadata) {
+                            item.metaType = await getMetaType(item);
+                            const isThree = META_TYPE.threeD.some((child) => {
+                                if (item.metaType.includes(child)) {
+                                    item.metaType = child;
+                                    return true;
+                                }
+                                return false;
+                            })
+
+                            if (isThree) {
+                                res = formatAssetObj(3, item);
+                            } else {
+                                res = formatAssetObj(2, item);
+                            }
+                        } else {
+                            res = formatAssetObj(2, item);
+                        }
                         break;
                     }
                 }
                 return res;
             };
 
+            let formatAssetObj = async (type, item) => {
+                return {
+                    type: type === 3 ? item.metaType : 'images',
+                    renderUrl: type === 3 ? this.replaceIpfsUrl(item.src) : await getAssets(item),
+                    ...item
+                }
+            }
+
+            // 根据metadata获取资源类型
+            let getMetaType = async (item) => {
+                let url = this.replaceIpfsUrl(item.metadata);
+                console.log(url);
+                return axios.get(url)
+                    .then(res => {
+                        return res?.data?.mimeType;
+                    })
+            }
+
+            // 获取2d静态资源
             let getAssets = async item => {
                 let res;
                 if (item.base) {
@@ -281,10 +326,13 @@ export default {
             // 更新NFT列表
             const NFT_DATA = await this.queryNftData(ALL_NFTS);
             this.setCatAssetList(NFT_DATA);
+            console.log('NFT_DATA', NFT_DATA);
 
-            // 更新NFT加载状态
-            const NFT_STA = NFT_DATA.length ? 1 : 2;
-            this.setLoadingNftSta(NFT_STA);
+            this.$nextTick(() => {
+                // 更新NFT加载状态
+                const NFT_STA = NFT_DATA.length ? 1 : 2;
+                this.setLoadingNftSta(NFT_STA);
+            })
         },
         // 查询钱包余额
         async queryBalance(add) {
@@ -292,7 +340,6 @@ export default {
             if (!api) {
                 api = await this.initApi();
             }
-
             const { data: balance } = await api.query.system.account(
                 add
             );
@@ -347,7 +394,7 @@ export default {
                     signer: injector.signer
                 },
                 status => {
-                    console.log("====Status", status);
+                    console.log("transfer Status: ", status);
                     this.queryBalance(SENDER);
                 }
             );
@@ -383,7 +430,7 @@ export default {
         },
         // 初始化钱包
         async initWallet(cb) {
-            this.apiProvider = await this.initApi();
+            await this.initApi();
 
             // 获取钱包所有帐户信息
             let allAccounts = await web3Accounts({

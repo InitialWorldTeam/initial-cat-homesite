@@ -34,19 +34,24 @@ export default {
         async goToPage(item) {
             this.isShowMenu = false;
             $("body").removeClass("disable");
+
+            // 目前有未开发功能
             if (!item) {
                 return false;
             }
-            this.setCurNav(item?.name);
-            if (!item.path || this.$route.path === item?.path) {
+
+            // 导航栏点击当前路由无效
+            if (!item.path || this.$route.name.includes(item?.name)) {
                 return false;
             }
-            const arr = ["My NFTs"];
+
+            const arr = ["/myNft/"];
+            // 跳转 My Nfts时，如果未连接浏览器钱包，则自动初始化
             if (!this.curRootWallet) {
                 await this.initWallet();
             }
-
-            const PATH = arr.includes(item.name)
+            // 手动点击导航跳转 My Nfts, 钱包参数默认当前连接钱包
+            const PATH = arr.includes(item.path)
                 ? item.path + this.curRootWallet.address
                 : item.path;
             this.$router.push({

@@ -1,7 +1,6 @@
 import { WEBGL } from 'three/examples/jsm/WebGL.js';
 import { Viewer } from './viewer.js';
 import { SimpleDropzone } from 'simple-dropzone';
-import { ValidationController } from './validation-controller.js';
 import queryString from 'query-string';
 
 if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
@@ -10,7 +9,7 @@ if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
     console.error('WebGL is not supported in this browser.');
 }
 
-export default class gApp {
+export default class threeRender {
 
     /**
      * @param  {Element} el
@@ -28,12 +27,12 @@ export default class gApp {
                 : null
         };
 
-        this.el = el;
+        let container = document.body;
         this.viewer = null;
         this.viewerEl = null;
-        this.spinnerEl = el.querySelector('.spinner');
-        this.dropEl = el.querySelector('.dropzone');
-        this.inputEl = el.querySelector('#file-input');
+        this.spinnerEl = container.querySelector('.spinner');
+        this.dropEl = container.querySelector(el);
+        this.inputEl = container.querySelector('#file-input');
 
         // this.createDropzone();
         this.hideSpinner();

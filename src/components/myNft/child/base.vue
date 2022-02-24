@@ -12,13 +12,26 @@ export default {
     //静态
     props: {},
     //对象内部的属性监听，也叫深度监听
-    watch: {},
+    watch: {
+        curRootWallet(newVal) {
+            if (newVal) {
+                this.$router.push({
+                    path: `/myNft/${newVal.address}`
+                })
+            }
+        },
+        urlAddress(newVal) {
+            if (newVal) {
+                this.queryBalance(newVal);
+            }
+        }
+    },
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {
         isShowSellModal() {
             return Boolean(this.curSellCat);
         },
-        address() {
+        urlAddress() {
             return this.$route.params?.id;
         }
     },
@@ -53,8 +66,8 @@ export default {
     },
     //请求数据
     async created() {
-        if (this.address !== this.curRootWallet.address || !this.curQueryWallet) {
-            this.queryBalance(this.address);
+        if (this.urlAddress !== this.curRootWallet?.address || !this.curQueryWallet) {
+            this.queryBalance(this.urlAddress);
         }
     },
     async mounted() {}

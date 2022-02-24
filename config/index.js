@@ -31,6 +31,13 @@ module.exports = {
                 pathRewrite: {
                     '^/mailApi': ''
                 }
+            },
+            '/pinata': {
+                target: "https://test-initialworld.mypinata.cloud",
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/mailApi': ''
+                }
             }
         },
 

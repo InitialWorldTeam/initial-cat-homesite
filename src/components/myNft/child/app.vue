@@ -5,10 +5,10 @@
             <div class="box-wallet-adderss">
                 <h1 class="h1">My Wallet Address</h1>
                 <h2 v-if="curQueryWallet">
-                    <span v-text="curQueryWallet.address"></span>
+                    <span v-text="urlAddress"></span>
                     <i
                         class="btn-copy"
-                        v-clipboard:copy="curQueryWallet.address"
+                        v-clipboard:copy="urlAddress"
                         v-clipboard:success="onCopy"
                     ></i>
                 </h2>
@@ -67,7 +67,7 @@
                     </template>
                 </div>
                 <!-- Disconnect -->
-                <div class="box-no-connect" v-else>
+                <div class="box-no-connect" v-if="false">
                     <div class="btn-connect-wallet" @click="initWallet">Connect Wallet</div>
                 </div>
             </div>
@@ -128,12 +128,7 @@ export default {
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {},
     //请求数据
-    created() {
-        // 已连接钱包且未查询NFT时
-        if (this.walletAccounts.length && !this.myNftAssets.length) {
-            this.queryBalance();
-        }
-    },
+    created() {},
     mounted() {}
 };
 </script>

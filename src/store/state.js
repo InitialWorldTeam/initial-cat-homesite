@@ -4,7 +4,6 @@ export default {
     curQueryWallet: null, // 当前Url参数中的钱包数据
     isApp: false, // 是否移动端
     loading: false, // 全局Loading
-    curNav: 'Home', // 标记当前路由页面
     navList: [ // 导航菜单列表
         {
             name: 'Home',

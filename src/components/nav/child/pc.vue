@@ -45,7 +45,7 @@
                         @click="handletShowSelectWallet"
                     >{{ curRootWallet.address | addressFormat }}</div>
                     <!-- 未连接 -->
-                    <div class="btn-connect-wallet" v-else @click="initWallet">Connect Wallet</div>
+                    <div class="btn-connect-wallet" v-else @click="initWallet()">Connect Wallet</div>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@ export default {
         selectWallet(index) {
             if (+this.curWalletIndex != index) {
                 this.setCurWalletIdx(index);
-                this.queryBalance();
+                // this.queryBalance(this.walletAccounts[index]);
             }
             this.showSwitchWallet = false;
         }
@@ -238,7 +238,7 @@ export default {
         &.cur {
             border-color: $fontColor-1;
             font-weight: bold;
-            background: url(../../../assets/img/common/icon-wallet-cur.png) no-repeat right 10px center / 24px auto;
+            background: url(../../../assets/img/common/icon-wallet-cur.png) no-repeat right 10px center / 18px auto;
         }
     }
 }

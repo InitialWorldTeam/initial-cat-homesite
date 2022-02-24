@@ -107,7 +107,7 @@ export class Viewer {
         const fov = options.preset === Preset.ASSET_GENERATOR
             ? 0.8 * 180 / Math.PI
             : 60;
-        this.defaultCamera = new PerspectiveCamera(fov, el.clientWidth / el.clientHeight, 0.01, 1000);
+        this.defaultCamera = new PerspectiveCamera(fov, el.clientWidth / el.clientHeight, 0.1, 200);
         this.activeCamera = this.defaultCamera;
         this.scene.add(this.defaultCamera);
 
@@ -167,11 +167,9 @@ export class Viewer {
         this.render();
 
         this.prevTime = time;
-
     }
 
     render() {
-
         this.renderer.render(this.scene, this.activeCamera);
         if (this.state.grid) {
             this.axesCamera.position.copy(this.defaultCamera.position)
@@ -212,7 +210,6 @@ export class Viewer {
                 loader = new FBXLoader()
                     .setCrossOrigin('anonymous');
                 loader.load(url, (obj) => {
-                    console.log('fbx: ', obj);//查看加载后返回的模型对象
                     // 适当平移fbx模型位置
                     obj.translateY(0);
 
@@ -234,8 +231,6 @@ export class Viewer {
             loader.load(url, (gltf) => {
                 const scene = gltf.scene || gltf.scenes[0];
                 const clips = gltf.animations || [];
-
-                console.log('scene:', scene);
 
                 if (!scene) {
                     // Valid, but not supported by this viewer.
@@ -324,7 +319,7 @@ export class Viewer {
         this.updateDisplay();
 
         window.content = this.content;
-        console.info('[glTF Viewer] THREE.Scene exported as `window.content`.');
+        // console.info('[glTF Viewer] THREE.Scene exported as `window.content`.');
         this.printGraph(this.content);
 
         this.resize();
@@ -332,7 +327,7 @@ export class Viewer {
 
     printGraph(node) {
 
-        console.group(' <' + node.type + '> ' + node.name);
+        // console.group(' <' + node.type + '> ' + node.name);
         node.children.forEach((child) => this.printGraph(child));
         console.groupEnd();
 

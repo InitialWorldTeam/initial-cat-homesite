@@ -490,17 +490,16 @@ export default {
 
     > section {
         flex-direction: column;
-        > div {
-            @extend .common-pc-width;
-        }
 
         .box-banner {
             height: auto;
             max-height: 400px;
+            min-height: 255px;
             width: 100%;
             margin-bottom: 56px;
             overflow: hidden;
             position: relative;
+             @extend .common-pc-width;
 
             .box-img {
                 display: block;
@@ -516,6 +515,10 @@ export default {
                 left: 12vw;
                 z-index: 1;
             }
+        }
+
+        .box-main {
+             @extend .common-pc-width;
         }
 
         .box-section-common {

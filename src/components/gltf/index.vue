@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="dropzone"></div>
+        <div class="three"></div>
         <div class="spinner"></div>
     </div>
 </template>
 
 <script>
-import gApp from './app.js';
+import threeRender from '@/config/threeRender';
 export default {
     //部件
     components: {},
@@ -25,7 +25,7 @@ export default {
     //请求数据
     created() {},
     mounted() {
-        const app = new gApp(document.body, location);
+        const app = new threeRender('.three', location);
 
         // 加载Gltf
         // let url = 'https://rmrk.mypinata.cloud/ipfs/bafybeihfwwnr77s2puuzmdlxwc6gb56j7f5hvk4vzc6zd63kanluvfsghi';
@@ -42,8 +42,9 @@ export default {
 </script>
 
 <style scoped>
-.dropzone {
-    width: 100vw;
-    height: 100vh;
+.three {
+    width: 800px;
+    height: 500px;
+    background: #fff;
 }
 </style>

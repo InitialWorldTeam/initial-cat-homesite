@@ -144,7 +144,6 @@ export default {
             if (!item.path || this.$route.path === item?.path) {
                 return false;
             };
-            this.setCurNav(item?.name);
             this.$router.push({
                 path: item.path
             });
@@ -162,7 +161,6 @@ export default {
             this.cueEcoIdx = idx;
         },
         handleGoIntroductDetail(item) {
-            this.setCurNav('FAQ');
             this.$router.push({
                 name: 'Faq',
                 params: {

@@ -5,7 +5,7 @@ import qs from 'qs';
 import store from '../store';
 import { Toast } from "vant";
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 axios.defaults.crossDomain = true;
 axios.defaults.credentials = 'include';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';

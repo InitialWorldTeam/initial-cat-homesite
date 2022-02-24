@@ -19,7 +19,7 @@ export default {
             return [this.$route.params?.id];
         },
         saleAble() {
-            return this.curRootWallet.address === this.collectibles?.rootowner ? true : false;
+            return this.curRootWallet?.address === this.collectibles?.rootowner ? true : false;
         }
     },
     //数据
