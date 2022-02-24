@@ -12,10 +12,18 @@
             </div>
 
             <!-- Info -->
-            <div class="box-info flexBetween">
+            <div class="box-info">
                 <div class="box-left">
-                    <h1>{{ collectibles.collection }}</h1>
+                    <h1 class="flex">
+                        <span>{{ collectibles.collection }}</span>
+                        <span :class="[renderType]" class="box-tag">{{
+                            TYPE[renderType]
+                        }}</span>
+                    </h1>
                     <h2>{{ collectibles.symbol }}</h2>
+                    <div class="box-own">
+                        Owned By: <span>{{collectibles.rootowner}}</span>
+                    </div>
                 </div>
 
                 <div class="box-right flex">
@@ -27,6 +35,8 @@
                     </div>
                 </div>
             </div>
+
+
 
             <!-- Sale -->
             <div class="box-sale">
@@ -41,7 +51,7 @@
 
 <script>
 import Base from "./base";
-import NftItem from "@/common/nftItem";
+import NftItem from "@/common/nftItem/collectItem.vue";
 
 export default {
     mixins: [Base],
@@ -80,11 +90,14 @@ export default {
 
     .box-display {
         @include flexCenter;
-        height: 420px;
+        height: 600px;
         margin: 0 auto 60px;
     }
 
     .box-info {
+        display: flex;
+        justify-content: space-between;
+
         .box-left {
             h1 {
                 font-size: 34px;
@@ -102,9 +115,25 @@ export default {
                 color: #818189;
                 margin-top: 18px;
             }
+
+            .box-own {
+                font-size: 14px;
+                line-height: 30px;
+                display: flex;
+                margin-top: 14px;
+
+                span {
+                    display: block;
+                    padding-left: 34px;
+                    margin-left: 10px;
+                    background: url(../img/img-owner.png) no-repeat left center / 30px auto;
+                }
+            }
         }
 
         .box-right {
+            height: 40px;
+
             .btn-item {
                 @include btn-common;
                 height: 40px;
@@ -155,6 +184,26 @@ export default {
                 background-color: rgba($color: #ccc, $alpha: 0.2);
                 color: #eee;
             }
+        }
+    }
+
+    .box-tag {
+        padding: 0 4px;
+        border-radius: 4px;
+        border-width: 0.5px;
+        border-style: solid;
+        font-size: 14px;
+        height: 24px;
+        @include flexCenter;
+        margin-left: 10px;
+
+        &.img {
+            border-color: rgb(235, 48, 137);
+            color: rgb(235, 48, 137);
+        }
+        &.three {
+            border-color: rgb(128, 90, 213);
+            color: rgb(128, 90, 213);
         }
     }
 }

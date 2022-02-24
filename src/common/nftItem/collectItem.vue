@@ -1,7 +1,7 @@
 <template>
     <div
         class="box-cat-item"
-        :class="{ app: app, disable: source === 'list' }"
+        :class="{ app: app }"
         v-if="nftItem.preview"
     >
         <main>
@@ -32,20 +32,6 @@
                 <div class="spinner"></div>
             </div>
         </main>
-
-        <!-- NFT信息 -->
-        <div class="box-info" v-if="source === 'list'">
-            <div class="box-1 flexBetween">
-                <h6>{{ nftItem.preview.id }}</h6>
-                <span :class="[renderType]">{{ TYPE[renderType] }}</span>
-            </div>
-            <h1 class="box-name">{{nftItem.symbol}}</h1>
-        </div>
-
-        <!-- 按钮 -->
-        <div class="btn-sell" @click="sellCat(nftItem)" v-if="showSell">
-            Sell
-        </div>
     </div>
 </template>
 
@@ -122,20 +108,7 @@ export default {
 .box-cat-item {
     position: relative;
     border-radius: 6px;
-    width: 180px;
-    // overflow: hidden;
-
-    &.disable::after {
-        content: "";
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        z-index: 9999;
-        background-color: rgba($color: #000000, $alpha: 0);
-    }
+    width: 500px;
 
     &.app {
         width: 83px;

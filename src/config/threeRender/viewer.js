@@ -155,14 +155,15 @@ export class Viewer {
         window.addEventListener('resize', this.resize.bind(this), false);
     }
 
-    animate(time) {
+    animate() {
 
         requestAnimationFrame(this.animate);
-
+        let time = new Date().getTime();
         const dt = (time - this.prevTime) / 1000;
 
         this.controls.update();
         this.stats.update();
+        this.content && this.content.rotateY(0.2 * dt);
         this.mixer && this.mixer.update(dt);
         this.render();
 
@@ -265,7 +266,7 @@ export class Viewer {
         object.position.x += (object.position.x - center.x);
         object.position.y += (object.position.y - center.y);
         object.position.z += (object.position.z - center.z);
-        this.controls.maxDistance = size * 10;
+        this.controls.maxDistance = size * 5;
         this.defaultCamera.near = size / 100;
         this.defaultCamera.far = size * 100;
         this.defaultCamera.updateProjectionMatrix();

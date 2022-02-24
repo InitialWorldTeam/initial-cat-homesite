@@ -20,13 +20,21 @@ export default {
         },
         saleAble() {
             return this.curRootWallet?.address === this.collectibles?.rootowner ? true : false;
+        },
+        renderType() {
+            // 返回资源类型
+            return this.collectibles.preview?.type === "images" ? "img" : "three";
         }
     },
     //数据
     data() {
         return {
             collectibles: null,
-            loading: true
+            loading: true,
+            TYPE: {
+                img: "IMAGE",
+                three: "3D"
+            }
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；

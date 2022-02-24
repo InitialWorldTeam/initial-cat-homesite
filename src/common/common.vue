@@ -340,9 +340,8 @@ export default {
             if (!api) {
                 api = await this.initApi();
             }
-            const { data: balance } = await api.query.system.account(
-                add
-            );
+
+            const { data: balance } = await api.query.system.account(add);
 
             let wallet = {
                 address: add,

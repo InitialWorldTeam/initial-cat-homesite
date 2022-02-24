@@ -3,7 +3,9 @@
 </template>
 
 <script>
-import common from '@/common/common';
+import common from "@/common/common";
+import { CountUp } from 'countup.js';
+import Decimal from "decimal.js";
 
 export default {
     mixins: [common],
@@ -17,12 +19,27 @@ export default {
             if (newVal) {
                 this.$router.push({
                     path: `/myNft/${newVal.address}`
-                })
+                });
             }
         },
         urlAddress(newVal) {
             if (newVal) {
                 this.queryBalance(newVal);
+            }
+        },
+        myNftAssets(newVal) {
+            if (newVal) {
+                this.countNum('assetNum', newVal.length, {
+                    duration: 3,
+                });
+            }
+        },
+        curQueryWallet(newVal) {
+            if (newVal) {
+                const res = this.formatKsmUnit(newVal.balance.free);
+                this.countNum('balance', +res, {
+                    decimalPlaces: 4
+                });
             }
         }
     },
@@ -49,24 +66,45 @@ export default {
         },
         // 点击事件-选择出售Cat
         sellCat(item) {
-            $("body").addClass('disable');
+            $("body").addClass("disable");
             this.curSellCat = item;
         },
         // 取消出售
         clearCellCat() {
             this.curSellCat = null;
-            $("body").removeClass('disable');
+            $("body").removeClass("disable");
         },
         goToDetail(item) {
-            const PATH = '/collectibles/' + item.id;
+            const PATH = "/collectibles/" + item.id;
             this.$router.push({
                 path: PATH
             });
-        }
+        },
+        countNum(el, endNum, option) {
+            var options = {
+                useEasing: true, // 使用缓和
+                useGrouping: true, // 使用分组(是否显示千位分隔符,一般为 true)
+                separator: ",", // 分隔器(千位分隔符,默认为',')
+                decimal: ".", // 十进制(小数点符号,默认为 '.')
+                prefix: "", // 字首(数字的前缀,根据需要可设为 $,¥,￥ 等)
+                suffix: "", // 后缀(数字的后缀 ,根据需要可设为 元,个,美元 等)
+                duration: 5,
+                ...option
+            };
+
+            let demo = new CountUp(el, +endNum, options);
+            demo.start();
+        },
+        formatKsmUnit(num) {
+            return new Decimal(+num / Decimal.pow(10, 12)).toFixed(4);
+        },
     },
     //请求数据
     async created() {
-        if (this.urlAddress !== this.curRootWallet?.address || !this.curQueryWallet) {
+        if (
+            this.urlAddress !== this.curRootWallet?.address ||
+            !this.curQueryWallet
+        ) {
             this.queryBalance(this.urlAddress);
         }
     },

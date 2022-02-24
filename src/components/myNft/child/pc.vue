@@ -15,7 +15,7 @@
                 <section>
                     <div class="box-wallet-info-item">
                         <h3>My NFTs</h3>
-                        <div class="box-num" v-text="myNftAssets.length"></div>
+                        <div class="box-num" id="assetNum">0</div>
                     </div>
                     <div class="box-wallet-info-item">
                         <h3>Balance</h3>
@@ -26,12 +26,11 @@
                         <h3>Balance</h3>
                         <div class="box-num box-num-ksm">
                             <span
-                                v-if="curQueryWallet && curQueryWallet.balance"
-                                >{{
-                                    curQueryWallet.balance.free | ksmUnit
-                                }}</span
+                                
+                                id="balance"
+                                >0.00</span
                             >
-                            <span v-else>0.00</span>
+                            <!-- <span v-else>0.00</span> -->
                             KSM
                         </div>
                         <p>$0.00</p>
@@ -131,7 +130,7 @@
 
 <script>
 import Base from "./base";
-import NftItem from "@/common/nftItem";
+import NftItem from "@/common/nftItem/index.vue";
 
 export default {
     mixins: [Base],
@@ -266,7 +265,7 @@ export default {
                 margin-bottom: 40px;
 
                 &:not(:last-child) {
-                    margin-right: 80px;
+                    margin-right: 60px;
                 }
             }
         }
