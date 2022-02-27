@@ -100,10 +100,8 @@ export default {
                 }
             );
 
-            this.sleep(3000);
+            await this.sleep();
             this.isShowMint = false;
-
-            // console.log(tx);
         }
     },
     //请求数据
