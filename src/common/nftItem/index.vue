@@ -28,7 +28,7 @@
             </div>
 
             <!-- 3D渲染 -->
-            <div class="box-cat-part-item" id="three" v-else>
+            <div class="box-cat-part-item" :id="renderThreeId" v-else>
                 <div class="spinner"></div>
             </div>
         </main>
@@ -73,6 +73,10 @@ export default {
         source: {
             type: String,
             default: ""
+        },
+        index: {
+            type: Number,
+            default: 0
         }
     },
     //对象内部的属性监听，也叫深度监听
@@ -85,6 +89,9 @@ export default {
         renderType() {
             // 返回资源类型
             return this.nftItem.preview?.type === "images" ? "img" : "three";
+        },
+        renderThreeId() {
+            return `three-${this.index}`;
         }
     },
     //数据
@@ -111,7 +118,7 @@ export default {
         const { type, renderUrl } = this.nftItem.preview;
 
         if (type !== "images") {
-            const app = new threeRender("#three", location);
+            const app = new threeRender(`#${this.renderThreeId}`, location);
             app.view(renderUrl, type);
         }
     }

@@ -15,10 +15,9 @@
             <div class="box-info">
                 <div class="box-left">
                     <h1 class="flex">
-                        <span>{{ collectibles.collection }}</span>
-                        <span :class="[renderType]" class="box-tag">{{
-                            TYPE[renderType]
-                        }}</span>
+                        <span class="name">{{ collectibles.collection }}</span>
+                        <span :class="[renderType]" class="box-tag">
+                            {{ TYPE[renderType] }}</span>
                     </h1>
                     <h2>{{ collectibles.symbol }}</h2>
                     <div class="box-own">
@@ -99,44 +98,53 @@ export default {
     }
 
     .box-info {
-        display: flex;
-        justify-content: space-between;
+        // display: flex;
+        // justify-content: space-between;
 
         .box-left {
             h1 {
-                font-size: 34px;
-                line-height: 36px;
+                font-size: 16px;
+                line-height: 24px;
                 font-family: FuturaT;
                 font-weight: normal;
                 color: #ffffff;
+                display: flex;
+                
+                .name {
+                    @include ellipsis;
+                    width: 85%;
+                }
             }
 
             h2 {
-                font-size: 18px;
+                font-size: 14px;
                 line-height: 20px;
                 font-family: Myriad Pro;
                 font-weight: 400;
                 color: #818189;
-                margin-top: 18px;
+                margin-top: 10px;
             }
 
             .box-own {
-                font-size: 14px;
-                line-height: 30px;
+                font-size: 10px;
+                line-height: 20px;
                 display: flex;
                 margin-top: 14px;
 
                 span {
                     display: block;
-                    padding-left: 34px;
+                    padding-left: 24px;
                     margin-left: 10px;
-                    background: url(../img/img-owner.png) no-repeat left center / 30px auto;
+                    background: url(../img/img-owner.png) no-repeat left center / 20px auto;
+                    width: calc(100% - 90px);
+                    @include ellipsis;
                 }
             }
         }
 
         .box-right {
             height: 40px;
+            margin-top: 24px;
 
             .btn-item {
                 @include btn-common;
@@ -147,7 +155,7 @@ export default {
                 padding: 0 10px;
                 color: #110f19;
                 letter-spacing: 0px;
-                margin-left: 16px;
+                margin-right: 16px;
 
                 i {
                     display: block;
@@ -171,7 +179,7 @@ export default {
     }
 
     .box-sale {
-        margin-top: 40px;
+        margin-top: 24px;
 
         .box-sale-item {
             width: 300px;

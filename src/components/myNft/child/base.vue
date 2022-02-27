@@ -102,10 +102,7 @@ export default {
     },
     //请求数据
     async created() {
-        if (
-            this.urlAddress !== this.curRootWallet?.address ||
-            !this.curQueryWallet
-        ) {
+        if ( this.urlAddress ) {
             this.queryBalance(this.urlAddress);
         }
     },

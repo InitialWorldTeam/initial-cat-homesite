@@ -50,7 +50,9 @@ function checkCode(res, isToast) {
     } else {
         if (isToast) {
             msg && Toast.fail({
-                message: msg
+                message: msg,
+                duration: 2 * 1000,
+                className: 'commonToast-2'
             });
         }
         return Promise.reject(res?.data);

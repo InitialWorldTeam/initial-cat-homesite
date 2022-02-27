@@ -51,7 +51,7 @@
                 >
                     <!-- own NFT -->
                     <section v-if="loadingNftSta === 1">
-                        <template v-for="item in myNftAssets">
+                        <template v-for="(item,index) in myNftAssets">
                             <div
                                 :key="item.id"
                                 class="box-nft"
@@ -59,6 +59,7 @@
                             >
                                 <nft-item
                                     :nftItem="item"
+                                    :index="index"
                                     source="list"
                                     @sell="sellCat"
                                 ></nft-item>

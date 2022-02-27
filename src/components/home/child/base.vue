@@ -152,14 +152,13 @@ export default {
             this.myBanner = new Swiper(".swiper-banner", {
                 loop: true, // 循环模式选项
                 autoplay: {
-                    delay: 10000,
+                    delay: 4000,
                     disableOnInteraction: false // 用户操作swiper之后，是否禁止autoplay
                 },
                 slidesPerView: 1
             });
         },
         goToBanner(item) {
-            console.log(8888);
             const { type } = item;
             if (type === 'mint') {
                 this.goToMint();
