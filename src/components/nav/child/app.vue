@@ -86,8 +86,8 @@ export default {
     min-width: auto;
 
     .box-logo {
-        height: 16px;
-        width: 96px;
+        height: 18px;
+        width: 80px;
         background-image: url(../../../assets/img/common/img-logo-world.png);
     }
 

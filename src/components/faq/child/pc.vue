@@ -6,7 +6,11 @@
                 <!-- <h2>InitialWorld</h2> -->
                 <!-- <h2>Preface</h2> -->
                 <p>InitialWorld is a coordinated Metaverse Connector based on blockchain. NFT will be used as a core asset for cross-metaverse transfer.</p>
-                <p>At Initial World, we will build a stream of low-barrier technical tools to help studios and users easily create SubMetaverse and NFT, allowing simple integration into all Metaverse via Initial World.</p>
+                <p>At InitialWorld, we will build a stream of low-barrier technical tools to help studios and users easily create SubMetaverse and NFT, allowing simple integration into all Metaverse via InitialWorld.</p>
+
+                <div class="box-img-item">
+                    <img :src="imgList[0]" alt="">
+                </div>
 
                 <div class="list-item" id="userClient">
                     <h3>InitialWorld User Client</h3>
@@ -16,47 +20,56 @@
                 </div>
 
                 <div class="list-item">
-                    <h3>Avatar NFT</h3>
-                    <div>Cat is the first theme image of Initial World. When you enter Initial World, you will get an Initial Cat 3D for free. You can use this Initial Cat to enter any Metaverse connected to Initial World and get Loot to equip it.</div>
+                    <h3>InitialCat</h3>
+                    <div>Cat is the first theme avatars of InitialWorld. When you enter InitialWorld, you will get an InitialCat 3D NFT for free. You can use this Initial Cat to enter any Metaverse connected to Initial World and get Loot to equip it.</div>
+                    <div class="box-img-item small">
+                        <img :src="imgList[10]" alt="">
+                        <img :src="imgList[11]" alt="">
+                        <img :src="imgList[12]" alt="">
+                        <img :src="imgList[13]" alt="">
+                    </div>
                     <div>We will continue to introduce new themed avatars until users can use InitialStudio to create their own avatars.</div>
-                    <div></div>
-                </div>
-
-                <div class="list-item">
-                    <h3>Rare NFT</h3>
-                    <div>You can get rare NFT in many ways. It represents the release of a new theme image of Initial World. Whenever a new theme image is added to Initial World, a new treasure NFT will be issued.</div>
-                    <video
-                        :src='require("../../home/video/video-rareNft.mp4").default'
-                        muted
-                        autoplay
-                        loop
-                        class="video-item"
-                    ></video>
                 </div>
 
                 <div class="list-item">
                     <h3>Accessories NFT</h3>
                     <div>Users may get NFT in different SubMetaverse. We call it Accessories NFT. Accessories NFT can make your themed avatar more gorgeous. When avatar is equipped with Accessories NFT, you can get more $NIC in the mission. You can sell your own Accessories NFT to other users.</div>
+                    <div class="box-img-item small">
+                        <img :src="imgList[4]" alt="">
+                    </div>
                 </div>
 
                 <div class="list-item">
                     <h3>Suite NFT</h3>
                     <div>Suite NFT is very precious in InitialWorld. It is very difficult to collect a complete Suite NFT. Similarly, Suite NFT will bring a very big image change to your avatar. Usually these changes are of commemorative significance. After avatar is equipped with a complete Suite NFT, completing the task will get more $NIC rewards than users equipped with Accessories NFT.</div>
+                    <div class="box-img-item">
+                        <img :src="imgList[5]" alt="">
+                    </div>
                 </div>
 
                 <div class="list-item">
-                    <h3>Home</h3>
-                    <div>Before the launch of InitialStudio, InitialWorld will customize a standardized Home for users. Users can display their NFTs in their Homes and get more rewards.</div>
+                    <h3>Scenes</h3>
+                    <div>Before the launch of InitialStudio, InitialWorld will customize a standardized scenes for users. Users can display their NFTs in their scenes and get more rewards. After the launch of InitialStudio, users can freely change the layout in Scenes.</div>
+                    <div class="box-img-item small">
+                        <img :src="imgList[6]" alt="">
+                        <img :src="imgList[7]" alt="">
+                    </div>
                 </div>
 
                 <div class="list-item" id="metaverse">
                     <h3>SubMetaverse</h3>
-                    <div>SubMetaverse is made by Initial World Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users.</div>
+                    <div>SubMetaverse is made by InitialWorld Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users.</div>
+                    <div class="box-img-item">
+                        <img :src="imgList[8]" alt="">
+                    </div>
                 </div>
 
                 <div class="list-item" id="mysteryBox">
                     <h3>Mystery Box</h3>
                     <div>Users can obtain NFTs launched by SubMetaverse and InitialWorld through Mystery Box. After InitialStudio is opened, users can obtain user-made NFTs through Mystery Box.</div>
+                    <div class="box-img-item">
+                        <img :src="imgList[9]" alt="">
+                    </div>
                 </div>
 
                 <div class="list-item">
@@ -86,18 +99,24 @@
 
                 <div class="list-item">
                     <h3>Allocation</h3>
+                    <div class="box-img-item">
+                        <img :src="imgList[2]" alt="">
+                    </div>
                 </div>
 
                 <div class="list-item">
                     <h3>Utilities</h3>
-                    <div>a.Free to mint your InitialWorld Avatar.</div>
-                    <div>b.Buy Mystery Box, get InitialWorld Rare NFT, wait for airdrop.</div>
-                    <div>c.InitialWorld and SubMetaver 1 will be launched soon.</div>
-                    <div>d. SubMetaverse 1 will sell exclusive NFT.</div>
+                    <div>1.Free to mint your InitialWorld Avatar.</div>
+                    <div>2.Buy Mystery Box, get InitialWorld Rare NFT, wait for airdrop.</div>
+                    <div>3.InitialWorld and SubMetaver 1 will be launched soon.</div>
+                    <div>4. SubMetaverse 1 will sell exclusive NFT.</div>
                 </div>
 
                 <div class="list-item">
                     <h3>Main Elements Logic Map Demonstration</h3>
+                    <div class="box-img-item">
+                        <img :src="imgList[1]" alt="">
+                    </div>
                 </div>
 
                 <div class="list-item">
@@ -108,13 +127,17 @@
                 </div>
 
                 <div class="list-item">
-                    <h3>Coming soon</h3>
-                    <div>InitialStudio</div>
-                    <div>Avatar</div>
-                    <div>Home</div>
-                    <div>Shop</div>
-                    <div>Game</div>
-                    <div>More</div>
+                    <h3>InitialStudio-Coming Soon</h3>
+                    <div>1.	Easily create any type of NFT and integrate it into InitialWorld.</div>
+                    <div>2.	Easily creat SubMetaverse and connect to InitialWorld.</div>
+                    <div>3.	PGC accumulates standards and UGC creates profits.</div>
+                </div>
+
+                <div class="list-item">
+                    <h3>Roadmap</h3>
+                    <div class="box-img-item small">
+                        <img :src="imgList[3]" alt="">
+                    </div>
                 </div>
 
             </section>
@@ -166,6 +189,26 @@ $color2: rgba($color: #fff, $alpha: 0.8);
             text-align: center;
             font-size: 20px;
             line-height: 30px;
+        }
+
+        .box-img-item {
+            height: 400px;
+            @include flexCenter;
+            margin-top: 24px!important;
+
+            &.small {
+                height: 200px;
+            }
+
+            img {
+                display: block;
+                height: 100%;
+                width: auto;
+
+                &:not(:last-child) {
+                    margin-right: 30px;
+                }
+            }
         }
 
         section {

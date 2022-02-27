@@ -15,7 +15,7 @@ export default class threeRender {
      * @param  {Element} el
      * @param  {Location} location
      */
-    constructor(el, location) {
+    constructor(el, location, option={}) {
 
         const hash = location.hash ? queryString.parse(location.hash) : {};
         this.options = {
@@ -24,7 +24,8 @@ export default class threeRender {
             preset: hash.preset || '',
             cameraPosition: hash.cameraPosition
                 ? hash.cameraPosition.split(',').map(Number)
-                : null
+                : null,
+            ...option
         };
 
         let container = document.body;

@@ -37,7 +37,7 @@
                         </div>
                         <div class="box-bottom">
                             <p>The mysterious signal has reached the earth, the cat clan from Inital World has been activated, Wormhole is opened, you have been able to establish contact with Inital World, and all decisions belong to you. Are you ready to join the revolution that will change NFT and Metaverse forever? Our goal is to bring power back to the people. It all started in our Inital World. At this moment, they have awakened, and the revolution has begun, either now or never!</p>
-                            <div class="btn-mint">Mint Now</div>
+                            <div class="btn-mint" @click="goToMint">Mint Now</div>
                         </div>
                     </main>
                 </div>
@@ -45,14 +45,14 @@
                 <!-- Mystery Box -->
                 <div class="box-section-common box-specialLoot">
                     <h1>Mystery Box</h1>
-                    <h2>Your Own Private NFTs from Loot Box</h2>
+                    <h2>Your Own Private NFTs from Mystery Box</h2>
                     <main>
                         <div class="box-left">
                             <img class="img-block" :src="lootBoxImg">
                         </div>
                         <div class="box-right">
-                            <p>You can get the Rare NFTs of Initial World from the Mystery Box. They may be "Race Memorial NFT", "SubMetaverse NFT" or user-created NFTs. Special NFTs can get airdrops, which sounds exciting, wish you have a good time in Initial World.</p>
-                            <div class="btn-enter">Enter</div>
+                            <p>You can obtain NFTs launched by SubMetaverse and InitialWorld through Mystery Box. After InitialStudio is opened,you can obtain user-made NFTs through Mystery Box.Wish you have a good time in InitialWorld</p>
+                            <div class="btn-enter">Coming soon</div>
                         </div>
                     </main>
                 </div>
@@ -223,11 +223,13 @@
 
                     <div class="box-bottom">
                         <div class="box-logo"></div>
-                        <div class="box-copyright">@Initial World Team. 2021</div>
+                        <div class="box-copyright">@InitialWorld Team. 2021</div>
                     </div>
                 </footer>
             </div>
         </section>
+
+        <free-mint ref="freeMint"></free-mint>
     </div>
 </template>
 
@@ -785,7 +787,7 @@ export default {
 
             .box-logo {
                 height: 18px;
-                width: 110px;
+                width: 80px;
                 @include bg-item;
                 background-image: url(../../../assets/img/common/img-logo-world.png);
             }

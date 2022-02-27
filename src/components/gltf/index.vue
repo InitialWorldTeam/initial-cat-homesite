@@ -25,7 +25,9 @@ export default {
     //请求数据
     created() {},
     mounted() {
-        const app = new threeRender('.three', location);
+        const app = new threeRender('.three', location, {
+            bgColor: '0xffffff'
+        });
 
         // 加载Gltf
         // let url = 'https://rmrk.mypinata.cloud/ipfs/bafybeihfwwnr77s2puuzmdlxwc6gb56j7f5hvk4vzc6zd63kanluvfsghi';

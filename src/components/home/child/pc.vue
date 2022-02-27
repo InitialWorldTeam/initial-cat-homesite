@@ -44,7 +44,7 @@
                     <main>
                         <div class="box-left">
                             <p>The mysterious signal has reached the earth, the cat clan from Inital World has been activated, Wormhole is opened, you have been able to establish contact with Inital World, and all decisions belong to you. Are you ready to join the revolution that will change NFT and Metaverse forever? Our goal is to bring power back to the people. It all started in our Inital World. At this moment, they have awakened, and the revolution has begun, either now or never!</p>
-                            <div class="btn-mint">Mint Now</div>
+                            <div class="btn-mint" @click="goToMint">Mint Now</div>
                         </div>
                         <div class="box-right">
                             <!-- <img src="../img/img-mint-cat.png" alt=""> -->
@@ -61,20 +61,20 @@
                 <!-- Mystery Box -->
                 <div class="box-section-common box-specialLoot animate__animated">
                     <h1>Mystery Box</h1>
-                    <h2>Your Own Private NFTs from Loot Box</h2>
+                    <h2>Your Own Private NFTs from Mystery Box</h2>
                     <main>
                         <div class="box-left">
                             <img class="img-block" :src="lootBoxImg">
                         </div>
                         <div class="box-right">
-                            <p>You can get the Rare NFTs of Initial World from the Mystery Box. They may be "Race Memorial NFT", "SubMetaverse NFT" or user-created NFTs. Special NFTs can get airdrops, which sounds exciting, wish you have a good time in Initial World.</p>
+                            <p>You can obtain NFTs launched by SubMetaverse and InitialWorld through Mystery Box. After InitialStudio is opened,you can obtain user-made NFTs through Mystery Box.Wish you have a good time in InitialWorld</p>
                             <el-tooltip
                                 effect="dark"
                                 content="Coming soon"
                                 placement="bottom"
                                 popper-class="popper-coming"
                             >
-                                <div class="btn-enter">Enter</div>
+                                <div class="btn-enter">Coming soon</div>
                             </el-tooltip>
                         </div>
                     </main>
@@ -202,7 +202,7 @@
                 <footer class="box-footer">
                     <div class="box-left">
                         <div class="box-logo"></div>
-                        <div class="box-copyright">@Initial World Team. 2021</div>
+                        <div class="box-copyright">@InitialWorld Team. 2021</div>
                     </div>
                     <div class="box-mid">
                         <template v-for="(item, index) in navList">
@@ -253,16 +253,21 @@
                 </footer>
             </div>
         </section>
+
+        <free-mint ref="freeMint"></free-mint>
     </div>
 </template>
 
 <script>
 import Base from './base';
 
+
 export default {
     mixins: [ Base ],
     //部件
-    components: {},
+    components: {
+        
+    },
     //静态
     props: {},
     //对象内部的属性监听，也叫深度监听
@@ -734,6 +739,12 @@ export default {
                         flex-shrink: 0;
                         border-radius: 10px;
                         overflow: hidden;
+                        display: flex;
+                        align-items: center;
+
+                        img {
+                            height: auto;
+                        }
                     }
 
                     .box-right {
@@ -767,7 +778,7 @@ export default {
                     padding: 48px 90px 60px 93px;
                 }
                 &.box-eco-tab-3 {
-                    padding: 55px 45px 67px 40px;
+                    padding: 30px 45px 40px 40px;
                 }
                 &.box-eco-tab-4 {
                     padding: 70px 79px 67px 70px;
@@ -909,7 +920,7 @@ export default {
                 flex-direction: column;
 
                 &:not(:last-child) {
-                    margin-right: 40px;
+                    margin-right: 66px;
                 }
 
                 img {
@@ -949,8 +960,8 @@ export default {
 
         .box-left {
             .box-logo {
-                height: 26px;
-                width: 148px;
+                height: 33px;
+                width: 145px;
                 @include bg-item;
                 background-image: url(../../../assets/img/common/img-logo-world.png);
             }

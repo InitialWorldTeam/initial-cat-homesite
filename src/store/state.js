@@ -26,8 +26,8 @@ export default {
             path: ''
         },
         {
-            name: 'Faq',
-            path: '/faq'
+            name: 'FAQ',
+            path: '/FAQ'
         },
     ],
     myNftAssets: [], // 当前钱包拥有的NFT列表

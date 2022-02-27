@@ -84,6 +84,13 @@ export default {
             "setClientType",
             "setQueryWallet"
         ]),
+        sleep(time = 2000) {
+            return new Promise((reslove, reject) => {
+                setTimeout(() => {
+                    reslove();
+                }, time);
+            })
+        },
         checkIsLoadWallet() {
             const wallets = JSON.parse(UTILS.getLocal(OwnWalletNameSpace));
             const curIdx = UTILS.getLocal(OwnWalletIdxNameSpace);
@@ -404,6 +411,7 @@ export default {
             if (extensions.length === 0) {
                 // no extension installed, or the user did not accept the authorization
                 // in this case we should inform the use and give a link to the extension
+                
                 return;
             }
 

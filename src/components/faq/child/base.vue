@@ -22,7 +22,23 @@ export default {
     //数据
     data(){
       return {
-          domId: null
+          domId: null,
+          imgList: [
+              require('../img/faq-1.jpg'),
+              require('../img/faq-2.jpg').default,
+              require('../img/faq-3.jpg').default,
+              require('../img/faq-4.jpg'),
+              require('../img/img-eco-nft.png'),
+              require('../img/img-suite.jpg').default,
+              require('../img/img-scene-1.png'),
+              require('../img/img-scene-2.png'),
+              require('../img/img-eco-metaverse.png').default,
+              require('../img/img-mysterybox.png').default,
+              require('../img/cat-1.png'),
+              require('../img/cat-2.png'),
+              require('../img/cat-3.png'),
+              require('../img/cat-4.png'),
+          ]
       }
     },
     //方法表示一个具体的操作，主要书写业务逻辑；

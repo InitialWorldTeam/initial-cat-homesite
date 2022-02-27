@@ -83,11 +83,12 @@ export default {
         countNum(el, endNum, option) {
             var options = {
                 useEasing: true, // 使用缓和
-                useGrouping: true, // 使用分组(是否显示千位分隔符,一般为 true)
+                useGrouping: false, // 使用分组(是否显示千位分隔符,一般为 true)
                 separator: ",", // 分隔器(千位分隔符,默认为',')
                 decimal: ".", // 十进制(小数点符号,默认为 '.')
                 prefix: "", // 字首(数字的前缀,根据需要可设为 $,¥,￥ 等)
                 suffix: "", // 后缀(数字的后缀 ,根据需要可设为 元,个,美元 等)
+                smartEasingAmount: 10,
                 duration: 5,
                 ...option
             };

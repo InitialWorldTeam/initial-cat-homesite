@@ -1,9 +1,5 @@
 <template>
-    <div
-        class="box-cat-item"
-        :class="{ app: app }"
-        v-if="nftItem.preview"
-    >
+    <div class="box-cat-item" :class="{ app: app }" v-if="nftItem.preview">
         <main>
             <!-- NFT 2D展示 -->
             <div
@@ -97,7 +93,9 @@ export default {
         const { type, renderUrl } = this.nftItem.preview;
 
         if (type !== "images") {
-            const app = new threeRender("#three", location);
+            const app = new threeRender("#three", location, {
+                bgColor: "0x121018"
+            });
             app.view(renderUrl, type);
         }
     }
@@ -126,7 +124,7 @@ export default {
         position: relative;
         min-height: 210px;
         overflow: hidden;
-        background-color: #fff;
+        background-color: #121018;
 
         .box-cat-part-item {
             position: absolute;
@@ -161,7 +159,7 @@ export default {
             span {
                 display: block;
                 padding: 0 4px;
-                border-width: .5px;
+                border-width: 0.5px;
                 border-style: solid;
                 border-radius: 2px;
 

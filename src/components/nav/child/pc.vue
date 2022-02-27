@@ -130,8 +130,8 @@ export default {
 }
 .container-cat-common-content {
     .box-logo {
-        height: 23px;
-        width: 133px;
+        height: 31px;
+        width: 137px;
         background-image: url(../../../assets/img/common/img-logo-world.png);
         font-size: 0;
         display: block;

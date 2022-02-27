@@ -38,6 +38,13 @@ module.exports = {
                 pathRewrite: {
                     '^/mailApi': ''
                 }
+            },
+            '/saleApi': {
+                target: "https://tsale.initialworld.net",
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/saleApi': ''
+                }
             }
         },
 

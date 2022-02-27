@@ -88,12 +88,12 @@ export class Viewer {
             addLights: true,
             exposure: 1.0,
             textureEncoding: 'sRGB',
-            ambientIntensity: 0.3,
+            ambientIntensity: 1,
             ambientColor: 0xFFFFFF,
-            directIntensity: 0.8 * Math.PI,
-            directColor: 0xFFFFFF,
+            directIntensity: 1,
+            directColor: 0xffffff,
             bgColor1: '#ffffff',
-            bgColor2: '#353535'
+            bgColor2: '#ffffff'
         };
 
         this.prevTime = 0;
@@ -114,7 +114,9 @@ export class Viewer {
         this.renderer = window.renderer = new WebGLRenderer({ antialias: true });
         this.renderer.physicallyCorrectLights = true;
         this.renderer.outputEncoding = sRGBEncoding;
-        this.renderer.setClearColor(0xcccccc);
+  
+        const Clear_Color = this.options?.bgColor || '0xffffff';
+        this.renderer.setClearColor(+Clear_Color);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(el.clientWidth, el.clientHeight);
 
@@ -304,7 +306,7 @@ export class Viewer {
 
         this.content.traverse((node) => {
             if (node.isLight) {
-                this.state.addLights = false;
+                this.state.addLights = true;
             } else if (node.isMesh) {
                 // TODO(https://github.com/mrdoob/three.js/pull/18235): Clean up.
                 node.material.depthWrite = !node.material.transparent;

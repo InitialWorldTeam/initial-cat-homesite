@@ -28,7 +28,7 @@ export default new Router({
             component: Box
         },
         {
-            path: '/faq',
+            path: '/FAQ',
             name: 'Faq',
             component: Faq
         },

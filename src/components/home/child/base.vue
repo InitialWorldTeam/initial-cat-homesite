@@ -7,11 +7,14 @@ import UTILS from '@/config/util';
 import mailApi from '@/config/mailApi';
 import common from '@/common/common';
 import preventDoublePress from '@/config/preventDoublePress';
+import FreeMint from '@/components/freeMint';
 
 export default {
     mixins: [ common ],
     //部件
-    components: {},
+    components: {
+        FreeMint
+    },
     //静态
     props: {},
     //对象内部的属性监听，也叫深度监听
@@ -50,8 +53,8 @@ export default {
                     domId: 'metaverse'
                 },
                 {
-                    title: "Get the first image NFT",
-                    img: require("../../../assets/img/home/img-introduction-4.png").default,
+                    title: "Free mint InitialCat",
+                    img: require("../../../assets/img/home/img-introduction-4.png"),
                     domId: 'mysteryBox'
                 }
             ],
@@ -71,11 +74,11 @@ export default {
                     title: 'Twitter',
                     url: 'https://twitter.com/InitialWorldLab'
                 },
-                {
+                /* {
                     icon: require("../../../assets/img/home/icon-telegram.png"),
                     title: 'Telegram',
                     url: 'https://t.me/InitialWorld'
-                },
+                }, */
                 {
                     icon: require("../../../assets/img/home/icon-discord.png"),
                     title: 'Discord',
@@ -90,16 +93,22 @@ export default {
             cueEcoIdx: 0, // 当前EcoTab索引值 
             ecoTabList: [
                 {
-                    name: 'Rare NFT',
-                    type: 1,
-                    content: require("../video/video-rareNft.mp4").default,
-                    des: 'You can get rare NFT in many ways. It represents the release of a new theme image of Initial World. Whenever a new theme image is added to Initial World, a new treasure NFT will be issued.'
+                    name: 'InitialCat 3D',
+                    type: 2,
+                    content: require("../img/img-eco-initialCat.png").default,
+                    des: 'Cat is the first theme avatars of InitialWorld. When you enter InitialWorld, you will get an InitialCat 3D NFT for free. You can use this Initial Cat to enter any Metaverse connected to Initial World and get Loot to equip it.'
                 },
                 {
-                    name: 'Initial Cat 3D',
+                    name: 'Accessories NFT',
                     type: 2,
-                    content: require("../img/img-eco-initialCat.png"),
-                    des: 'Cat is the first theme image of Initial World. When you enter Initial World, you will get an Initial Cat 3D for free. You can use this Initial Cat to enter any Metaverse connected to Initial World and get Loot to equip it.'
+                    content: require("../img/img-eco-nft.png"),
+                    des: 'Users may get NFT in different SubMetaverse. We call it Accessories NFT. Accessories NFT can make your themed avatar more gorgeous. When avatar is equipped with Accessories NFT, you can get more $NIC in the mission. You can sell your own Accessories NFT to other users.'
+                },
+                {
+                    name: 'Suite NFT',
+                    type: 2,
+                    content: require("../img/img-eco-suiteNft.png").default,
+                    des: 'Suite NFT is very precious in InitialWorld. It is very difficult to collect a complete Suite NFT. Similarly, Suite NFT will bring a very big image change to your avatar. Usually these changes are of commemorative significance.'
                 },
                 {
                     name: 'Ecosystem',
@@ -108,16 +117,10 @@ export default {
                     des: ''
                 },
                 {
-                    name: 'Tokenomics',
-                    type: 3,
-                    content: require("../img/img-eco-token.png"),
-                    des: ''
-                },
-                {
                     name: 'SubMetaverse',
                     type: 2,
                     content: require("../img/img-eco-metaverse.png").default,
-                    des: 'SubMetaverse is made by Initial World Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users. '
+                    des: 'SubMetaverse is made by InitialWorld Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users. '
                 },
             ],
             subscribeEmailTip: {
@@ -134,6 +137,9 @@ export default {
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        goToMint() {
+            this.$refs.freeMint.handleShowMint();
+        },
         // 点击事件，Join Us
         handleJoinCommunity(item) {
             if (item.url) {

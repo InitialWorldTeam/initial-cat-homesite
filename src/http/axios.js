@@ -49,7 +49,9 @@ function checkCode(res, isToast) {
         return Promise.resolve(res?.data);
     } else {
         if (isToast) {
-            msg && Toast.fail(msg);
+            msg && Toast.fail({
+                message: msg
+            });
         }
         return Promise.reject(res?.data);
     }

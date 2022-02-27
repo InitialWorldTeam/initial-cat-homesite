@@ -20,7 +20,7 @@
                     <div class="box-wallet-info-item">
                         <h3>Balance</h3>
                         <div class="box-num">0.00 NIC</div>
-                        <p>$0.00</p>
+                        <p>$ 0.00</p>
                     </div>
                     <div class="box-wallet-info-item">
                         <h3>Balance</h3>
@@ -33,7 +33,7 @@
                             <!-- <span v-else>0.00</span> -->
                             KSM
                         </div>
-                        <p>$0.00</p>
+                        <p>$ 0.00</p>
                     </div>
                 </section>
             </div>
