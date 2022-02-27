@@ -4,7 +4,7 @@
             <div class="box-free-mint" :class="{ app: isApp }">
                 <h1>You will get a free 3D cat</h1>
                 <h2>You only pay the Kusama Gas Fee.</h2>
-                <div class="btn-mint" @click="confirmMint">Go Free Mint</div>
+                <div class="btn-mint" @click="confirmMint"><i></i>To Mint</div>
             </div>
         </van-popup>
     </div>
@@ -158,11 +158,28 @@ export default {
 
     .btn-mint {
         @include btn-common;
-        width: 200px;
+        width: 150px;
         height: 44px;
         font-size: 16px;
         margin-top: 24px;
         color: $fontColor-3;
+
+        i {
+            width: 16px;
+            height: 16px;
+            background: url(./img/bg-mint.png) no-repeat center / 100% auto;
+            margin-right: 10px;
+            animation: mint .5s linear infinite alternate;
+        }
+    }
+}
+
+@keyframes mint {
+    from {
+        transform: rotate(-25deg);
+    }
+    to {
+        transform: rotate(0deg);
     }
 }
 </style>

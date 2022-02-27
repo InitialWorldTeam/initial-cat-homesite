@@ -30,8 +30,18 @@ export default {
         return {
             userEmail: '',
             lootBoxImg: require('../../../assets/img/home/bg-loot-box.png').default,
-            bannerImg: require("../../../assets/img/home/bg-home-banner.png").default,
-            bannerText: require("../img/banner-text-InitialWorld.png"),
+            bannerList: [
+                {
+                    img: require("../../../assets/img/home/bg-home-banner.png").default,
+                    text: require("../img/banner-text-InitialWorld.png"),
+                    type: 'auto'
+                },
+                {
+                    img: require("../img/banner-mint.jpg").default,
+                    text: null,
+                    type: 'mint'
+                },
+            ],
             memorialNftImg: {
                 big: require("../../../assets/img/home/bg-memorNFT-top.png").default,
                 small: require("../../../assets/img/home/bg-memorNFT-small.png").default,
@@ -137,6 +147,24 @@ export default {
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        initBanner() {
+            this.myBanner && this.myBanner.destroy(false);
+            this.myBanner = new Swiper(".swiper-banner", {
+                loop: true, // 循环模式选项
+                autoplay: {
+                    delay: 10000,
+                    disableOnInteraction: false // 用户操作swiper之后，是否禁止autoplay
+                },
+                slidesPerView: 1
+            });
+        },
+        goToBanner(item) {
+            console.log(8888);
+            const { type } = item;
+            if (type === 'mint') {
+                this.goToMint();
+            }
+        },
         goToMint() {
             this.$refs.freeMint.handleShowMint();
         },
@@ -239,7 +267,9 @@ export default {
     },
     //请求数据
     created() {},
-    mounted() {}
+    mounted() {
+        this.initBanner();
+    }
 };
 </script>
 
