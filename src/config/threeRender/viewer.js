@@ -317,7 +317,7 @@ export class Viewer {
 
         this.updateLights();
         this.updateGUI();
-        this.updateEnvironment();
+        // this.updateEnvironment();
         this.updateTextureEncoding();
         this.updateDisplay();
 
@@ -438,7 +438,7 @@ export class Viewer {
     }
 
     updateEnvironment() {
-
+        
         const environment = environments.filter((entry) => entry.name === this.state.environment)[0];
 
         this.getCubeMapTexture(environment).then(({ envMap }) => {
