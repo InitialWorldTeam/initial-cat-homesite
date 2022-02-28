@@ -5,7 +5,7 @@
             <div class="swiper-wrapper">
                 <div
                     class="swiper-slide"
-                    v-for="item in bannerList"
+                    v-for="item in bannerListApp"
                     :key="item.id"
                 >
                     <img
@@ -398,19 +398,20 @@ export default {
 }
 .container-home {
     .box-banner {
-        height: 135px;
+        height: 56.8vw;
         @include flexCenter;
         overflow: hidden;
 
         .swiper-slide {
             margin-right: 0;
+            border-radius: 0;
         }
 
         .box-img {
             display: block;
             height: 100%;
             width: 100%;
-            object-fit: cover;
+            object-fit: fill;
             cursor: pointer;
         }
 

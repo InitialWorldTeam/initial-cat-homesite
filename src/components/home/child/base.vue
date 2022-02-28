@@ -31,13 +31,20 @@ export default {
             userEmail: '',
             lootBoxImg: require('../../../assets/img/home/bg-loot-box.png').default,
             bannerList: [
-                {
+                /* {
                     img: require("../../../assets/img/home/bg-home-banner.png").default,
                     text: require("../img/banner-text-InitialWorld.png"),
                     type: 'auto'
-                },
+                }, */
                 {
-                    img: require("../img/banner-mint.jpg").default,
+                    img: require("../img/banner-mint-pc.jpg").default,
+                    text: null,
+                    type: 'mint'
+                },
+            ],
+            bannerListApp: [
+                {
+                    img: require("../img/banner-mint-app.jpg").default,
                     text: null,
                     type: 'mint'
                 },
@@ -150,7 +157,7 @@ export default {
         initBanner() {
             this.myBanner && this.myBanner.destroy(false);
             this.myBanner = new Swiper(".swiper-banner", {
-                loop: true, // 循环模式选项
+                loop: this.bannerList.length > 1, // 循环模式选项
                 autoplay: {
                     delay: 4000,
                     disableOnInteraction: false // 用户操作swiper之后，是否禁止autoplay

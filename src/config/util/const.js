@@ -3,8 +3,8 @@ const BaseNameSpace = 'Initial_World_Base';
 
 // 测试环境Provider
 const Providers_Test = {
-    ws: 'ws://104.198.42.65:9944',
-    http: 'http://104.198.42.65:9933'
+    ws: 'wss://twskusama.initialworld.net',
+    http: 'https://thttpkusama.initialworld.net'
 }
 
 // 正式环境Provider

@@ -145,6 +145,10 @@ $fontColor-3: #110f19;
     width: auto;
     max-width: 280px;
     background-color: rgba(0,0,0, 1);
+    padding: 14px 20px;
+}
+.van-toast {
+    @extend .commonToast-2;
 }
 
 .popper-coming {

@@ -1,10 +1,24 @@
 <template>
     <div>
-        <van-popup v-model="isShowMint" @click.stop class="modal-free-mint">
+        <van-popup v-model="isShowMint" @click.stop class="modal-free-mint" @closed='handleClosePop'>
             <div class="box-free-mint" :class="{ app: isApp }">
                 <h1>You will get a free 3D cat</h1>
                 <h2>You only pay the Kusama Gas Fee.</h2>
-                <div class="btn-mint" @click="confirmMint"><i></i>To Mint</div>
+                <div 
+                    class="btn-mint"
+                    :class="{
+                        'disable': !mintAble
+                    }"
+                    @click="confirmMint"
+                >
+                    <template v-if="mintAble">
+                        <i class="icon-mint"></i><span>To Mint</span>
+                    </template>
+
+                    <template v-else>
+                        <van-button loading/><span>Minting</span>
+                    </template>
+                </div>
             </div>
         </van-popup>
     </div>
@@ -33,11 +47,21 @@ export default {
     //数据
     data() {
         return {
-            isShowMint: false
+            isShowMint: false, // 是否展示弹层
+            mintAble: true, // 是否可点击Mint
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        async resetMintStatus() {
+            this.mintAble = true;
+        },
+        handleClosePop() {
+            this.$toast.fail({
+                message: 'You cancelled the transaction',
+                duration: 3 * 1000
+            });
+        },
         handleShowMint() {
             this.isShowMint = true;
         },
@@ -50,24 +74,34 @@ export default {
             return this.$http
                 .post(url, config, "json")
                 .then(res => {
-                    console.log("code: ", res);
-                    return res?.data;
+                    return res;
                 })
                 .catch(err => {
                     console.log("err:", err);
-                    return false;
+                    return err;
                 });
         },
         async confirmMint() {
+            // 未连接钱包时提示
             if (!this.curRootWallet) {
                 this.$toast("Please connnect wallet");
                 return;
             }
-            const data = await this.getVerifyCode(this.curRootWallet.address);
-            if (!data) {
+            // 正在 Mint 时不可点击
+            if (!this.mintAble) {
                 return;
             }
-            this.handlePayGasFee(data);
+
+            this.mintAble = false;
+            // 请求接口报错时不可点击
+            const CODE_DATA = await this.getVerifyCode(this.curRootWallet.address);
+            if (CODE_DATA.code !== '0000') {
+                this.$toast.fail( CODE_DATA?.msg || 'Something error, please try again');
+                this.mintAble = true;
+                return;
+            }
+
+            this.handlePayGasFee(CODE_DATA?.data);
         },
         async handlePayGasFee(params) {
             let type = "CAT";
@@ -84,7 +118,7 @@ export default {
 
             const tx = api.tx.utility.batchAll([
                 remark,
-                api.tx.balances.transfer(toAddress, 1000000000)
+                api.tx.balances.transfer(toAddress, Math.pow(10, 9))
             ]);
 
             const SENDER = this.curRootWallet.address;
@@ -95,13 +129,18 @@ export default {
                 {
                     signer: injector.signer
                 },
-                ({ events = [], status }) => {
+                async ({ events = [], status }) => {
                     console.log("status:", status);
+                    await this.sleep();
+                    this.resetMintStatus();
                 }
-            );
+            ).catch(err => {
+                console.log(err);
+                this.$toast.fail(err.message);
+                this.resetMintStatus();
+            })
 
-            await this.sleep();
-            this.isShowMint = false;
+            
         }
     },
     //请求数据
@@ -164,7 +203,19 @@ export default {
         margin-top: 24px;
         color: $fontColor-3;
 
-        i {
+        &.disable {
+            background-color: rgba($color: #ccc, $alpha: 0.9);
+            color: #999;
+            
+            .van-button--loading {
+                border: none;
+                background-color: transparent;
+                padding: 0 8px;
+            }
+
+        }
+
+        .icon-mint {
             width: 16px;
             height: 16px;
             background: url(./img/bg-mint.png) no-repeat center / 100% auto;

@@ -36,7 +36,7 @@
         <!-- NFT信息 -->
         <div class="box-info" v-if="source === 'list'">
             <div class="box-1 flexBetween">
-                <h6>{{ nftItem.preview.id }}</h6>
+                <h6>{{ nftItem.sn }}</h6>
                 <span :class="[renderType]">{{ TYPE[renderType] }}</span>
             </div>
             <h1 class="box-name">{{nftItem.symbol}}</h1>

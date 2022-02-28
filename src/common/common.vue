@@ -412,7 +412,9 @@ export default {
                 // no extension installed, or the user did not accept the authorization
                 // in this case we should inform the use and give a link to the extension
                 const message = this.isApp ? "No wallet detected" : "Please install the polkadot.js plugin";
-                this.$toast(message);
+                this.$toast.fail({
+                    message
+                });
                 return;
             }
 
