@@ -106,7 +106,7 @@ export default {
 .box-cat-item {
     position: relative;
     border-radius: 6px;
-    width: 500px;
+    width: 600px;
 
     &.app {
         width: 83px;
@@ -122,7 +122,7 @@ export default {
 
     main {
         position: relative;
-        min-height: 210px;
+        height: 600px;
         overflow: hidden;
         background-color: #121018;
 
@@ -144,7 +144,7 @@ export default {
             min-height: 100%;
             inset: 0px;
             box-sizing: border-box;
-            object-fit: cover;
+            object-fit: contain;
         }
     }
 

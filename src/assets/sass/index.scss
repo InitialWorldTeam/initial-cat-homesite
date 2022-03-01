@@ -144,7 +144,7 @@ $fontColor-3: #110f19;
 .commonToast-2 {
     width: auto;
     max-width: 280px;
-    background-color: rgba(0,0,0, 1);
+    background-color: rgba(0, 0, 0, 1);
     padding: 14px 20px;
 }
 .van-toast {
@@ -223,6 +223,20 @@ $fontColor-3: #110f19;
         img {
             height: 100% !important;
             width: auto !important;
+        }
+    }
+}
+
+.btn-share-twitter {
+    border: none;
+    padding:  10px 18px;
+    width: 100%;
+
+    > span {
+        @include flexCenter;
+
+        i {
+            margin-right: 10px;
         }
     }
 }

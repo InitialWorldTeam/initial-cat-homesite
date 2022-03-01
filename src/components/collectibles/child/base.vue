@@ -29,6 +29,7 @@ export default {
     //数据
     data() {
         return {
+            showPopover: false,
             collectibles: null,
             loading: true,
             TYPE: {
@@ -39,7 +40,18 @@ export default {
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
-        
+        handleInspect(nft) {
+            const { metadata } = nft;
+            let url = metadata.replace('ipfs://ipfs/', 'https://ipfs-scan.io/?cid=');
+            window.open(url);
+        },
+        handleShareTwitter() {
+            this.showPopover = false;
+            this.$nextTick(() => {
+                let url = 'https://twitter.com/InitialWorldLab';
+                window.open(url);
+            })
+        }
     },
     //请求数据
     async created() {

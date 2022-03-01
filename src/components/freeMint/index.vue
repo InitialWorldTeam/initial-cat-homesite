@@ -1,13 +1,18 @@
 <template>
     <div>
-        <van-popup v-model="isShowMint" @click.stop class="modal-free-mint" @closed='handleClosePop'>
+        <van-popup
+            v-model="isShowMint"
+            @click.stop
+            class="modal-free-mint"
+            @closed="handleClosePop"
+        >
             <div class="box-free-mint" :class="{ app: isApp }">
                 <h1>You will get a free 3D cat</h1>
                 <h2>You only pay the Kusama Gas Fee.</h2>
-                <div 
+                <div
                     class="btn-mint"
                     :class="{
-                        'disable': !mintAble
+                        disable: !mintAble
                     }"
                     @click="confirmMint"
                 >
@@ -16,7 +21,7 @@
                     </template>
 
                     <template v-else>
-                        <van-button loading/><span>Minting</span>
+                        <van-button loading /><span>Minting</span>
                     </template>
                 </div>
             </div>
@@ -49,20 +54,25 @@ export default {
         return {
             isShowMint: false, // 是否展示弹层
             mintAble: true, // 是否可点击Mint
+            mintStatus: 0 // Mint状态，0 默认，1 成功, 2 失败
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
         async resetMintStatus() {
             this.mintAble = true;
+            this.isShowMint = false;
         },
         handleClosePop() {
-            this.$toast.fail({
-                message: 'You cancelled the transaction',
-                duration: 3 * 1000
-            });
+            if (this.mintStatus === 0) {
+                this.$toast.fail({
+                    message: "You cancelled the transaction",
+                    duration: 3 * 1000
+                });
+            }
         },
         handleShowMint() {
+            this.mintStatus = 0;
             this.isShowMint = true;
         },
         async getVerifyCode(add) {
@@ -94,9 +104,13 @@ export default {
 
             this.mintAble = false;
             // 请求接口报错时不可点击
-            const CODE_DATA = await this.getVerifyCode(this.curRootWallet.address);
-            if (CODE_DATA.code !== '0000') {
-                this.$toast.fail( CODE_DATA?.msg || 'Something error, please try again');
+            const CODE_DATA = await this.getVerifyCode(
+                this.curRootWallet.address
+            );
+            if (CODE_DATA.code !== "0000") {
+                this.$toast.fail(
+                    CODE_DATA?.msg || "Something error, please try again"
+                );
                 this.mintAble = true;
                 return;
             }
@@ -124,23 +138,26 @@ export default {
             const SENDER = this.curRootWallet.address;
             const injector = await web3FromAddress(SENDER);
 
-            await tx.signAndSend(
-                SENDER,
-                {
-                    signer: injector.signer
-                },
-                async ({ events = [], status }) => {
-                    console.log("status:", status);
-                    await this.sleep();
+            await tx
+                .signAndSend(
+                    SENDER,
+                    {
+                        signer: injector.signer
+                    },
+                    async ({ events = [], status }) => {
+                        console.log("status:", status);
+                        this.mintStatus = 1;
+                        await this.sleep();
+                        this.resetMintStatus();
+                        this.$toast.success('Mint Success');
+                    }
+                )
+                .catch(err => {
+                    console.log(err);
+                    this.mintStatus = 2;
+                    this.$toast.fail(err.message);
                     this.resetMintStatus();
-                }
-            ).catch(err => {
-                console.log(err);
-                this.$toast.fail(err.message);
-                this.resetMintStatus();
-            })
-
-            
+                });
         }
     },
     //请求数据
@@ -206,13 +223,12 @@ export default {
         &.disable {
             background-color: rgba($color: #ccc, $alpha: 0.9);
             color: #999;
-            
+
             .van-button--loading {
                 border: none;
                 background-color: transparent;
                 padding: 0 8px;
             }
-
         }
 
         .icon-mint {
@@ -220,7 +236,7 @@ export default {
             height: 16px;
             background: url(./img/bg-mint.png) no-repeat center / 100% auto;
             margin-right: 10px;
-            animation: mint .5s linear infinite alternate;
+            animation: mint 0.5s linear infinite alternate;
         }
     }
 }

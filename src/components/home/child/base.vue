@@ -3,14 +3,14 @@
 </template>
 
 <script>
-import UTILS from '@/config/util';
-import mailApi from '@/config/mailApi';
-import common from '@/common/common';
-import preventDoublePress from '@/config/preventDoublePress';
-import FreeMint from '@/components/freeMint';
+import UTILS from "@/config/util";
+import mailApi from "@/config/mailApi";
+import common from "@/common/common";
+import preventDoublePress from "@/config/preventDoublePress";
+import FreeMint from "@/components/freeMint";
 
 export default {
-    mixins: [ common ],
+    mixins: [common],
     //部件
     components: {
         FreeMint
@@ -23,13 +23,17 @@ export default {
     computed: {
         curEcoItem() {
             return this.ecoTabList[this.cueEcoIdx];
+        },
+        isConnectWallet() {
+            return Boolean(this.curRootWallet);
         }
     },
     //数据
     data() {
         return {
-            userEmail: '',
-            lootBoxImg: require('../../../assets/img/home/bg-loot-box.png').default,
+            userEmail: "",
+            lootBoxImg: require("../../../assets/img/home/bg-loot-box.png")
+                .default,
             bannerList: [
                 /* {
                     img: require("../../../assets/img/home/bg-home-banner.png").default,
@@ -39,57 +43,62 @@ export default {
                 {
                     img: require("../img/banner-mint-pc.jpg").default,
                     text: null,
-                    type: 'mint'
-                },
+                    type: "mint"
+                }
             ],
             bannerListApp: [
                 {
                     img: require("../img/banner-mint-app.jpg").default,
                     text: null,
-                    type: 'mint'
-                },
+                    type: "mint"
+                }
             ],
             memorialNftImg: {
-                big: require("../../../assets/img/home/bg-memorNFT-top.png").default,
-                small: require("../../../assets/img/home/bg-memorNFT-small.png").default,
+                big: require("../../../assets/img/home/bg-memorNFT-top.png")
+                    .default,
+                small: require("../../../assets/img/home/bg-memorNFT-small.png")
+                    .default
             },
             slideList: [
                 {
                     title: "What is InitialWorld?",
-                    img: require("../../../assets/img/home/img-introduction-1.png").default,
-                    domId: ''
+                    img: require("../../../assets/img/home/img-introduction-1.png")
+                        .default,
+                    domId: ""
                 },
                 {
                     title: "What is InitialStudio?",
-                    img: require("../../../assets/img/home/img-introduction-2.png").default,
-                    domId: 'userClient'
+                    img: require("../../../assets/img/home/img-introduction-2.png")
+                        .default,
+                    domId: "userClient"
                 },
                 {
                     title: "SubMetaverse",
-                    img: require("../../../assets/img/home/img-introduction-3.png").default,
-                    domId: 'metaverse'
+                    img: require("../../../assets/img/home/img-introduction-3.png")
+                        .default,
+                    domId: "metaverse"
                 },
                 {
                     title: "Free mint InitialCat",
                     img: require("../../../assets/img/home/img-introduction-4.png"),
-                    domId: 'mysteryBox'
+                    domId: "mysteryBox"
                 }
             ],
             partnerList: [
                 require("../img/icon-partner-1.png"),
-                require("../img/icon-partner-2.png"),
+                require("../img/img-rmrk.png").default,
                 require("../img/icon-partner-3.png"),
                 require("../img/icon-partner-4.png"),
                 require("../img/icon-partner-5.png"),
                 require("../img/icon-partner-6.png"),
-                require("../img/icon-partner-7.png"),
-                require("../img/icon-partner-8.png"),
+                require("../img/img-ipfs.png").default,
+                require("../img/icon-partner-8.png")
             ],
             communityList: [
                 {
                     icon: require("../../../assets/img/home/icon-twitter.png"),
-                    title: 'Twitter',
-                    url: 'https://twitter.com/InitialWorldLab'
+                    title: "Twitter",
+                    url: "https://twitter.com/InitialWorldLab"
                 },
                 /* {
                     icon: require("../../../assets/img/home/icon-telegram.png"),
@@ -98,62 +107,81 @@ export default {
                 }, */
                 {
                     icon: require("../../../assets/img/home/icon-discord.png"),
-                    title: 'Discord',
-                    url: 'https://discord.gg/hmmmQt2jGn'
+                    title: "Discord",
+                    // url: 'https://discord.gg/hmmmQt2jGn'
+                    url: ""
                 },
                 {
                     icon: require("../img/icon-medium.png"),
-                    title: 'Medium',
-                    url: 'https://medium.com/@InitialWorld'
-                },
+                    title: "Medium",
+                    url: "https://medium.com/@InitialWorld"
+                }
             ],
-            cueEcoIdx: 0, // 当前EcoTab索引值 
+            cueEcoIdx: 0, // 当前EcoTab索引值
             ecoTabList: [
                 {
-                    name: 'InitialCat 3D',
+                    name: "InitialCat 3D",
                     type: 2,
                     content: require("../img/img-eco-initialCat.png").default,
-                    des: 'Cat is the first theme avatars of InitialWorld. When you enter InitialWorld, you will get an InitialCat 3D NFT for free. You can use this Initial Cat to enter any Metaverse connected to Initial World and get Loot to equip it.'
+                    des:
+                        "Cat is the first theme avatars of InitialWorld. When you enter InitialWorld, you will get an InitialCat 3D NFT for free. You can use this Initial Cat to enter any Metaverse connected to Initial World and get Loot to equip it."
                 },
                 {
-                    name: 'Accessories NFT',
+                    name: "Accessories NFT",
                     type: 2,
                     content: require("../img/img-eco-nft.png"),
-                    des: 'Users may get NFT in different SubMetaverse. We call it Accessories NFT. Accessories NFT can make your themed avatar more gorgeous. When avatar is equipped with Accessories NFT, you can get more $NIC in the mission. You can sell your own Accessories NFT to other users.'
+                    des:
+                        "Users may get NFT in different SubMetaverse. We call it Accessories NFT. Accessories NFT can make your themed avatar more gorgeous. When avatar is equipped with Accessories NFT, you can get more $NIC in the mission. You can sell your own Accessories NFT to other users."
                 },
                 {
-                    name: 'Suite NFT',
+                    name: "Suite NFT",
                     type: 2,
                     content: require("../img/img-eco-suiteNft.png").default,
-                    des: 'Suite NFT is very precious in InitialWorld. It is very difficult to collect a complete Suite NFT. Similarly, Suite NFT will bring a very big image change to your avatar. Usually these changes are of commemorative significance.'
+                    des:
+                        "Suite NFT is very precious in InitialWorld. It is very difficult to collect a complete Suite NFT. Similarly, Suite NFT will bring a very big image change to your avatar. Usually these changes are of commemorative significance."
                 },
                 {
-                    name: 'Ecosystem',
+                    name: "Ecosystem",
                     type: 3,
                     content: require("../img/img-eco-system.png"),
-                    des: ''
+                    des: ""
                 },
                 {
-                    name: 'SubMetaverse',
+                    name: "SubMetaverse",
                     type: 2,
-                    content: require("../img/img-eco-metaverse.png").default,
-                    des: 'SubMetaverse is made by InitialWorld Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users. '
-                },
+                    content: require("../img/img-eco-metaverse.jpeg").default,
+                    des:
+                        "SubMetaverse is made by InitialWorld Team and its partners based on the InitialStudio being developed. Users can use Initial Cat 3D to travel among them. When InitialStudio is fully developed, you can use InitialStudio to easily create their own SubMetaverse and share it with other users. "
+                }
             ],
             subscribeEmailTip: {
-                tip1: 'Please input your email',
-                tip2: 'Your email address is missing @',
-                tip3: 'Please enter the part after @',
-                tip4: 'Please provide a valid email address.',
-                tip5: 'Thank you, your sign-up request was successful! ',
-                tip6: 'Something error, please try again',
+                tip1: "Please input your email",
+                tip2: "Your email address is missing @",
+                tip3: "Please enter the part after @",
+                tip4: "Please provide a valid email address.",
+                tip5: "Thank you, your sign-up request was successful! ",
+                tip6: "Something error, please try again"
             },
-            checkEmailTip: '',
+            checkEmailTip: "",
             checkEmailPass: false
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        async goToConnect() {
+            const sta = await this.initWallet();
+            if (!sta) {
+                console.log(message)
+                this.connectWalletFail();
+                return;
+            }
+            this.goToMint();
+        },
+        goToLearn() {
+            let url =
+                "https://medium.com/@InitialWorld/free-minting-on-kusama-initialworld-to-provide-connections-to-all-the-metaverse-f34b78bb1dd2";
+            window.open(url);
+        },
         initBanner() {
             this.myBanner && this.myBanner.destroy(false);
             this.myBanner = new Swiper(".swiper-banner", {
@@ -165,9 +193,17 @@ export default {
                 slidesPerView: 1
             });
         },
-        goToBanner(item) {
+        async goToBanner(item) {
+            if (!this.isConnectWallet) {
+                const sta = await this.initWallet();
+                if (!sta) {
+                    this.connectWalletFail();
+                    return;
+                }
+            }
+
             const { type } = item;
-            if (type === 'mint') {
+            if (type === "mint") {
                 this.goToMint();
             }
         },
@@ -183,7 +219,7 @@ export default {
         goToNav(item, index) {
             if (!item.path || this.$route.path === item?.path) {
                 return false;
-            };
+            }
             this.$router.push({
                 path: item.path
             });
@@ -193,16 +229,16 @@ export default {
             // 定位当前导航
             const e = $(".box-nav-item").eq(index);
             const LEFT = e.position().left + e.width() / 2;
-            $('.block-line').css({
-                left: LEFT + 'px'
-            })
+            $(".block-line").css({
+                left: LEFT + "px"
+            });
         },
         selectEcoTab(idx) {
             this.cueEcoIdx = idx;
         },
         handleGoIntroductDetail(item) {
             this.$router.push({
-                name: 'Faq',
+                name: "Faq",
                 params: {
                     id: item.domId
                 }
@@ -222,12 +258,12 @@ export default {
                 return;
             }
 
-            if (!email.includes('@')){
+            if (!email.includes("@")) {
                 this.toastEmailTip(this.subscribeEmailTip.tip2);
                 return;
             }
 
-            if ( email.indexOf('@') === email.length - 1 ){
+            if (email.indexOf("@") === email.length - 1) {
                 this.toastEmailTip(this.subscribeEmailTip.tip3);
                 return;
             }
@@ -249,10 +285,10 @@ export default {
                 .post(url, config, "json")
                 .then(res => {
                     const { code } = res;
-                    if (code === '0000') {
+                    if (code === "0000") {
                         this.toastEmailTip(this.subscribeEmailTip.tip5);
                         this.checkEmailPass = true;
-                        this.userEmail = '';
+                        this.userEmail = "";
                     }
                 })
                 .catch(err => {
@@ -266,9 +302,9 @@ export default {
 
             let timer = setTimeout(() => {
                 this.checkEmailPass = false;
-                this.checkEmailTip = '';
+                this.checkEmailTip = "";
                 clearTimeout(timer);
-            }, 3000)
+            }, 3000);
         }
     },
     //请求数据

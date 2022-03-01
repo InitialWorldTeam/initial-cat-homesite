@@ -9,8 +9,16 @@
                         v-for="item in bannerList"
                         :key="item.id"
                     >
-                        <img :src="item.img" class="box-img" @click="goToBanner(item)"/>
-                        <img v-if="item.text" :src="item.text" class="box-text" />
+                        <img
+                            :src="item.img"
+                            class="box-img"
+                            @click="goToBanner(item)"
+                        />
+                        <img
+                            v-if="item.text"
+                            :src="item.text"
+                            class="box-text"
+                        />
                     </div>
                 </div>
             </div>
@@ -72,20 +80,20 @@
                                 World. At this moment, they have awakened, and
                                 the revolution has begun, either now or never!
                             </p>
-                            <div class="btn-mint" @click="goToMint">
+                            <div class="btn-mint" @click="goToMint" v-if="isConnectWallet">
                                 Mint Now
                             </div>
+                            <div class="btn-mint small" @click="goToConnect" v-else>
+                                Connect Wallet
+                            </div>
+                            
+                            <div class="btn-learn-more" @click="goToLearn">Learn more</div>
                         </div>
                         <div class="box-right">
-                            <!-- <img src="../img/img-mint-cat.png" alt=""> -->
-                            <video
-                                :src="
-                                    require('../video/video-demo-1.mp4').default
-                                "
-                                muted
-                                autoplay
-                                loop
-                            ></video>
+                            <img
+                                :src="require('../img/img-mint-cat.png').default"
+                                class="img-block"
+                            />
                         </div>
                     </main>
                 </div>
@@ -124,7 +132,8 @@
                 <div class="box-section-common box-ecosystem animate__animated">
                     <h1>Ecosystem</h1>
                     <h2>
-                        We are creating Metaverse and linking different SubVerse
+                        We are creating Metaverse and linking different
+                        SubMetaverse
                     </h2>
                     <main>
                         <div class="box-tab">
@@ -248,17 +257,24 @@
                             <div
                                 class="btn-join"
                                 @click="handleJoinCommunity(item)"
+                                v-if="item.url"
                             >
                                 Join us
                             </div>
-                            <!-- <el-tooltip
+                            <el-tooltip
+                                v-else
                                 effect="dark"
                                 content="Coming soon"
                                 placement="bottom"
                                 popper-class="popper-coming"
                             >
-                                <div class="btn-join" @click="handleJoinCommunity(item)">Join us</div>
-                            </el-tooltip> -->
+                                <div
+                                    class="btn-join"
+                                    @click="handleJoinCommunity(item)"
+                                >
+                                    Join us
+                                </div>
+                            </el-tooltip>
                         </div>
                     </main>
                 </div>
@@ -634,11 +650,11 @@ export default {
             border-radius: 12px;
             @include flexBetween;
             padding-left: 97px;
-            padding-right: 100px;
+            padding-right: 60px;
 
             .box-right {
-                width: 182px;
-                // height: 257px;
+                width: 252px;
+                height: 252px;
                 flex-shrink: 0;
                 border-radius: 10px;
                 overflow: hidden;
@@ -660,7 +676,6 @@ export default {
                     font-weight: 400;
                     color: #ffffff;
                     line-height: 28px;
-                    letter-spacing: -0.9px;
                 }
                 .btn-mint {
                     width: 180px;
@@ -674,7 +689,24 @@ export default {
                     @include flexCenter;
                     margin-top: 30px;
                     cursor: pointer;
-                    letter-spacing: -1px;
+
+                    &.small {
+                        font-size: 16px;
+                    }
+                }
+                .btn-learn-more {
+                    font-size: 12px;
+                    color: rgba($color: #ccc, $alpha: 0.5);
+                    line-height: 24px;
+                    margin-top: 14px;
+                    width: 80px;
+                    text-align: center;
+                    cursor: pointer;
+                    margin-left: 40px;
+
+                    &:hover {
+                        color: #fff;
+                    }
                 }
             }
         }
@@ -706,7 +738,6 @@ export default {
                     font-weight: 400;
                     color: #ffffff;
                     line-height: 28px;
-                    letter-spacing: -1px;
                 }
                 .btn-enter {
                     width: 180px;
@@ -803,7 +834,6 @@ export default {
                             line-height: 28px;
                             font-size: 18px;
                             margin-top: 56px;
-                            letter-spacing: -1px;
                         }
                     }
                 }
@@ -841,7 +871,6 @@ export default {
                             line-height: 28px;
                             font-size: 18px;
                             margin-top: 56px;
-                            letter-spacing: -1px;
                         }
                     }
                 }
@@ -883,7 +912,6 @@ export default {
             display: flex;
             color: #3e3e47;
             width: 1050px;
-            letter-spacing: -1.5px;
 
             h3 {
                 font-weight: normal;
@@ -990,7 +1018,7 @@ export default {
                     height: auto;
 
                     &.img-1 {
-                        width: 51px;
+                        width: 81px;
                     }
                     &.img-3 {
                         width: 111px;
@@ -1112,7 +1140,6 @@ export default {
                 font-size: 14px;
                 color: #5c5d67;
                 margin-top: 14px;
-                letter-spacing: -1.3px;
             }
             .box-subscribe {
                 width: 390px;

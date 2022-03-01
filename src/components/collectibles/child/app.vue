@@ -26,12 +26,21 @@
                 </div>
 
                 <div class="box-right flex">
-                    <div class="btn-item">
+                    <div class="btn-item" @click="handleInspect(collectibles)">
                         <span>Inspect</span><i class="inspect"></i>
                     </div>
-                    <div class="btn-item">
-                        <span>Share</span><i class="share"></i>
-                    </div>
+                    <el-popover placement="top" width="140" trigger="click" v-model="showPopover">
+                        <div>
+                            <el-button 
+                                round 
+                                class="btn-share-twitter"
+                                @click="handleShareTwitter"
+                            ><i class="box-twitter"></i> Twitter</el-button>
+                        </div>
+                        <div slot="reference" class="btn-item">
+                            <span>Share</span><i class="share"></i>
+                        </div>
+                    </el-popover>
                 </div>
             </div>
 
@@ -39,9 +48,18 @@
 
             <!-- Sale -->
             <div class="box-sale">
-                <div class="box-sale-item sale" v-if="saleAble">
-                    List for sale
-                </div>
+                <el-tooltip
+                    effect="dark"
+                    content="Coming soon"
+                    placement="bottom"
+                    popper-class="popper-coming"
+                    v-if="saleAble"
+                >
+                    <div class="box-sale-item sale">
+                        List for sale
+                    </div>
+                </el-tooltip>
+
                 <div class="box-sale-item no" v-else>Not for sale</div>
             </div>
         </main>

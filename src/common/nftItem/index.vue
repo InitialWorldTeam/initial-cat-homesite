@@ -129,7 +129,7 @@ export default {
 .box-cat-item {
     position: relative;
     border-radius: 6px;
-    width: 180px;
+    width: 210px;
     // overflow: hidden;
 
     &.disable::after {
@@ -180,7 +180,7 @@ export default {
             min-height: 100%;
             inset: 0px;
             box-sizing: border-box;
-            object-fit: cover;
+            object-fit: contain;
         }
     }
 

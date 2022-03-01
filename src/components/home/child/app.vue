@@ -50,7 +50,7 @@
                     <h2>You only pay the Kusama Gas Fee.</h2>
                     <main>
                         <div class="box-top">
-                            <img src="../img/img-mint-cat.png" alt="" />
+                            <img :src="require('../img/img-mint-cat.png').default" alt="" />
                         </div>
                         <div class="box-bottom">
                             <p>
@@ -65,9 +65,13 @@
                                 World. At this moment, they have awakened, and
                                 the revolution has begun, either now or never!
                             </p>
-                            <div class="btn-mint" @click="goToMint">
+                            <div class="btn-mint" @click="goToMint" v-if="isConnectWallet">
                                 Mint Now
                             </div>
+                            <div class="btn-mint small" @click="goToConnect" v-else>
+                                Connect Wallet
+                            </div>
+                            <div class="btn-learn-more" @click="goToLearn">Learn more</div>
                         </div>
                     </main>
                 </div>
@@ -97,7 +101,7 @@
                 <div class="box-section-common box-ecosystem">
                     <h1>Ecosystem</h1>
                     <h2>
-                        We are creating Metaverse and linking different SubVerse
+                        We are creating Metaverse and linking different SubMetaverse
                     </h2>
                     <main>
                         <div class="box-tab" ref="boxEcoTab">
@@ -231,9 +235,19 @@
                             <div
                                 class="btn-join"
                                 @click="handleJoinCommunity(item)"
+                                v-if="item.url"
                             >
                                 Join us
                             </div>
+                            <el-tooltip
+                                v-else
+                                effect="dark"
+                                content="Coming soon"
+                                placement="bottom"
+                                popper-class="popper-coming"
+                            >
+                                <div class="btn-join" @click="handleJoinCommunity(item)">Join us</div>
+                            </el-tooltip>
                         </div>
                     </main>
                 </div>
@@ -376,7 +390,6 @@ export default {
             font-size: 10px;
             color: #fff;
             width: 70%;
-            letter-spacing: -1px;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
@@ -435,7 +448,6 @@ export default {
             > h1 {
                 font-size: 20px;
                 line-height: 26px;
-                letter-spacing: -0.5px;
             }
 
             > h2 {
@@ -486,7 +498,6 @@ export default {
                     font-weight: 400;
                     color: #ffffff;
                     line-height: 14px;
-                    letter-spacing: -1px;
                 }
                 .btn-mint {
                     width: 140px;
@@ -495,11 +506,23 @@ export default {
                     border-radius: 32px;
                     font-size: 17px;
                     line-height: 20px;
-                    font-family: MyriadPro;
                     font-weight: 600;
                     color: #110f19;
                     @include flexCenter;
                     margin: 19px auto 0;
+                    cursor: pointer;
+
+                    &.small {
+                        font-size: 14px;
+                    }
+                }
+
+                .btn-learn-more {
+                    font-size: 12px;
+                    color: rgba($color: #ccc, $alpha: 0.5);
+                    line-height: 24px;
+                    margin-top: 14px;
+                    text-align: center;
                     cursor: pointer;
                 }
             }
@@ -529,7 +552,6 @@ export default {
                     font-weight: 400;
                     color: #ffffff;
                     line-height: 16px;
-                    letter-spacing: -1px;
                 }
                 .btn-enter {
                     width: 140px;
@@ -653,7 +675,6 @@ export default {
                             line-height: 16px;
                             font-size: 10px;
                             margin-top: 9px;
-                            letter-spacing: -0.8px;
                         }
                     }
                 }
@@ -682,7 +703,6 @@ export default {
                             line-height: 16px;
                             font-size: 10px;
                             margin-top: 10px;
-                            letter-spacing: -0.6px;
                         }
                     }
                 }
@@ -729,7 +749,6 @@ export default {
             margin-top: 13px;
             display: flex;
             color: #3e3e47;
-            letter-spacing: -1.5px;
 
             h3 {
                 font-weight: normal;
@@ -828,7 +847,7 @@ export default {
                     height: auto;
 
                     &.img-1 {
-                        width: 30px;
+                        width: 40px;
                     }
                     &.img-3 {
                         width: 46px;
@@ -859,13 +878,16 @@ export default {
             .box-community-item {
                 width: 100px;
                 height: 125px;
-                margin-right: 10px;
                 margin-bottom: 16px;
                 @include flexCenter;
                 @include bg-item;
                 background-image: url(../../../assets/img/home/bg-community-item.png);
                 flex-direction: column;
                 flex-shrink: 0;
+
+                &:not(:last-child) {
+                    margin-right: 10px;
+                }
 
                 img {
                     width: 38px;
@@ -957,7 +979,6 @@ export default {
                 font-size: 10px;
                 color: #5c5d67;
                 margin-top: 8px;
-                letter-spacing: -1.3px;
                 display: none;
             }
             .box-subscribe {

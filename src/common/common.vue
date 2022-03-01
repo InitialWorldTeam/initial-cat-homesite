@@ -24,7 +24,7 @@ import {
     IpfsSwitchDomain
 } from "@/config/util/const";
 import Decimal from "decimal.js";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
     //部件
@@ -60,7 +60,7 @@ export default {
             "isApp",
             "navList",
             "curNav",
-            "curQueryWallet",
+            "curQueryWallet"
         ]),
         ...mapGetters(["curRootWallet"]),
         // 标记当前路由页面
@@ -89,7 +89,7 @@ export default {
                 setTimeout(() => {
                     reslove();
                 }, time);
-            })
+            });
         },
         checkIsLoadWallet() {
             const wallets = JSON.parse(UTILS.getLocal(OwnWalletNameSpace));
@@ -155,7 +155,6 @@ export default {
             return this.$http
                 .post(url, config, "json")
                 .then(res => {
-                    console.log('all Nft: ', res);
                     return res?.data;
                 })
                 .catch(err => {
@@ -208,8 +207,8 @@ export default {
             const { resources, priority } = nft;
 
             const META_TYPE = {
-                threeD: ['gltf', 'fbx']
-            }
+                threeD: ["gltf", "fbx"]
+            };
             // 根据优先级ID 查询并输入资源
             let queryResource = async priorityId => {
                 let res = false;
@@ -218,13 +217,13 @@ export default {
                     if (item.id === priorityId) {
                         if (item.metadata) {
                             item.metaType = await getMetaType(item);
-                            const isThree = META_TYPE.threeD.some((child) => {
+                            const isThree = META_TYPE.threeD.some(child => {
                                 if (item.metaType.includes(child)) {
                                     item.metaType = child;
                                     return true;
                                 }
                                 return false;
-                            })
+                            });
 
                             if (isThree) {
                                 res = formatAssetObj(3, item);
@@ -242,21 +241,22 @@ export default {
 
             let formatAssetObj = async (type, item) => {
                 return {
-                    type: type === 3 ? item.metaType : 'images',
-                    renderUrl: type === 3 ? this.replaceIpfsUrl(item.src) : await getAssets(item),
+                    type: type === 3 ? item.metaType : "images",
+                    renderUrl:
+                        type === 3
+                            ? this.replaceIpfsUrl(item.src)
+                            : await getAssets(item),
                     ...item
-                }
-            }
+                };
+            };
 
             // 根据metadata获取资源类型
-            let getMetaType = async (item) => {
+            let getMetaType = async item => {
                 let url = this.replaceIpfsUrl(item.metadata);
-                console.log(url);
-                return axios.get(url)
-                    .then(res => {
-                        return res?.data?.mimeType;
-                    })
-            }
+                return axios.get(url).then(res => {
+                    return res?.data?.mimeType;
+                });
+            };
 
             // 获取2d静态资源
             let getAssets = async item => {
@@ -333,13 +333,13 @@ export default {
             // 更新NFT列表
             const NFT_DATA = await this.queryNftData(ALL_NFTS);
             this.setCatAssetList(NFT_DATA);
-            console.log('NFT_DATA', NFT_DATA);
+            console.log("NFT_DATA", NFT_DATA);
 
             this.$nextTick(() => {
                 // 更新NFT加载状态
                 const NFT_STA = NFT_DATA.length ? 1 : 2;
                 this.setLoadingNftSta(NFT_STA);
-            })
+            });
         },
         // 查询钱包余额
         async queryBalance(add) {
@@ -357,14 +357,6 @@ export default {
             // 设置查询钱包为当前钱包
             this.setQueryWallet(wallet);
 
-            // 查询浏览器环境所有钱包余额
-            /* this.walletAccounts.map(async (item, index, array) => {
-                const { data: balance } = await api.query.system.account(
-                    item.address
-                );
-                item.balance = JSON.parse(balance);
-            });
-            this.setAccount(this.walletAccounts); */
             this.$nextTick(() => {
                 this.queryNftAsset(add);
             });
@@ -405,17 +397,22 @@ export default {
                 }
             );
         },
+        connectWalletFail() {
+            const message = this.isApp
+                ? "No wallet detected"
+                : "Please install the polkadot.js plugin";
+            this.$toast.fail({
+                message
+            });
+        },
         // 校验浏览器环境，初始化Api
         async initApi() {
             const extensions = await web3Enable("polkadot-js/apps");
             if (extensions.length === 0) {
                 // no extension installed, or the user did not accept the authorization
                 // in this case we should inform the use and give a link to the extension
-                const message = this.isApp ? "No wallet detected" : "Please install the polkadot.js plugin";
-                this.$toast.fail({
-                    message
-                });
-                return;
+                this.connectWalletFail();
+                return false;
             }
 
             this.setLoading(true);
@@ -440,16 +437,25 @@ export default {
         },
         // 初始化钱包
         async initWallet(cb) {
-            await this.initApi();
+            const apiSta = await this.initApi();
+            if (!apiSta) {
+                return false;
+            }
 
             // 获取钱包所有帐户信息
             let allAccounts = await web3Accounts({
                 ss58Format: 2 // 默认42-Substrate, 0-polkdot, 2-Kusama
             });
+
+            if (allAccounts.length === 0) {
+                return false;
+            }
+
             this.setAccount(allAccounts);
             this.$nextTick(() => {
                 cb && cb();
             });
+            return allAccounts;
         }
     },
     //请求数据
