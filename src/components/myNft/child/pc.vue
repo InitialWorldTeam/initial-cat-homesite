@@ -264,9 +264,11 @@ export default {
             .box-nft {
                 cursor: pointer;
                 margin-bottom: 40px;
+                display: flex;
+                flex-wrap: wrap;
 
                 &:not(:last-child) {
-                    margin-right: 60px;
+                    margin-right: 36px;
                 }
             }
         }

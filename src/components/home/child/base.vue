@@ -25,7 +25,7 @@ export default {
             return this.ecoTabList[this.cueEcoIdx];
         },
         isConnectWallet() {
-            return Boolean(this.curRootWallet);
+            return Boolean(this.curRootWallet) && this.apiProvider;
         }
     },
     //数据
@@ -41,7 +41,7 @@ export default {
                     type: 'auto'
                 }, */
                 {
-                    img: require("../img/banner-mint-pc.jpg").default,
+                    img: require("../img/banner-mint-pc.jpeg").default,
                     text: null,
                     type: "mint"
                 }
@@ -80,7 +80,7 @@ export default {
                 },
                 {
                     title: "Free mint InitialCat",
-                    img: require("../../../assets/img/home/img-introduction-4.png"),
+                    img: require("../../../assets/img/home/img-introduction-4.png").default,
                     domId: "mysteryBox"
                 }
             ],
@@ -171,7 +171,6 @@ export default {
         async goToConnect() {
             const sta = await this.initWallet();
             if (!sta) {
-                console.log(message)
                 this.connectWalletFail();
                 return;
             }

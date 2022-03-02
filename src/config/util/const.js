@@ -38,7 +38,16 @@ const OwnWalletNameSpace = 'Initial_World_Wallets';
 const OwnWalletIdxNameSpace = 'Initial_World_Wallet_Index';
 
 // 可直接访问ipfs静态资源替换域名
-const IpfsSwitchDomain = 'https://test-initialworld.mypinata.cloud/';
+const IpfsSwitchDomain = 'https://initialworld.mypinata.cloud/';
+
+// 最低钱包Balance限制
+const Min_Ksm_Balance = 0.0015 * Math.pow(10, 12);
+
+// 过滤 NFT id 的特定字符串
+const Filter_NftId_Symbol = 'INITIALWORLD';
+
+// 标记是否过滤 NFT id
+const Is_Filter_NftId = true;
 
 export {
     BaseNameSpace,
@@ -47,5 +56,8 @@ export {
     Env_Debug,
     OwnWalletNameSpace,
     OwnWalletIdxNameSpace,
-    IpfsSwitchDomain
+    IpfsSwitchDomain,
+    Min_Ksm_Balance,
+    Filter_NftId_Symbol,
+    Is_Filter_NftId
 }

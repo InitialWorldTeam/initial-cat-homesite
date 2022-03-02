@@ -38,6 +38,9 @@ import {
     web3Enable,
     web3FromAddress
 } from "@polkadot/extension-dapp";
+import {
+    Min_Ksm_Balance
+} from "@/config/util/const";
 
 export default {
     mixins: [common],
@@ -54,7 +57,8 @@ export default {
         return {
             isShowMint: false, // 是否展示弹层
             mintAble: true, // 是否可点击Mint
-            mintStatus: 0 // Mint状态，0 默认，1 成功, 2 失败
+            mintStatus: 0, // Mint状态，0 默认，1 成功, 2 失败
+            walletBalance: 0, // 钱包余额
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -71,9 +75,14 @@ export default {
                 });
             }
         },
-        handleShowMint() {
+        async handleShowMint() {
             this.mintStatus = 0;
             this.isShowMint = true;
+            // 查询余额
+            const add = this.curRootWallet.address;
+            const { data: balance } = await this.apiProvider.query.system.account(add);
+            const { free } = JSON.parse(balance);
+            this.walletBalance = free;
         },
         async getVerifyCode(add) {
             let config = {
@@ -99,6 +108,14 @@ export default {
             }
             // 正在 Mint 时不可点击
             if (!this.mintAble) {
+                return;
+            }
+            // 钱包余额过低时提示
+            if (this.walletBalance < +Min_Ksm_Balance) {
+                this.$toast.fail({
+                    message: ' please keep balance more than 0.0015KSM',
+                    duration: 3000
+                })
                 return;
             }
 
@@ -155,7 +172,10 @@ export default {
                 .catch(err => {
                     console.log(err);
                     this.mintStatus = 2;
-                    this.$toast.fail(err.message);
+                    this.$toast.fail({
+                        message: err.message,
+                        duration: 3000
+                    });
                     this.resetMintStatus();
                 });
         }

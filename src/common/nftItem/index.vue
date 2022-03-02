@@ -130,7 +130,6 @@ export default {
     position: relative;
     border-radius: 6px;
     width: 210px;
-    // overflow: hidden;
 
     &.disable::after {
         content: "";
@@ -145,10 +144,16 @@ export default {
     }
 
     &.app {
-        width: 83px;
+        width: 40vw;
 
         main {
-            min-height: 125px;
+            min-height: 40vw;
+        }
+
+        .box-info {
+            .box-name {
+                font-size: 10px;
+            }
         }
     }
 

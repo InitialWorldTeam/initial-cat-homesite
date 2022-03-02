@@ -21,7 +21,9 @@ import {
     Env_Debug,
     OwnWalletNameSpace,
     OwnWalletIdxNameSpace,
-    IpfsSwitchDomain
+    IpfsSwitchDomain,
+    Filter_NftId_Symbol,
+    Is_Filter_NftId
 } from "@/config/util/const";
 import Decimal from "decimal.js";
 import axios from "axios";
@@ -84,6 +86,18 @@ export default {
             "setClientType",
             "setQueryWallet"
         ]),
+        filterNftId(nfts) {
+            // 开发环境不过滤
+            // 过滤开关等于 false 时不过滤
+            if (Env_Debug || !Is_Filter_NftId) {
+                return nfts;
+            }
+            // 生产环境过滤
+            let res = nfts.filter((item, index, array) => {
+                return !item.includes(Filter_NftId_Symbol);
+            })
+            return res;
+        },
         sleep(time = 2000) {
             return new Promise((reslove, reject) => {
                 setTimeout(() => {
@@ -328,12 +342,12 @@ export default {
         // 查询所有钱包的NFT资产
         async queryNftAsset(add) {
             this.setLoadingNftSta(0);
-            const ALL_NFTS = await this.getAllNfts(add);
+            let ALL_NFTS = await this.getAllNfts(add);
+            ALL_NFTS = this.filterNftId(ALL_NFTS);
 
             // 更新NFT列表
             const NFT_DATA = await this.queryNftData(ALL_NFTS);
             this.setCatAssetList(NFT_DATA);
-            console.log("NFT_DATA", NFT_DATA);
 
             this.$nextTick(() => {
                 // 更新NFT加载状态

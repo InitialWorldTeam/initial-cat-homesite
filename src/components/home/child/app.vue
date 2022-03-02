@@ -372,10 +372,14 @@ export default {
 
     .box-img {
         height: 88px;
+        background-color: #fff;
+        overflow: hidden;
 
         img {
             display: block;
-            height: 100%;
+            height: auto;
+            width: 100%;
+            object-fit: contain;
         }
     }
 

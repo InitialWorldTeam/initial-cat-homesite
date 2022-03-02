@@ -5,7 +5,7 @@
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"
     >
-        <main v-if="true">
+        <main v-if="collectibles">
             <!-- Display -->
             <div class="box-display">
                 <nft-item :nftItem="collectibles"></nft-item>

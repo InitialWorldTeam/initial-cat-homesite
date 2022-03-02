@@ -50,15 +50,20 @@
                 >
                     <!-- own NFT -->
                     <section v-if="loadingNftSta === 1">
-                        <template
-                            v-for="item in myNftAssets"
-                        >
-                            <nft-item
+                        <template v-for="(item,index) in myNftAssets">
+                            <div
                                 :key="item.id"
-                                :nftItem="item"
-                                @sell="sellCat"
-                                :app="true"
-                            ></nft-item>
+                                class="box-nft"
+                                @click="goToDetail(item)"
+                            >
+                                <nft-item
+                                    :nftItem="item"
+                                    :index="index"
+                                    source="list"
+                                    @sell="sellCat"
+                                    :app="true"
+                                ></nft-item>
+                            </div>
                         </template>
                     </section>
                     <!-- no NFT -->
@@ -138,7 +143,7 @@ export default {
     padding-top: 50px;
 
     main {
-        padding-bottom: 125px;
+        padding-bottom: 20px;
     }
 
     .h1 {
@@ -259,6 +264,17 @@ export default {
         .box-NftList {
             margin-top: 19px;
             min-height: 125px;
+
+            .box-nft {
+                display: flex;
+                flex-wrap: wrap;
+                cursor: pointer;
+                margin-bottom: 30px;
+
+                &:not(:last-child) {
+                    margin-right: 6vw;
+                }
+            }
         }
 
         .box-empty-nft {
@@ -288,15 +304,9 @@ export default {
         section {
             display: flex;
             flex-wrap: wrap;
-            padding-left: 38px;
+            padding-left: 8vw;
 
             .box-cat-item {
-                width: 83px;
-                margin-bottom: 18px;
-
-                &:not(:last-child) {
-                    margin-right: 26px;
-                }
 
                 img {
                     display: block;

@@ -41,12 +41,7 @@
                                     </div>
                                     <div class="box-content flexBetween">
                                         <h3 v-text="item.title"></h3>
-                                        <div
-                                            class="btn-go"
-                                            @click="
-                                                handleGoIntroductDetail(item)
-                                            "
-                                        >
+                                        <div class="btn-go" @click="handleGoIntroductDetail(item)">
                                             Go
                                         </div>
                                     </div>
@@ -467,7 +462,9 @@ export default {
 
         .box-img {
             min-height: 146px;
+            max-height: 190px;
             overflow: hidden;
+            background-color: #fff;
 
             img {
                 display: block;
@@ -653,8 +650,8 @@ export default {
             padding-right: 60px;
 
             .box-right {
-                width: 252px;
-                height: 252px;
+                width: 320px;
+                height: 320px;
                 flex-shrink: 0;
                 border-radius: 10px;
                 overflow: hidden;
@@ -667,7 +664,7 @@ export default {
             }
 
             .box-left {
-                width: calc(100% - 250px);
+                width: calc(100% - 350px);
                 padding-top: 7px;
 
                 p {
