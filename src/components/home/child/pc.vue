@@ -461,16 +461,15 @@ export default {
         overflow: hidden;
 
         .box-img {
-            min-height: 146px;
-            max-height: 190px;
+            height: 12vw;
             overflow: hidden;
             background-color: #fff;
 
             img {
                 display: block;
-                min-height: 146px;
                 height: auto;
                 width: 100%;
+                min-height: 100%;
             }
         }
 
