@@ -25,7 +25,7 @@ export default {
             return this.ecoTabList[this.cueEcoIdx];
         },
         isConnectWallet() {
-            return Boolean(this.curRootWallet) && this.apiProvider;
+            return Boolean(this.curRootWallet);
         }
     },
     //数据
@@ -48,7 +48,7 @@ export default {
             ],
             bannerListApp: [
                 {
-                    img: require("../img/banner-mint-app.jpg").default,
+                    img: require("../img/banner-mint-app.jpeg").default,
                     text: null,
                     type: "mint"
                 }
@@ -169,11 +169,6 @@ export default {
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
         async goToConnect() {
-            const sta = await this.initWallet();
-            if (!sta) {
-                this.connectWalletFail();
-                return;
-            }
             this.goToMint();
         },
         goToLearn() {
@@ -206,7 +201,14 @@ export default {
                 this.goToMint();
             }
         },
-        goToMint() {
+        async goToMint() {
+            if (!this.apiProvider) {
+                const sta = await this.initWallet();
+                if (!sta) {
+                    this.connectWalletFail();
+                    return;
+                }
+            }
             this.$refs.freeMint.handleShowMint();
         },
         // 点击事件，Join Us
