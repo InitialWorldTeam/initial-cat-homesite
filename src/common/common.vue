@@ -94,7 +94,7 @@ export default {
             }
             // 生产环境过滤
             let res = nfts.filter((item, index, array) => {
-                return !item.includes(Filter_NftId_Symbol);
+                return item.includes(Filter_NftId_Symbol);
             })
             return res;
         },
