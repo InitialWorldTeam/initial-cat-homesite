@@ -1,7 +1,11 @@
 
-const debug = process.env.NODE_ENV != 'production';
+import {
+    Env_Debug
+} from '@/config/util/const';
 
-let baseurl = debug ? "/mailApi" : "https://mailsub.initialworld.net";
+// const debug = process.env.NODE_ENV != 'production';
+
+let baseurl = Env_Debug ? "/mailApi" : "https://mailsub.initialworld.net";
 
 const Api = {
     /**

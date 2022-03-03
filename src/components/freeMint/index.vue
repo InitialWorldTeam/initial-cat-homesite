@@ -134,6 +134,26 @@ export default {
 
             this.handlePayGasFee(CODE_DATA?.data);
         },
+        // tranfer token 成功后调用，用户主动确认已付款
+        handeConfirmTransferSuccess(params) {
+            const { verifyCode } = params;
+            let config = {
+                address: this.curRootWallet.address,
+                verifyCode
+            };
+            let url = SaleApi.confirmTransferSuccess;
+
+            return this.$http
+                .post(url, config, "json")
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    console.log("err:", err);
+                    return err;
+                });
+        },
+        // 发起 Transfer Token
         async handlePayGasFee(params) {
             let type = "CAT";
             const { verifyCode, toAddress } = params;
@@ -163,6 +183,7 @@ export default {
                     },
                     async ({ events = [], status }) => {
                         // console.log("status:", status);
+
                         if (status.isFinalized || status.isInBlock) {
                             unsubscribe();
 
@@ -194,6 +215,7 @@ export default {
                                     } else if (method === "ExtrinsicSuccess") {
                                         // console.log("成功");
                                         this.mintStatus = 1;
+                                        this.handeConfirmTransferSuccess(params);
                                         await this.sleep();
                                         this.resetMintStatus();
                                         this.$toast.success("Mint Success, Please wait 2~3 minutes");

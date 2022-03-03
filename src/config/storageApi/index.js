@@ -1,7 +1,10 @@
+import {
+    Env_Debug
+} from '@/config/util/const';
 
-const debug = process.env.NODE_ENV != 'production';
+// const debug = process.env.NODE_ENV != 'production';
 
-let baseurl = debug ? "/storageApi" : "https://storage.initialworld.net";
+let baseurl = Env_Debug ? "/storageApi" : "https://storage.initialworld.net";
 
 export default {
 

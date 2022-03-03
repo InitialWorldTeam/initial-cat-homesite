@@ -1,7 +1,10 @@
+import {
+    Env_Debug
+} from '@/config/util/const';
 
-const debug = process.env.NODE_ENV != 'production';
+// const debug = process.env.NODE_ENV != 'production';
 
-let baseurl = debug ? "/saleApi" : "https://sale.initialworld.net";
+let baseurl = Env_Debug ? "/saleApi" : "https://sale.initialworld.net";
 
 export default {
 
@@ -11,5 +14,13 @@ export default {
      * @param {string} address
      * */
     getVerifyCode: `${baseurl}/sale/free/newverifycode`,
+
+    /**
+     * user mark that verify code has bee iapd
+     * Post
+     * @param {string} address
+     * @param {string} verifyCode
+     * */
+    confirmTransferSuccess: `${baseurl}/sale/free/markpaid`,
 
 }
