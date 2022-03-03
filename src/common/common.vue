@@ -23,7 +23,8 @@ import {
     OwnWalletIdxNameSpace,
     IpfsSwitchDomain,
     Filter_NftId_Symbol,
-    Is_Filter_NftId
+    Is_Filter_NftId,
+    Api_Host_Kusama
 } from "@/config/util/const";
 import Decimal from "decimal.js";
 import axios from "axios";
@@ -86,6 +87,24 @@ export default {
             "setClientType",
             "setQueryWallet"
         ]),
+        // 获取Kusama实时价格
+        async getKusamaPrice() {
+            let config = {
+                time: new Date().getTime()
+            };
+            let url = Api_Host_Kusama + "/api/open/price";
+
+            return axios
+                .post(url, config)
+                .then(function(response) {
+                    // console.log('response', response);
+                    const { data } = response;
+                    return data.data;
+                })
+                .catch(function(error) {
+                    console.log('error: ', error);
+                });
+        },
         filterNftId(nfts) {
             // 开发环境不过滤
             // 过滤开关等于 false 时不过滤
@@ -95,7 +114,7 @@ export default {
             // 生产环境过滤
             let res = nfts.filter((item, index, array) => {
                 return item.includes(Filter_NftId_Symbol);
-            })
+            });
             return res;
         },
         sleep(time = 2000) {

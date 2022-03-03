@@ -50,13 +50,19 @@ export default {
         },
         urlAddress() {
             return this.$route.params?.id;
+        },
+        kusamaUsdPrice() {
+            const x = new Decimal(this.kusamaPrice);
+            const y =  this.curQueryWallet ? new Decimal( this.formatKsmUnit(this.curQueryWallet?.balance?.free)) : 0;
+            return x.times(y).toFixed(4);
         }
     },
     //数据
     data() {
         return {
             sellPrice: 0, // 出售价格
-            curSellCat: null // 当前出售Cat
+            curSellCat: null, // 当前出售Cat
+            kusamaPrice: 0, // 当前 Kusama 实时价格
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -102,7 +108,10 @@ export default {
     },
     //请求数据
     async created() {
-        if ( this.urlAddress ) {
+        const { price } = await this.getKusamaPrice();
+        this.kusamaPrice = price;
+
+        if (this.urlAddress) {
             this.queryBalance(this.urlAddress);
         }
     },

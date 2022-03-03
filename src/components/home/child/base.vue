@@ -86,12 +86,12 @@ export default {
             ],
             partnerList: [
                 require("../img/icon-partner-1.png"),
-                require("../img/img-rmrk.png").default,
+                require("../img/img-rmrk.png"),
                 require("../img/icon-partner-3.png"),
                 require("../img/icon-partner-4.png"),
                 require("../img/icon-partner-5.png"),
                 require("../img/icon-partner-6.png"),
-                require("../img/img-ipfs.png").default,
+                require("../img/img-ipfs.png"),
                 require("../img/icon-partner-8.png")
             ],
             communityList: [

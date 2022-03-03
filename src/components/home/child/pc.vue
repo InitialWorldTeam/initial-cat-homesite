@@ -60,7 +60,7 @@
                     class="box-section-common box-mintAvatar animate__animated "
                 >
                     <h1>Free to mint your InitialWorld Avatar</h1>
-                    <h2>You only pay the Kusama Gas Fee.</h2>
+                    <h2>You only pay the Kusama Gas Fee. One address has One mint chance every day.</h2>
                     <main>
                         <div class="box-left">
                             <p>
@@ -693,12 +693,11 @@ export default {
                 .btn-learn-more {
                     font-size: 12px;
                     color: rgba($color: #ccc, $alpha: 0.5);
-                    line-height: 24px;
-                    margin-top: 14px;
+                    line-height: 20px;
+                    margin-top: 10px;
                     width: 80px;
                     text-align: center;
                     cursor: pointer;
-                    margin-left: 40px;
 
                     &:hover {
                         color: #fff;
@@ -1014,7 +1013,7 @@ export default {
                     height: auto;
 
                     &.img-1 {
-                        width: 81px;
+                        width: 86px;
                     }
                     &.img-3 {
                         width: 111px;
@@ -1026,7 +1025,7 @@ export default {
                         width: 90px;
                     }
                     &.img-7 {
-                        width: 119px;
+                        width: 81px;
                     }
                 }
             }

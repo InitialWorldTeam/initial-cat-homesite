@@ -47,7 +47,7 @@
                 <!-- Mint Avatar -->
                 <div class="box-section-common box-mintAvatar">
                     <h1>Free to mint your InitialWorld Avatar</h1>
-                    <h2>You only pay the Kusama Gas Fee.</h2>
+                    <h2>You only pay the Kusama Gas Fee. One address has One mint chance every day.</h2>
                     <main>
                         <div class="box-top">
                             <img :src="require('../img/img-mint-cat.png').default" alt="" />
@@ -476,6 +476,10 @@ export default {
 
     .box-mintAvatar {
         margin-top: 37px;
+
+        >h2 {
+            line-height: 16px!important;
+        }
 
         main {
             margin-top: 18px;

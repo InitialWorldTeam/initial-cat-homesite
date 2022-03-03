@@ -49,6 +49,9 @@ const Filter_NftId_Symbol = 'INITIALWORLD';
 // 标记是否过滤 NFT id
 const Is_Filter_NftId = true;
 
+// Kusama Api Host
+const Api_Host_Kusama = 'https://kusama.api.subscan.io';
+
 export {
     BaseNameSpace,
     Providers_Test,
@@ -59,5 +62,6 @@ export {
     IpfsSwitchDomain,
     Min_Ksm_Balance,
     Filter_NftId_Symbol,
-    Is_Filter_NftId
+    Is_Filter_NftId,
+    Api_Host_Kusama
 }

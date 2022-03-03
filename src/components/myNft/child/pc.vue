@@ -26,14 +26,12 @@
                         <h3>Balance</h3>
                         <div class="box-num box-num-ksm">
                             <span
-                                
                                 id="balance"
                                 >0.00</span
                             >
-                            <!-- <span v-else>0.00</span> -->
                             KSM
                         </div>
-                        <p>$ 0.00</p>
+                        <p>$ {{kusamaUsdPrice}}</p>
                     </div>
                 </section>
             </div>

@@ -38,9 +38,7 @@ import {
     web3Enable,
     web3FromAddress
 } from "@polkadot/extension-dapp";
-import {
-    Min_Ksm_Balance
-} from "@/config/util/const";
+import { Min_Ksm_Balance } from "@/config/util/const";
 
 export default {
     mixins: [common],
@@ -58,7 +56,7 @@ export default {
             isShowMint: false, // 是否展示弹层
             mintAble: true, // 是否可点击Mint
             mintStatus: 0, // Mint状态，0 默认，1 成功, 2 失败
-            walletBalance: 0, // 钱包余额
+            walletBalance: 0 // 钱包余额 KSM
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -80,7 +78,9 @@ export default {
             this.isShowMint = true;
             // 查询余额
             const add = this.curRootWallet.address;
-            const { data: balance } = await this.apiProvider.query.system.account(add);
+            const {
+                data: balance
+            } = await this.apiProvider.query.system.account(add);
             const { free } = JSON.parse(balance);
             this.walletBalance = free;
         },
@@ -113,9 +113,9 @@ export default {
             // 钱包余额过低时提示
             if (this.walletBalance < +Min_Ksm_Balance) {
                 this.$toast.fail({
-                    message: ' please keep balance more than 0.0015KSM',
+                    message: " please keep balance more than 0.0015KSM",
                     duration: 3000
-                })
+                });
                 return;
             }
 
@@ -155,18 +155,52 @@ export default {
             const SENDER = this.curRootWallet.address;
             const injector = await web3FromAddress(SENDER);
 
-            await tx
+            let unsubscribe = await tx
                 .signAndSend(
                     SENDER,
                     {
                         signer: injector.signer
                     },
                     async ({ events = [], status }) => {
-                        console.log("status:", status);
-                        this.mintStatus = 1;
-                        await this.sleep();
-                        this.resetMintStatus();
-                        this.$toast.success('Mint Success');
+                        // console.log("status:", status);
+                        if (status.isFinalized || status.isInBlock) {
+                            unsubscribe();
+
+                            events
+                                .filter(
+                                    ({ event: { section } }) =>
+                                        section === "system"
+                                )
+                                .forEach(async ({ event: { data, method } }) => {
+                                    if (method === "ExtrinsicFailed") {
+                                        const [dispatchError] = data;
+                                        if (dispatchError.isModule) {
+                                            try {
+                                                const mod =
+                                                    dispatchError.asModule;
+                                                const error = data.registry.findMetaError(
+                                                    new Uint8Array([
+                                                        mod.index.toNumber(),
+                                                        mod.error.toNumber()
+                                                    ])
+                                                );
+                                                console.log( "错误提示:", error.name ); //错误提示
+                                                this.$toast.fail(error.name);
+                                            } catch (error) {
+                                                console.log(error);
+                                                this.$toast.fail(error.message);
+                                            }
+                                        }
+                                    } else if (method === "ExtrinsicSuccess") {
+                                        // console.log("成功");
+                                        this.mintStatus = 1;
+                                        await this.sleep();
+                                        this.resetMintStatus();
+                                        this.$toast.success("Mint Success, Please wait 2~3 minutes");
+                                    }
+                                });
+
+                        }
                     }
                 )
                 .catch(err => {
