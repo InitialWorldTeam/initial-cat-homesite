@@ -49,7 +49,7 @@
                 >
                     <!-- own NFT -->
                     <section v-if="loadingNftSta === 1">
-                        <template v-for="(item,index) in myNftAssets">
+                        <template v-for="(item,index) in curPageNftList">
                             <div
                                 :key="item.id"
                                 class="box-nft"
@@ -69,11 +69,16 @@
                         <div class="box-empty-nft"></div>
                     </template>
                 </div>
-                <!-- Disconnect -->
-                <div class="box-no-connect" v-if="false">
-                    <div class="btn-connect-wallet" @click="initWallet">
-                        Connect Wallet
-                    </div>
+                <!-- Pagination -->
+                <div class="box-pagination flexCenter">
+                    <el-pagination
+                        :hide-on-single-page="isHideSinglePage"
+                        layout="prev, pager, next"
+                        :page-size="nftPageSize"
+                        :current-page="curPage"
+                        @current-change="handlePageChange"
+                        :total="nftTotalNum">
+                    </el-pagination>
                 </div>
             </div>
         </main>
@@ -162,14 +167,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .container-myNft {
     padding-top: 156px;
 
     main {
         @extend .common-pc-width;
         margin: 0 auto;
-        padding-bottom: 188px;
+        padding-bottom: 128px;
     }
 
     .h1 {
@@ -294,6 +299,28 @@ export default {
                 padding: 0 10px;
                 color: #110f19;
                 letter-spacing: 0px;
+            }
+        }
+
+        .box-pagination {
+            margin-top: 20px;
+
+            .el-pagination {
+                color: #fff;
+
+                button {
+
+                    &:disabled {
+                        color: #303133;
+                    }
+                }
+            }
+
+            .el-pager li, .el-pagination .btn-next, .el-pagination .btn-prev {
+                background: transparent;
+            }
+            .el-pagination .btn-next, .el-pagination .btn-prev {
+                color: #c0c4cc;
             }
         }
     }

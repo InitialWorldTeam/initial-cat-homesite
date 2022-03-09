@@ -63,10 +63,15 @@ export default {
             sellPrice: 0, // 出售价格
             curSellCat: null, // 当前出售Cat
             kusamaPrice: 0, // 当前 Kusama 实时价格
+            isHideSinglePage: true, // 当只有一页时是否隐藏分页
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        handlePageChange(page) {
+            this.setCurPage(page);
+            this.queryNftAsset(this.curQueryWallet.address);
+        },
         onCopy: function(e) {
             this.$toast(`已复制：${e.text}`);
         },
@@ -108,14 +113,14 @@ export default {
     },
     //请求数据
     async created() {
-        const { price } = await this.getKusamaPrice();
-        this.kusamaPrice = price;
-
         if (this.urlAddress) {
             this.queryBalance(this.urlAddress);
         }
     },
-    async mounted() {}
+    async mounted() {
+        const { price } = await this.getKusamaPrice();
+        this.kusamaPrice = price;
+    }
 };
 </script>
 

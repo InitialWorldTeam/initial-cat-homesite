@@ -30,7 +30,10 @@ export default {
             path: '/FAQ'
         },
     ],
-    myNftAssets: [], // 当前钱包拥有的NFT列表
+    myNftAssets: [], // 当前钱包拥有的所有NFT列表
+    curPageNftList: [], // 当前页码展示的NFT列表
+    curPage: 1, // 当前页码
+    nftPageSize: 10, // 每页显示NFT条目个数
     apiProvider: null, // 钱包环境Api
     loadingNftSta: -1, // 加载NFT状态, 0: Loading NFT, 1:有NFT, 2:空NFT
 };

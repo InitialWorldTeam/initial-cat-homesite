@@ -7,4 +7,7 @@ export default {
     tokenDecimals(state) {
         return state.apiProvider?.registry?.chainDecimals[0] || 9999;
     },
+    nftTotalNum(state) {
+        return state.myNftAssets.length;
+    }
 };

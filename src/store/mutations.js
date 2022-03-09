@@ -20,7 +20,7 @@ export default {
     setLoading(state, value) {
         state.loading = value;
     },
-    setCatAssetList(state, value) {
+    setAllNftList(state, value) {
         state.myNftAssets = value;
     },
     setApiProvider(state, value) {
@@ -29,4 +29,10 @@ export default {
     setLoadingNftSta(state, value) {
         state.loadingNftSta = value;
     },
+    setCurPage(state, value) {
+        state.curPage = value;
+    },
+    setCurPageNft(state, value) {
+        state.curPageNftList = value;
+    }
 };

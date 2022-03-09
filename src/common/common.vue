@@ -63,9 +63,15 @@ export default {
             "isApp",
             "navList",
             "curNav",
-            "curQueryWallet"
+            "curQueryWallet",
+            "curPageNftList",
+            "nftPageSize",
+            "curPage"
         ]),
-        ...mapGetters(["curRootWallet"]),
+        ...mapGetters([
+            "curRootWallet",
+            "nftTotalNum",
+        ]),
         // 标记当前路由页面
         curNav() {
             return this.$route.name;
@@ -80,12 +86,14 @@ export default {
         ...mapMutations([
             "setAccount",
             "setLoading",
-            "setCatAssetList",
+            "setAllNftList",
             "setApiProvider",
             "setLoadingNftSta",
             "setCurWalletIdx",
             "setClientType",
-            "setQueryWallet"
+            "setQueryWallet",
+            "setCurPage",
+            "setCurPageNft"
         ]),
         // 获取Kusama实时价格
         async getKusamaPrice() {
@@ -105,6 +113,7 @@ export default {
                     console.log('error: ', error);
                 });
         },
+        // 过滤掉非本项目发放的 NFT
         filterNftId(nfts) {
             // 开发环境不过滤
             // 过滤开关等于 false 时不过滤
@@ -117,7 +126,8 @@ export default {
             });
             return res;
         },
-        sleep(time = 2000) {
+        // 延时
+        async sleep(time = 2000) {
             return new Promise((reslove, reject) => {
                 setTimeout(() => {
                     reslove();
@@ -346,6 +356,7 @@ export default {
                 mapPriority();
             });
         },
+        // 查询NFT资产详情数据
         async queryNftData(nfts) {
             let data = [];
             for (let item of nfts) {
@@ -358,21 +369,27 @@ export default {
             }
             return data;
         },
+        // 查询当前页码NFT资产
+        async queryCurPageData(page = 1, allNft) {
+            const IDX_START = (page - 1) * this.nftPageSize;
+            const IDX_END = page * this.nftPageSize;
+            const QUERY_NFT = allNft.slice(IDX_START, IDX_END);
+
+            this.setCurPageNft(QUERY_NFT);
+            this.setAllNftList(allNft);
+            this.$nextTick(() => {
+                // 更新NFT加载状态
+                const NFT_STA = QUERY_NFT.length ? 1 : 2;
+                this.setLoadingNftSta(NFT_STA);
+            });
+        },
         // 查询所有钱包的NFT资产
         async queryNftAsset(add) {
             this.setLoadingNftSta(0);
             let ALL_NFTS = await this.getAllNfts(add);
             ALL_NFTS = this.filterNftId(ALL_NFTS);
 
-            // 更新NFT列表
-            const NFT_DATA = await this.queryNftData(ALL_NFTS);
-            this.setCatAssetList(NFT_DATA);
-
-            this.$nextTick(() => {
-                // 更新NFT加载状态
-                const NFT_STA = NFT_DATA.length ? 1 : 2;
-                this.setLoadingNftSta(NFT_STA);
-            });
+            this.queryCurPageData(this.curPage, ALL_NFTS);
         },
         // 查询钱包余额
         async queryBalance(add) {
