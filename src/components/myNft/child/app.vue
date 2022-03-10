@@ -15,23 +15,26 @@
                 <h2 v-else>--</h2>
                 <section>
                     <div class="box-wallet-info-item box-1">
-                        <h3>My Cat</h3>
-                        <div class="box-num" v-text="myNftAssets.length"></div>
+                        <h3>Balance</h3>
+                        <div class="box-num box-num-ksm">
+                            <span 
+                                v-if="curQueryWallet && curQueryWallet.balance"
+                                class="box-ksm-count"
+                            >{{ curQueryWallet.balance.free | ksmUnit }}</span>
+                            <span v-else>0.00</span>
+                            <span class="unit">KSM</span>
+                        </div>
+                        <p>$ {{kusamaUsdPrice}}</p>
                     </div>
                     <div class="flex">
                         <div class="box-wallet-info-item box-2">
                             <h3>Balance</h3>
-                            <div class="box-num">0.00 NIC</div>
-                            <p>$0.00</p>
+                            <div class="box-num">0.00 <span class="unit">NIC</span></div>
+                            <p>$ 0.00</p>
                         </div>
                         <div class="box-wallet-info-item box-2">
-                            <h3>Balance</h3>
-                            <div class="box-num box-num-ksm">
-                                <span v-if="curQueryWallet && curQueryWallet.balance">{{ curQueryWallet.balance.free | ksmUnit }}</span>
-                                <span v-else>0.00</span>
-                                KSM
-                            </div>
-                            <p>$0.00</p>
+                            <h3>My Cat</h3>
+                            <div class="box-num" v-text="myNftAssets.length"></div>
                         </div>
                     </div>
                 </section>
@@ -242,14 +245,25 @@ export default {
                     padding-left: 24px;
                     background: url(../../../assets/img/common/img-logo-auto.png)
                         no-repeat left center / 17px auto;
-                    font-size: 18px;
+                    font-size: 15px;
+                    line-height: 20px;
                     height: 20px;
                     @include flex;
                     font-weight: bold;
                     color: #110f19;
+                    max-width: 100%;
 
                     &.box-num-ksm {
                         background-image: url(../../../assets/img/common/img-logo-ksm.png);
+                    }
+
+                    .unit {
+                        margin-left: 2px;
+                    }
+
+                    .box-ksm-count {
+                        @include ellipsis;
+                        max-width: 80%;
                     }
                 }
 

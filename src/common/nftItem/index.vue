@@ -162,15 +162,18 @@ export default {
 
     &.app {
         width: 40vw;
-        min-height: 58.4vw;
+        min-height: 53vw;
 
         main {
             min-height: 40vw;
+            padding: 0;
         }
 
         .box-info {
             .box-name {
                 font-size: 10px;
+                line-height: 14px;
+                margin-top: 4px;
             }
         }
     }
