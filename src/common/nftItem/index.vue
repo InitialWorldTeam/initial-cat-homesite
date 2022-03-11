@@ -144,9 +144,9 @@ export default {
 <style scoped lang="scss">
 .box-cat-item {
     position: relative;
+    width: 100%;
+    min-height: 230px;
     border-radius: 6px;
-    width: 210px;
-    min-height: 279px;
 
     &.disable::after {
         content: "";
@@ -184,11 +184,14 @@ export default {
 
     > main {
         position: relative;
-        min-height: 210px;
         width: 100%;
+        height: 0px;
+        padding-bottom: 100%;
         min-width: auto;
         overflow: hidden;
         background-color: #fff;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
 
         .box-cat-part-item {
             position: absolute;
@@ -216,6 +219,8 @@ export default {
         padding: 10px 12px;
         background-color: rgba($color: #eee, $alpha: 0.95);
         color: $fontColor-3;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
 
         .box-1 {
             font-size: 10px;

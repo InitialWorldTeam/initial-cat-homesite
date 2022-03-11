@@ -69,7 +69,6 @@ export default {
             if (this.mintStatus === 0) {
                 this.$toast.fail({
                     message: "You cancelled the transaction",
-                    duration: 3 * 1000
                 });
             }
         },

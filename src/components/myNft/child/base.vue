@@ -73,7 +73,8 @@ export default {
             this.queryNftAsset(this.curQueryWallet.address);
         },
         onCopy: function(e) {
-            this.$toast(`已复制：${e.text}`);
+            const text = this.isApp ? '已复制' : `已复制：${e.text}`;
+            this.$toast(text);
         },
         // 点击事件-选择出售Cat
         sellCat(item) {

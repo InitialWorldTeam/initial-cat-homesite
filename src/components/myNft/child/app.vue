@@ -32,7 +32,7 @@
                             <div class="box-num">0.00 <span class="unit">NIC</span></div>
                             <p>$ 0.00</p>
                         </div>
-                        <div class="box-wallet-info-item box-2">
+                        <div class="box-wallet-info-item box-3">
                             <h3>My Cat</h3>
                             <div class="box-num" v-text="myNftAssets.length"></div>
                         </div>
@@ -152,7 +152,7 @@ export default {
 .container-myCat-app {
     padding-top: 50px;
 
-    main {
+    >main {
         padding-bottom: 50px;
     }
 
@@ -232,6 +232,11 @@ export default {
                     flex-direction: column;
                     align-items: flex-start;
                     justify-content: center;
+                }
+
+                &.box-3 {
+                    @extend .box-2;
+                    align-items: center;
                 }
 
                 h3 {

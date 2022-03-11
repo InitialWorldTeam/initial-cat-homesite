@@ -48,7 +48,7 @@
                     element-loading-background="rgba(0, 0, 0, 0.8)"
                 >
                     <!-- own NFT -->
-                    <section v-if="loadingNftSta === 1">
+                    <section v-if="loadingNftSta === 1" class="section-nftList-pc">
                         <template v-for="(item,index) in curPageNftList">
                             <div
                                 :key="item.id"
@@ -171,7 +171,7 @@ export default {
 .container-myNft {
     padding-top: 156px;
 
-    main {
+    >main {
         @extend .common-pc-width;
         margin: 0 auto;
         padding-bottom: 128px;
@@ -254,24 +254,24 @@ export default {
 
         .box-NftList {
             min-height: 226px;
-            margin-top: 35px;
+            margin: 35px auto 0;
             border-radius: 10px;
             overflow: hidden;
+            max-width: 1500px;
 
-            section {
-                display: flex;
-                flex-wrap: wrap;
+            .section-nftList-pc {
+                display: grid;
+                grid-gap: 30px;
                 padding-left: 46px;
             }
 
             .box-nft {
                 cursor: pointer;
-                margin-bottom: 40px;
                 display: flex;
                 flex-wrap: wrap;
 
-                &:not(:last-child) {
-                    margin-right: 36px;
+                &:nth-child(5n) {
+                    margin-right: 0;
                 }
             }
         }
