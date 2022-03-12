@@ -28,9 +28,7 @@
             </div>
 
             <!-- 3D渲染 -->
-            <div class="box-cat-part-item" :id="renderThreeId" v-else>
-                <div class="spinner"></div>
-            </div>
+            <div class="box-cat-part-item three" :id="renderThreeId" v-else></div>
         </main>
 
         <!-- NFT信息 -->
@@ -140,8 +138,10 @@ export default {
 
         const { type, renderUrl } = this.nftData?.preview;
         if (type !== "images") {
-            const app = new threeRender(`#${this.renderThreeId}`, location);
-            app.view(renderUrl, type);
+            this.$nextTick(() => {
+                const app = new threeRender(`#${this.renderThreeId}`, location);
+                app.view(renderUrl, type);
+            })
         }
     }
 };
@@ -203,6 +203,10 @@ export default {
             position: absolute;
             width: 100%;
             height: 100%;
+
+            &.three {
+                pointer-events: none;
+            }
         }
 
         .box-cat-item-img {

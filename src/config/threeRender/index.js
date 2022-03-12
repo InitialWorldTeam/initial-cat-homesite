@@ -31,12 +31,8 @@ export default class threeRender {
         let container = document.body;
         this.viewer = null;
         this.viewerEl = null;
-        this.spinnerEl = container.querySelector('.spinner');
         this.dropEl = container.querySelector(el);
         this.inputEl = container.querySelector('#file-input');
-
-        // this.createDropzone();
-        this.hideSpinner();
 
         const options = this.options;
 
@@ -48,16 +44,6 @@ export default class threeRender {
         if (options.model) {
             this.view(options.model, '', new Map());
         }
-    }
-
-    /**
-     * Sets up the drag-and-drop controller.
-     */
-    createDropzone() {
-        const dropCtrl = new SimpleDropzone(this.dropEl, this.inputEl);
-        dropCtrl.on('drop', ({ files }) => this.load(files));
-        dropCtrl.on('dropstart', () => this.showSpinner());
-        dropCtrl.on('droperror', () => this.hideSpinner());
     }
 
     /**
@@ -112,7 +98,6 @@ export default class threeRender {
             : URL.createObjectURL(rootFile);
 
         const cleanup = () => {
-            this.hideSpinner();
             if (typeof rootFile === 'object') URL.revokeObjectURL(fileURL);
         };
 
@@ -139,19 +124,6 @@ export default class threeRender {
         window.alert(message);
         console.error(error);
     }
-
-    showSpinner() {
-        this.spinnerEl.style.display = '';
-    }
-
-    hideSpinner() {
-        this.spinnerEl.style.display = 'none';
-    }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-
-    // const app = new gApp(document.body, location);
-
-
-});
+document.addEventListener('DOMContentLoaded', () => {});
