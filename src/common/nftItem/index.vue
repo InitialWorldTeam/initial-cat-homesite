@@ -1,10 +1,10 @@
 <template>
     <div
         class="box-cat-item"
-        :class="{ app: app, disable: source === 'list' }"
+        :class="{ app: app }"
         v-if="nftData"
     >
-        <main>
+        <main @click="goToDetail">
             <!-- NFT 2D展示 -->
             <div
                 class="box-cat-part-item"
@@ -119,6 +119,12 @@ export default {
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        goToDetail() {
+            const PATH = "/collectibles/" + this.nftData.id;
+            this.$router.push({
+                path: PATH
+            });
+        },
         checkIsArray(arr) {
             return UTILS.checkIsArray(arr);
         },

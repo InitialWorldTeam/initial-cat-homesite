@@ -55,7 +55,7 @@ export default {
     },
     //请求数据
     async created() {
-        const NFT_DATA = await this.queryNftData(this.nftId);
+        const NFT_DATA = await this.queryNftData([this.nftId]);
         this.collectibles = NFT_DATA[0];
         this.loading = false;
     },

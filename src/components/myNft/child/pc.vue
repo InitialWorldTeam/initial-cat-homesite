@@ -53,7 +53,6 @@
                             <div
                                 :key="item.id"
                                 class="box-nft"
-                                @click="goToDetail(item)"
                             >
                                 <nft-item
                                     :nftItem="item"
