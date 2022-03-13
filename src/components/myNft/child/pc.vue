@@ -261,7 +261,6 @@ export default {
             .section-nftList-pc {
                 display: grid;
                 grid-gap: 30px;
-                padding-left: 46px;
             }
 
             .box-nft {

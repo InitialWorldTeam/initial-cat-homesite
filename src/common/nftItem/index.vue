@@ -195,7 +195,7 @@ export default {
         padding-bottom: 100%;
         min-width: auto;
         overflow: hidden;
-        background-color: #fff;
+        background-color: #000;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
 
@@ -211,6 +211,7 @@ export default {
 
         .box-cat-item-img {
             @extend .box-cat-part-item;
+            padding: 6px;
         }
 
         img {
