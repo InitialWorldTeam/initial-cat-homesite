@@ -1,6 +1,7 @@
 <template>
     <div
         class="container-collectibles"
+        :class="{'burned': isBurned}"
         v-loading="loading"
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -29,7 +30,18 @@
                     <div class="btn-item" @click="handleInspect(collectibles)">
                         <span>Inspect</span><i class="inspect"></i>
                     </div>
-                    <el-popover placement="top" width="140" trigger="click" v-model="showPopover">
+
+                    <div class="btn-item" v-if="isBurned">
+                        <span>Share</span><i class="share"></i>
+                    </div>
+
+                    <el-popover 
+                        placement="top" 
+                        width="140" 
+                        trigger="click" 
+                        v-model="showPopover"
+                        v-else
+                    >
                         <div>
                             <el-button 
                                 round 
@@ -98,6 +110,13 @@ export default {
 .container-collectibles {
     padding-top: 10px;
     min-height: 100vh;
+
+    &.burned {
+        .btn-item, .box-sale-item {
+            background-color: #c8c9cc!important;
+            color: #fff!important;
+        }
+    }
 
     main {
         // @extend .common-pc-width;

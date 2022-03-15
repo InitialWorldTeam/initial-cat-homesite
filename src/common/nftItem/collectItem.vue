@@ -1,5 +1,12 @@
 <template>
-    <div class="box-cat-item" :class="{ app: app }" v-if="nftItem.preview">
+    <div 
+        class="box-cat-item" 
+        :class="{ 
+            app: app,
+            burned: isBurned
+        }" 
+        v-if="nftItem.preview"
+    >
         <main>
             <!-- NFT 2D展示 -->
             <div
@@ -67,6 +74,9 @@ export default {
         renderType() {
             // 返回资源类型
             return this.nftItem.preview?.type === "images" ? "img" : "three";
+        },
+        isBurned() {
+            return this.nftItem?.burned.length > 0;
         }
     },
     //数据
@@ -113,6 +123,23 @@ export default {
 
         main {
             min-height: 125px;
+        }
+    }
+
+    &.burned {
+        &::after {
+            content: "burned already";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 99999;
+            background-color: rgba($color: #000, $alpha: 0.8);
+            @include flexCenter;
+            font-size: 36px;
+            line-height: 50px;
         }
     }
 

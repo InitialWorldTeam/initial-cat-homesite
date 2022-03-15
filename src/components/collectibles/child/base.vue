@@ -24,6 +24,9 @@ export default {
         renderType() {
             // 返回资源类型
             return this.collectibles.preview?.type === "images" ? "img" : "three";
+        },
+        isBurned() {
+            return this.collectibles?.burned.length > 0;
         }
     },
     //数据
@@ -41,6 +44,9 @@ export default {
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
         handleInspect(nft) {
+            if (this.isBurned) {
+                return;
+            }
             const { metadata } = nft;
             let url = metadata.replace('ipfs://ipfs/', 'https://ipfs-scan.io/?cid=');
             window.open(url);

@@ -5,6 +5,16 @@
         v-if="nftData"
     >
         <main @click="goToDetail">
+            <!-- Tag -->
+            <el-tag
+                v-if="isBurned"
+                size="small"
+                class="box-tag-item"
+                type="info"
+                effect="dark">
+                burned
+            </el-tag>
+
             <!-- NFT 2D展示 -->
             <div
                 class="box-cat-part-item"
@@ -103,6 +113,9 @@ export default {
         },
         isLoading() {
             return !Boolean(this.nftData);
+        },
+        isBurned() {
+            return this.nftData?.burned.length > 0;
         }
     },
     //数据
@@ -139,7 +152,9 @@ export default {
         const { type, renderUrl } = this.nftData?.preview;
         if (type !== "images") {
             this.$nextTick(() => {
-                const app = new threeRender(`#${this.renderThreeId}`, location);
+                const app = new threeRender(`#${this.renderThreeId}`, location, {
+                    bgColor: "0x000000"
+                });
                 app.view(renderUrl, type);
             })
         }
@@ -148,6 +163,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.box-tag-item {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
 .box-cat-item {
     position: relative;
     width: 100%;
