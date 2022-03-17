@@ -63,6 +63,15 @@
     margin-right: 4px;
     display: inline-block;
 }
+.el-icon-loading {
+    width: 30px;
+    height: 30px;
+    background: url('../img/common/logo.gif') no-repeat center / 100% 100%;
+    animation: none;
+}
+.el-icon-loading::before {
+    display: none;
+}
 
 .animate__animated {
     opacity: 0;

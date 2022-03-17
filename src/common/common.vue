@@ -387,7 +387,7 @@ export default {
         async queryNftAsset(add) {
             this.setLoadingNftSta(0);
             let ALL_NFTS = await this.getAllNfts(add);
-            ALL_NFTS = this.filterNftId(ALL_NFTS);
+            ALL_NFTS = this.filterNftId(ALL_NFTS).reverse();
 
             this.queryCurPageData(this.curPage, ALL_NFTS);
         },
