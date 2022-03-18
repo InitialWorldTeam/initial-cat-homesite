@@ -64,9 +64,9 @@
     display: inline-block;
 }
 .el-icon-loading {
-    width: 30px;
-    height: 30px;
-    background: url('../img/common/logo.gif') no-repeat center / 100% 100%;
+    width: 45px;
+    height: 45px;
+    background: url(../img/common/logo.gif) no-repeat center / 100% 100%;
     animation: none;
 }
 .el-icon-loading::before {

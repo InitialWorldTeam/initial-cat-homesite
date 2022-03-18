@@ -62,18 +62,17 @@ export default {
             slideList: [
                 {
                     title: "What is InitialWorld?",
-                    img: require("../../../assets/img/home/img-introduction-1.png")
-                        .default,
+                    img: require("../../../assets/img/home/img-introduction-1.png").default,
                     domId: ""
                 },
                 {
                     title: "What is InitialStudio?",
-                    img: require("../../../assets/img/home/img-introduction-2.png"),
+                    img: require("../../../assets/img/home/img-introduction-2.png").default,
                     domId: "userClient"
                 },
                 {
                     title: "SubMetaverse",
-                    img: require("../../../assets/img/home/img-introduction-3.png"),
+                    img: require("../../../assets/img/home/img-introduction-3.png").default,
                     domId: "metaverse"
                 },
                 {
