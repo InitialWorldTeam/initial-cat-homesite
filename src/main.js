@@ -12,6 +12,7 @@ import en from '@/language/en';
 import cn from '@/language/zh-cn';
 import "@babel/polyfill";
 import VConsole from "vconsole";
+import './assets/js/tagcanvas.min.js';
 
 const debug = process.env.NODE_ENV != 'production';
 if (debug) {

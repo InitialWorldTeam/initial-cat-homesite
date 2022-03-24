@@ -62,7 +62,6 @@ export default {
         return {
             sellPrice: 0, // 出售价格
             curSellCat: null, // 当前出售Cat
-            kusamaPrice: 0, // 当前 Kusama 实时价格
             isHideSinglePage: true, // 当只有一页时是否隐藏分页
         };
     },
@@ -118,10 +117,7 @@ export default {
             this.queryBalance(this.urlAddress);
         }
     },
-    async mounted() {
-        const { price } = await this.getKusamaPrice();
-        this.kusamaPrice = price;
-    }
+    async mounted() {}
 };
 </script>
 

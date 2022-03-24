@@ -15,7 +15,7 @@ export default {
         },
         {
             name: 'Box',
-            path: ''
+            path: '/box'
         },
         {
             name: 'Maketplace',
@@ -36,4 +36,5 @@ export default {
     nftPageSize: 10, // 每页显示NFT条目个数
     apiProvider: null, // 钱包环境Api
     loadingNftSta: -1, // 加载NFT状态, 0: Loading NFT, 1:有NFT, 2:空NFT
+    kusamaPrice: 0, // 当前 Kusama 实时价格
 };

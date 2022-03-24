@@ -23,4 +23,27 @@ export default {
      * */
     confirmTransferSuccess: `${baseurl}/sale/free/markpaid`,
 
+    /**
+     * create order
+     * Post
+     * @param {string} address
+     * @param {string} nftType
+     * */
+    createBoxOrder: `${baseurl}/sale/onprice/order/create`,
+
+    /**
+     * user mark order paid
+     * Post
+     * @param {string} address
+     * @param {string} orderId
+     * */
+    markBoxOrderPaid: `${baseurl}/sale/onprice/order/markpaid`,
+
+    /**
+     * check box order status
+     * Post
+     * @param {string} orderId
+     * */
+    checkBoxOrderStatus: `${baseurl}/sale/onprice/order/status`,
+
 }

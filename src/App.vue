@@ -42,6 +42,7 @@ export default {
         window.addEventListener("resize", () => {
             this.checkIsApp();
         });
+        this.getKusamaPrice();
     }
 };
 </script>

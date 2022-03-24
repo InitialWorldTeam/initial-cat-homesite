@@ -3,11 +3,11 @@
         <main>
             <div class="box-1">
                 <h1>Special Loot Box</h1>
-                <h2>The remaining amount: 3870/9940</h2>
+                <h2>The remaining amount: 100</h2>
                 <div class="box-price">
                     <i></i>
                     <span>1 KSM</span>
-                    <div>≈ $ 350</div>
+                    <div>≈ $ {{kusamaPrice | fixed}}</div>
                 </div>
             </div>
 
@@ -15,22 +15,25 @@
             <div class="box-all-box-list">
                 <!-- 分页器 -->
                 <header>
-                    <div class="btn-page-switch btn-previous">
+                    <div class="btn-page-switch btn-previous" v-if="false">
                         <i></i>Previous
                     </div>
+
+                    <!-- 数量 -->
                     <div class="box-info">
-                        <div class="box-info-item">
+                        <div class="box-info-item" v-if="false">
                             <span>Box</span>
                             <span class="item-left">61/</span>
                             <span class="item-all">142</span>
                         </div>
                         <div class="box-info-item">
                             <span>Remaining</span>
-                            <span class="item-left">39/</span>
-                            <span class="item-all">70</span>
+                            <!-- <span class="item-left">39/</span> -->
+                            <span class="item-all">100</span>
                         </div>
                     </div>
-                    <div class="btn-page-switch btn-next">Next<i></i></div>
+
+                    <div class="btn-page-switch btn-next" v-if="false">Next<i></i></div>
                 </header>
                 <!-- 列表 -->
                 <section>
@@ -49,11 +52,11 @@
 
             <div class="box-3">
                 <div class="box-orders">
-                    <div class="box-order-item">Place 1 Order</div>
-                    <div class="box-order-item">Place 3 Order</div>
-                    <div class="box-order-item">Place 5 Order</div>
+                    <div class="box-order-item" @click="handleOpenRandomBox">Open Box</div>
+                    <!-- <div class="box-order-item">Place 3 Order</div>
+                    <div class="box-order-item">Place 5 Order</div> -->
                 </div>
-                <div class="box-btns">
+                <div class="box-btns" v-if="false">
                     <div class="btn-item btn-change" @click="handleChangeBox">
                         Change Box
                     </div>
@@ -96,6 +99,16 @@
                 </section>
             </div>
         </main>
+
+        <!-- Open Box Modal -->
+        <van-popup
+            v-model="isShowBoxModal"
+            @click.stop
+            class="modal-random-box"
+            :close-on-click-overlay="false"
+        >
+            <random-box @close="handleCloseBoxPop" v-if="isShowBoxModal"></random-box>
+        </van-popup>
 
         <!-- Get Modal -->
         <transition name="fade">
@@ -192,11 +205,14 @@
 
 <script>
 import Base from "./base";
+import RandomBox from '@/components/randomBox';
 
 export default {
     mixins: [Base],
     //部件
-    components: {},
+    components: {
+        RandomBox
+    },
     //静态
     props: {},
     //对象内部的属性监听，也叫深度监听
@@ -230,7 +246,7 @@ export default {
     }
 
     .box-about {
-        margin-top: 69px;
+        margin-top: 30px;
 
         h1 {
             line-height: 23px;
@@ -314,9 +330,10 @@ export default {
                 font-weight: 600;
                 color: #110f19;
                 letter-spacing: -0.5px;
-                height: 33px;
+                height: 40px;
                 flex-shrink: 0;
                 margin-bottom: 10px;
+                width: 150px;
 
                 &:not(:last-child) {
                     margin-right: 7px;
@@ -365,7 +382,8 @@ export default {
 
         header {
             padding: 19px 20px 0;
-            @include flexBetween;
+            // @include flexBetween;
+            @include flexCenter;
 
             .btn-page-switch {
                 font-size: 13px;
@@ -409,6 +427,10 @@ export default {
                     .item-left {
                         color: #fff;
                         margin-left: 4px;
+                    }
+
+                    .item-all {
+                        margin-left: 8px;
                     }
                 }
             }
@@ -783,5 +805,9 @@ export default {
             }
         }
     }
+}
+.modal-random-box {
+    border-radius: 10px;
+    overflow: hidden;
 }
 </style>

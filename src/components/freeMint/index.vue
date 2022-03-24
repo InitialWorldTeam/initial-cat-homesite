@@ -154,7 +154,7 @@ export default {
         },
         // 发起 Transfer Token
         async handlePayGasFee(params) {
-            let type = "CAT";
+            let type = "CAT_V0";
             const { verifyCode, toAddress } = params;
 
             let api = this.apiProvider;
@@ -163,7 +163,7 @@ export default {
             }
 
             const remark = await api.tx.system.remark(
-                `INITWD::FREEMINT::${type}::${verifyCode}`
+                `INITWD::1.0.0::FREEMINT::${type}::${verifyCode}`
             );
 
             const tx = api.tx.utility.batchAll([

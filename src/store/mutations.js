@@ -34,5 +34,8 @@ export default {
     },
     setCurPageNft(state, value) {
         state.curPageNftList = value;
+    },
+    setKsmPrice(state, value) {
+        state.kusamaPrice = value;
     }
 };

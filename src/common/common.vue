@@ -66,7 +66,8 @@ export default {
             "curQueryWallet",
             "curPageNftList",
             "nftPageSize",
-            "curPage"
+            "curPage",
+            "kusamaPrice",
         ]),
         ...mapGetters([
             "curRootWallet",
@@ -93,7 +94,8 @@ export default {
             "setClientType",
             "setQueryWallet",
             "setCurPage",
-            "setCurPageNft"
+            "setCurPageNft",
+            "setKsmPrice",
         ]),
         // 获取Kusama实时价格
         async getKusamaPrice() {
@@ -104,9 +106,10 @@ export default {
 
             return axios
                 .post(url, config)
-                .then(function(response) {
-                    // console.log('response', response);
+                .then(response => {
                     const { data } = response;
+                    const { price } = data.data;
+                    this.setKsmPrice(price);
                     return data.data;
                 })
                 .catch(function(error) {

@@ -41,7 +41,7 @@ function checkCode(res, isToast) {
 
     if (res.status === 404) {
         Toast.fail(res.statusText);
-        return {};
+        return Promise.reject('404');
     }
     const { code, msg } = res.data;
     /* Toast错误信息 */
