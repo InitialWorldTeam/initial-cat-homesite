@@ -52,6 +52,14 @@ const Is_Filter_NftId = true;
 // Kusama Api Host
 const Api_Host_Kusama = 'https://kusama.api.subscan.io';
 
+// NFT Type List
+const Nft_Type_List = [
+    'CAT_CLOTHES_V0',
+    'CAT_HAT_V0',
+    'CAT_SHOES_V0'
+]
+
+
 export {
     BaseNameSpace,
     Providers_Test,
@@ -63,5 +71,6 @@ export {
     Min_Ksm_Balance,
     Filter_NftId_Symbol,
     Is_Filter_NftId,
-    Api_Host_Kusama
+    Api_Host_Kusama,
+    Nft_Type_List
 }

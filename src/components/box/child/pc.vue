@@ -53,8 +53,7 @@
                     </div>
                     <div class="box-orders">
                         <div class="box-order-item" @click="handleOpenRandomBox">Open Box</div>
-                        <!-- <div class="box-order-item">Place 3 Order</div> -->
-                        <!-- <div class="box-order-item">Place 5 Order</div> -->
+                        <div class="box-order-item" @click="handleOpenRandomBox(2)">Use Swap Key</div>
                     </div>
                     <div class="box-btns" v-if="false">
                         <div
@@ -111,7 +110,11 @@
             class="modal-random-box"
             :close-on-click-overlay="false"
         >
-            <random-box @close="handleCloseBoxPop" v-if="isShowBoxModal"></random-box>
+            <random-box
+                :way="getNftWay"
+                @close="handleCloseBoxPop" 
+                v-if="isShowBoxModal"
+            ></random-box>
         </van-popup>
 
         <!-- Get Modal -->
@@ -452,16 +455,17 @@ export default {
             .box-orders {
                 margin-top: 120px;
                 display: flex;
+
                 .box-order-item {
                     @include btn-common;
-                    margin-right: 11px;
+                    margin-right: 16px;
                     padding: 0 29px;
-                    font-size: 24px;
+                    font-size: 20px;
                     font-weight: 600;
                     color: #110f19;
                     letter-spacing: -1.3px;
                     height: 54px;
-                    width: 200px;
+                    min-width: 200px;
                 }
             }
 

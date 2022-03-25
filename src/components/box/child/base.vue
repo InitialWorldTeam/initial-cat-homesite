@@ -349,6 +349,7 @@ export default {
             isShowChangeModal: false,
             isShowAllBox: false,
             isShowBoxModal: false,
+            getNftWay: 1, // 盲盒抽取NFT的方式，1-默认(Transfer), 2-Swap
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -356,7 +357,8 @@ export default {
         handleCloseBoxPop() {
             this.isShowBoxModal = false;
         },
-        handleOpenRandomBox() {
+        handleOpenRandomBox(type = 1) {
+            this.getNftWay = type;
             this.isShowBoxModal = true;
         },
         switchAllBox() {

@@ -46,4 +46,10 @@ export default {
      * */
     checkBoxOrderStatus: `${baseurl}/sale/onprice/order/status`,
 
+    /**
+     * get swap key
+     * Post
+     * @param {string} address
+     * */
+    getSwapKeyList: `${baseurl}/sale/onprice/swap/keylist`,
 }
