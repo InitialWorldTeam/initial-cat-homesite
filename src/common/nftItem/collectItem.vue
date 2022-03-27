@@ -32,7 +32,7 @@
             </div>
 
             <!-- 3D渲染 -->
-            <div class="box-cat-part-item" id="three" v-else>
+            <div class="box-cat-part-item" :id="renderThreeId" v-else>
                 <div class="spinner"></div>
             </div>
         </main>
@@ -82,7 +82,11 @@ export default {
         },
         isBurned() {
             return this.nftItem?.burned.length > 0;
-        }
+        },
+        renderThreeId() {
+            const random = Math.round( Math.random() * 1000 );
+            return `three-${random}`;
+        },
     },
     //数据
     data() {
@@ -90,7 +94,8 @@ export default {
             TYPE: {
                 img: "IMAGE",
                 three: "3D"
-            }
+            },
+            render: null
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -108,11 +113,14 @@ export default {
         const { type, renderUrl } = this.nftItem.preview;
 
         if (type !== "images") {
-            const render = new threeRender("#three", location, {
-                bgColor: "0x121018"
+            this.render = new threeRender(`#${this.renderThreeId}`, location, {
+                bgColor: this.customStyle?.bgColor || "0x121018"
             });
-            render.view(renderUrl, type);
+            this.render.view(renderUrl, type);
         }
+    },
+    beforeDestroy() {
+        this.render.clear();
     }
 };
 </script>

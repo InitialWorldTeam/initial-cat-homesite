@@ -109,6 +109,12 @@ export default class threeRender {
             });
     }
 
+    clear() {
+        const viewer = this.viewer || this.createViewer();
+
+        viewer.clear();
+    }
+
     /**
      * @param  {Error} error
      */

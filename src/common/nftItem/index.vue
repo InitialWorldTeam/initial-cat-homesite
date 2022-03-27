@@ -128,7 +128,8 @@ export default {
                 img: "IMAGE",
                 three: "3D"
             },
-            nftData: null
+            nftData: null,
+            render: null
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -155,12 +156,15 @@ export default {
         const { type, renderUrl } = this.nftData?.preview;
         if (type !== "images") {
             this.$nextTick(() => {
-                const app = new threeRender(`#${this.renderThreeId}`, location, {
+                this.render = new threeRender(`#${this.renderThreeId}`, location, {
                     bgColor: "0x000000"
                 });
-                app.view(renderUrl, type);
+                this.render.view(renderUrl, type);
             })
         }
+    },
+    beforeDestroy() {
+        this.render.clear();
     }
 };
 </script>

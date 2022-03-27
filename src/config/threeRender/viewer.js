@@ -158,7 +158,6 @@ export class Viewer {
     }
 
     animate() {
-
         requestAnimationFrame(this.animate);
         let time = new Date().getTime();
         const dt = (time - this.prevTime) / 1000;
@@ -173,6 +172,9 @@ export class Viewer {
     }
 
     render() {
+        if (!this.renderer) {
+            return;
+        }
         this.renderer.render(this.scene, this.activeCamera);
     }
 
@@ -686,6 +688,8 @@ export class Viewer {
         if (!this.content) return;
 
         this.scene.remove(this.content);
+        this.renderer.forceContextLoss();
+        this.renderer = null;
 
         // dispose geometry
         this.content.traverse((node) => {
