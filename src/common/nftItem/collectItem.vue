@@ -4,10 +4,11 @@
         :class="{ 
             app: app,
             burned: isBurned
-        }" 
+        }"
+        :style="customStyle"
         v-if="nftItem.preview"
     >
-        <main>
+        <main :style="customStyle">
             <!-- NFT 2D展示 -->
             <div
                 class="box-cat-part-item"
@@ -62,7 +63,11 @@ export default {
         source: {
             type: String,
             default: ""
-        }
+        },
+        customStyle: {
+            type: Object,
+            default: null
+        },
     },
     //对象内部的属性监听，也叫深度监听
     watch: {},
@@ -103,10 +108,10 @@ export default {
         const { type, renderUrl } = this.nftItem.preview;
 
         if (type !== "images") {
-            const app = new threeRender("#three", location, {
+            const render = new threeRender("#three", location, {
                 bgColor: "0x121018"
             });
-            app.view(renderUrl, type);
+            render.view(renderUrl, type);
         }
     }
 };

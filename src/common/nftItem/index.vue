@@ -69,11 +69,14 @@
 import UTILS from "@/config/util";
 import threeRender from "@/config/threeRender";
 import common from "@/common/common";
+import NftShowItem from "@/common/nftItem/collectItem";
 
 export default {
     mixins: [common],
     //部件
-    components: {},
+    components: {
+        NftShowItem
+    },
     //静态
     props: {
         nftItem: {

@@ -31,9 +31,7 @@
         <transition name="fade">
             <div class="box-nft-modal" v-if="isShowNftModal">
                 <main class="animate__animated animate__bounceIn">
-                    <div class="box-nft-img">
-                        <img :src="resNftImg" alt="" />
-                    </div>
+                    <NftShowItem :nftItem="nftData" :customStyle="nftStyle"></NftShowItem>
                     <p @click="clearNftModal">Get it!</p>
                 </main>
             </div>
@@ -62,30 +60,48 @@ import common from "@/common/common";
 import SaleApi from "@/config/salesmanApi";
 import { web3FromAddress } from "@polkadot/extension-dapp";
 import { Nft_Type_List } from "@/config/util/const";
+import NftShowItem from "@/common/nftItem/collectItem";
 
 export default {
     props: {
         way: {
-            type: Number,
+            type: String,
             default: 0
+        },
+        swap: {
+            type: String,
+            default: null
         }
     },
     mixins: [common],
     //部件
-    components: {},
+    components: {
+        NftShowItem
+    },
     //静态
     //对象内部的属性监听，也叫深度监听
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {
         isShowSwapPop() {
-            return this.way === 2 && this.swapList.length && this.showSwapSelect;
+            return this.swap && this.swapList.length && this.showSwapSelect;
+        },
+        nftStyle() {
+            let stylePc = {
+                width: "300px",
+                height: "300px"
+            }
+            let styleApp = {
+                width: "50vw",
+                height: "50vw"
+            }
+            return this.isApp ? styleApp : stylePc;
         }
     },
     //数据
     data() {
         return {
-            resNftImg: null,
+            nftData: null,
             isShowNftModal: false,
             swapList: [],
             curSwapKey: null,
@@ -132,11 +148,6 @@ export default {
             this.initOrder();
             this.showSwapSelect = false;
         },
-        randomNftType() {
-            const Max = Nft_Type_List.length - 1;
-            const idx = Math.round(Math.random() * Max);
-            this.nftType = Nft_Type_List[idx];
-        },
         clearNftModal() {
             this.isShowNftModal = false;
             clearTimeout(this.timer);
@@ -160,8 +171,7 @@ export default {
                         clearTimeout(this.timer);
 
                         const NFT_DATA = await this.queryNftData([nftId]);
-                        const { renderUrl } = NFT_DATA[0]?.preview;
-                        this.resNftImg = renderUrl;
+                        this.nftData = NFT_DATA[0];
                         this.isShowNftModal = true;
                     } else {
                         this.timer = setTimeout(() => {
@@ -204,19 +214,7 @@ export default {
 
             let tx;
 
-            if (this.way === 1) {
-                const remark = await api.tx.system.remark(
-                    `INITWD::1.0.0::MYSTERYBOX::${this.nftType}::${orderId}`
-                );
-                const transferNum = +price * Math.pow(10, 12);
-
-                tx = api.tx.utility.batchAll([
-                    remark,
-                    api.tx.balances.transfer(toAddress, transferNum)
-                ]);
-            }
-
-            if (this.way === 2) {
+            if (this.swap) {
                 const remarkReason = await api.tx.system.remark(
                     `INITWD::1.0.0::MYSTERYBOX_SWAPKEY::${this.nftType}::${orderId}`
                 );
@@ -228,9 +226,17 @@ export default {
                     remarkReason,
                     remarkBurn
                 ]);
-            }
+            } else {
+                const remark = await api.tx.system.remark(
+                    `INITWD::1.0.0::MYSTERYBOX::${this.nftType}::${orderId}`
+                );
+                const transferNum = +price * Math.pow(10, 12);
 
-            
+                tx = api.tx.utility.batchAll([
+                    remark,
+                    api.tx.balances.transfer(toAddress, transferNum)
+                ]);
+            }
 
             const SENDER = this.curRootWallet.address;
             const injector = await web3FromAddress(SENDER);
@@ -347,8 +353,8 @@ export default {
             return this.$http
                 .post(url, config, "json")
                 .then(res => {
-                    if (res.data.length) {
-                        this.swapList = res.data;
+                    if (res.data) {
+                        this.swapList = res.data[this.swap];
                         this.showSwapSelect = true;
                         this.$forceUpdate();
                     }
@@ -359,7 +365,6 @@ export default {
                 });
         },
         async initOrder() {
-            this.randomNftType();
             const orderData = await this.createOrder(
                 this.curRootWallet.address
             );
@@ -370,12 +375,11 @@ export default {
     },
     //请求数据
     created() {
-        if (this.way === 1) {
-            this.initOrder();
-        }
-
-        if (this.way === 2) {
+        this.nftType = this.way;
+        if (this.swap) {
             this.getUserSwapKeyList();
+        } else {
+            this.initOrder();
         }
     },
     mounted() {
@@ -432,7 +436,7 @@ export default {
     z-index: 1;
     left: 0;
     top: 0;
-    padding: 20px 0;
+    padding: 20px 14px;
     text-align: center;
 
     main {

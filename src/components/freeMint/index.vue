@@ -38,7 +38,7 @@ import {
     web3Enable,
     web3FromAddress
 } from "@polkadot/extension-dapp";
-import { Min_Ksm_Balance } from "@/config/util/const";
+import { Min_Ksm_Balance, Nft_Type_List } from "@/config/util/const";
 
 export default {
     mixins: [common],
@@ -154,7 +154,7 @@ export default {
         },
         // 发起 Transfer Token
         async handlePayGasFee(params) {
-            let type = "CAT_V0";
+            let type = Nft_Type_List.base.name;
             const { verifyCode, toAddress } = params;
 
             let api = this.apiProvider;

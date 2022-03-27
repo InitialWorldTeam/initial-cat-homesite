@@ -53,11 +53,20 @@ const Is_Filter_NftId = true;
 const Api_Host_Kusama = 'https://kusama.api.subscan.io';
 
 // NFT Type List
-const Nft_Type_List = [
-    'CAT_CLOTHES_V0',
-    'CAT_HAT_V0',
-    'CAT_SHOES_V0'
-]
+const Nft_Type_List = {
+    'base': {
+        name: 'V0_CAT',
+        swapType: null
+    },
+    'equip': {
+        name: 'V0_CAT_EQUIP',
+        swapType: 'MBK'
+    },
+    'vehicle': {
+        name: 'V0_CAT_VEHICLE',
+        swapType: 'SBK'
+    }
+}
 
 
 export {

@@ -148,7 +148,7 @@ export class Viewer {
         this.gridHelper = null;
         this.axesHelper = null;
 
-        this.addAxesHelper();
+        // this.addAxesHelper();
         this.addGUI();
         if (options.kiosk) this.gui.close();
 
@@ -174,11 +174,6 @@ export class Viewer {
 
     render() {
         this.renderer.render(this.scene, this.activeCamera);
-        if (this.state.grid) {
-            this.axesCamera.position.copy(this.defaultCamera.position)
-            this.axesCamera.lookAt(this.axesScene.position)
-            this.axesRenderer.render(this.axesScene, this.axesCamera);
-        }
     }
 
     resize() {
@@ -189,10 +184,6 @@ export class Viewer {
         this.defaultCamera.updateProjectionMatrix();
         this.vignette.style({ aspect: this.defaultCamera.aspect });
         this.renderer.setSize(clientWidth, clientHeight);
-
-        this.axesCamera.aspect = this.axesDiv.clientWidth / this.axesDiv.clientHeight;
-        this.axesCamera.updateProjectionMatrix();
-        this.axesRenderer.setSize(this.axesDiv.clientWidth, this.axesDiv.clientHeight);
     }
 
     load(url, type = 'gltf') {
@@ -289,13 +280,6 @@ export class Viewer {
         }
 
         this.setCamera(DEFAULT_CAMERA);
-
-        this.axesCamera.position.copy(this.defaultCamera.position)
-        this.axesCamera.lookAt(this.axesScene.position)
-        this.axesCamera.near = size / 100;
-        this.axesCamera.far = size * 100;
-        this.axesCamera.updateProjectionMatrix();
-        this.axesCorner.scale.set(size, size, size);
 
         this.controls.saveState();
 

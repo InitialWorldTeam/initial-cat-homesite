@@ -52,9 +52,18 @@
 
             <div class="box-3">
                 <div class="box-orders">
-                    <div class="box-order-item" @click="handleOpenRandomBox">Open Box</div>
-                    <!-- <div class="box-order-item">Place 3 Order</div>
-                    <div class="box-order-item">Place 5 Order</div> -->
+                    <h1>Equip</h1>
+                    <div class="content">
+                        <div class="box-order-item" @click="handleOpenRandomBox(nftTypeList.equip)">Open Box</div>
+                        <div class="box-order-item" @click="handleOpenRandomSwapBox(nftTypeList.equip)">Use Swap Key</div>
+                    </div>
+                </div>
+                <div class="box-orders" v-if="false">
+                    <h1>Vehicle</h1>
+                    <div class="content">
+                        <div class="box-order-item" @click="handleOpenRandomBox(nftTypeList.vehicle)">Open Box</div>
+                        <div class="box-order-item" @click="handleOpenRandomSwapBox(nftTypeList.vehicle)">Use Swap Key</div>
+                    </div>
                 </div>
                 <div class="box-btns" v-if="false">
                     <div class="btn-item btn-change" @click="handleChangeBox">
@@ -107,7 +116,12 @@
             class="modal-random-box"
             :close-on-click-overlay="false"
         >
-            <random-box @close="handleCloseBoxPop" v-if="isShowBoxModal"></random-box>
+            <random-box
+                :way="getNftWay"
+                :swap="swapType"
+                @close="handleCloseBoxPop" 
+                v-if="isShowBoxModal"
+            ></random-box>
         </van-popup>
 
         <!-- Get Modal -->
@@ -319,9 +333,18 @@ export default {
         padding: 36px 20px 0;
 
         .box-orders {
-            display: flex;
-            flex-wrap: wrap;
             width: 110%;
+
+            h1 {
+                font-size: 24px;
+                line-height: 40px;
+            }
+
+            .content {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 12px;
+            }
 
             .box-order-item {
                 @include btn-common;

@@ -52,8 +52,18 @@
                         <div>≈ $ {{kusamaPrice | fixed}}</div>
                     </div>
                     <div class="box-orders">
-                        <div class="box-order-item" @click="handleOpenRandomBox">Open Box</div>
-                        <div class="box-order-item" @click="handleOpenRandomBox(2)">Use Swap Key</div>
+                        <h1>Equip</h1>
+                        <div class="content">
+                            <div class="box-order-item" @click="handleOpenRandomBox(nftTypeList.equip)">Open Box</div>
+                            <div class="box-order-item" @click="handleOpenRandomSwapBox(nftTypeList.equip)">Use Swap Key</div>
+                        </div>
+                    </div>
+                    <div class="box-orders" v-if="false">
+                        <h1>Vehicle</h1>
+                        <div class="content">
+                            <div class="box-order-item" @click="handleOpenRandomBox(nftTypeList.vehicle)">Open Box</div>
+                            <div class="box-order-item" @click="handleOpenRandomSwapBox(nftTypeList.vehicle)">Use Swap Key</div>
+                        </div>
                     </div>
                     <div class="box-btns" v-if="false">
                         <div
@@ -112,6 +122,7 @@
         >
             <random-box
                 :way="getNftWay"
+                :swap="swapType"
                 @close="handleCloseBoxPop" 
                 v-if="isShowBoxModal"
             ></random-box>
@@ -453,8 +464,17 @@ export default {
             }
 
             .box-orders {
-                margin-top: 120px;
-                display: flex;
+                margin-top: 60px;
+                
+                h1 {
+                    font-size: 40px;
+                    line-height: 50px;
+                }
+
+                .content {
+                    display: flex;
+                    margin-top: 12px;
+                }
 
                 .box-order-item {
                     @include btn-common;

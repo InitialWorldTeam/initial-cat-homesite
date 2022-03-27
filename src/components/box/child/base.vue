@@ -4,6 +4,7 @@
 
 <script>
 import common from "@/common/common";
+import { Nft_Type_List } from "@/config/util/const";
 
 export default {
     mixins: [common],
@@ -349,7 +350,9 @@ export default {
             isShowChangeModal: false,
             isShowAllBox: false,
             isShowBoxModal: false,
-            getNftWay: 1, // 盲盒抽取NFT的方式，1-默认(Transfer), 2-Swap
+            getNftWay: 0,
+            swapType: null,
+            nftTypeList: Nft_Type_List
         };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -357,8 +360,13 @@ export default {
         handleCloseBoxPop() {
             this.isShowBoxModal = false;
         },
-        handleOpenRandomBox(type = 1) {
-            this.getNftWay = type;
+        handleOpenRandomBox(nftType) {
+            this.getNftWay = nftType.name;
+            this.isShowBoxModal = true;
+        },
+        handleOpenRandomSwapBox(nftType) {
+            this.getNftWay = nftType.name;
+            this.swapType = nftType.swapType;
             this.isShowBoxModal = true;
         },
         switchAllBox() {
