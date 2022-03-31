@@ -1,10 +1,13 @@
 <template>
     <div
         class="container-random-box"
+        :style="{
+            'background-image': `url(${bgImg})`
+        }"
         :class="{
             app: isApp
         }"
-    >
+    >   
         <canvas id="rootcanvas" width="600" height="600"></canvas>
         <div id="tags">
             <ul v-for="(item, index) in tagList" :key="index">
@@ -101,6 +104,7 @@ export default {
     //数据
     data() {
         return {
+            bgImg: require('./img/bg-canvas.jpg').default,
             nftData: null,
             isShowNftModal: false,
             swapList: [],
@@ -393,7 +397,7 @@ export default {
     width: 600px;
     height: 600px;
     overflow: hidden;
-    background-color: rgba($color: #000000, $alpha: 0.1);
+    background: no-repeat center / auto 100%;
     position: relative;
     box-sizing: border-box;
 

@@ -800,5 +800,6 @@ export default {
 .modal-random-box {
     border-radius: 10px;
     overflow: hidden;
+    background-color: transparent;
 }
 </style>
