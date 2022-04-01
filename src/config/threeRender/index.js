@@ -13,37 +13,16 @@ export default class threeRender {
 
     /**
      * @param  {Element} el
-     * @param  {Location} location
      */
-    constructor(el, location, option={}) {
+    constructor(el, option={}) {
 
-        const hash = location.hash ? queryString.parse(location.hash) : {};
         this.options = {
-            kiosk: Boolean(hash.kiosk),
-            model: hash.model || '',
-            preset: hash.preset || '',
-            cameraPosition: hash.cameraPosition
-                ? hash.cameraPosition.split(',').map(Number)
-                : null,
             ...option
         };
 
-        let container = document.body;
         this.viewer = null;
         this.viewerEl = null;
-        this.dropEl = container.querySelector(el);
-        this.inputEl = container.querySelector('#file-input');
-
-        const options = this.options;
-
-        if (options.kiosk) {
-            const headerEl = document.querySelector('header');
-            headerEl.style.display = 'none';
-        }
-
-        if (options.model) {
-            this.view(options.model, '', new Map());
-        }
+        this.dropEl = document.querySelector(el);
     }
 
     /**
@@ -51,6 +30,7 @@ export default class threeRender {
      * @return {Viewer}
      */
     createViewer() {
+        if (!this.dropEl) return;
         this.viewerEl = document.createElement('div');
         this.viewerEl.classList.add('viewer');
         this.dropEl.innerHTML = '';
@@ -92,6 +72,7 @@ export default class threeRender {
         if (this.viewer) this.viewer.clear();
 
         const viewer = this.viewer || this.createViewer();
+        if (!viewer) return;
 
         let fileURL = typeof rootFile === 'string'
             ? rootFile

@@ -156,7 +156,7 @@ export default {
         const { type, renderUrl } = this.nftData?.preview;
         if (type !== "images") {
             this.$nextTick(() => {
-                this.render = new threeRender(`#${this.renderThreeId}`, location, {
+                this.render = new threeRender(`#${this.renderThreeId}`, {
                     bgColor: "0x000000"
                 });
                 this.render.view(renderUrl, type);
@@ -164,7 +164,7 @@ export default {
         }
     },
     beforeDestroy() {
-        this.render.clear();
+        this.render && this.render.clear();
     }
 };
 </script>

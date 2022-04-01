@@ -118,7 +118,11 @@ export default {
             this.queryBalance(this.urlAddress);
         }
     },
-    async mounted() {}
+    async mounted() {},
+    beforeDestroy() {
+        this.setCurPageNft([]);
+        this.setAllNftList([]);
+    }
 };
 </script>
 

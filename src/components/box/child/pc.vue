@@ -58,7 +58,7 @@
                             <div class="box-order-item" @click="handleOpenRandomSwapBox(nftTypeList.equip)">Use Swap Key</div>
                         </div>
                     </div>
-                    <div class="box-orders" v-if="false">
+                    <div class="box-orders">
                         <h1>Vehicle</h1>
                         <div class="content">
                             <div class="box-order-item" @click="handleOpenRandomBox(nftTypeList.vehicle)">Open Box</div>

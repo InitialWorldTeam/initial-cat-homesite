@@ -113,14 +113,14 @@ export default {
         const { type, renderUrl } = this.nftItem.preview;
 
         if (type !== "images") {
-            this.render = new threeRender(`#${this.renderThreeId}`, location, {
+            this.render = new threeRender(`#${this.renderThreeId}`, {
                 bgColor: this.customStyle?.bgColor || "0x121018"
             });
             this.render.view(renderUrl, type);
         }
     },
     beforeDestroy() {
-        this.render.clear();
+        this.render && this.render.clear();
     }
 };
 </script>
