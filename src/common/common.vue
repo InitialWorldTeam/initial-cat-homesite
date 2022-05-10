@@ -62,12 +62,13 @@ export default {
             "curWalletIndex",
             "isApp",
             "navList",
-            "curNav",
             "curQueryWallet",
             "curPageNftList",
             "nftPageSize",
             "curPage",
             "kusamaPrice",
+            "mintType",
+            "curSwapData"
         ]),
         ...mapGetters([
             "curRootWallet",
@@ -96,6 +97,8 @@ export default {
             "setCurPage",
             "setCurPageNft",
             "setKsmPrice",
+            "setMintType",
+            "setSwapData",
         ]),
         // 获取Kusama实时价格
         async getKusamaPrice() {
@@ -378,6 +381,8 @@ export default {
             const IDX_END = page * this.nftPageSize;
             const QUERY_NFT = allNft.slice(IDX_START, IDX_END);
 
+            console.log('QUERY_NFT', QUERY_NFT);
+
             this.setCurPageNft(QUERY_NFT);
             this.setAllNftList(allNft);
             this.$nextTick(() => {
@@ -457,6 +462,26 @@ export default {
             this.$toast.fail({
                 message
             });
+        },
+        async getPolkadotWalletList() {
+            const extensions = await web3Enable("polkadot-js/apps");
+            if (extensions.length === 0) {
+                // no extension installed, or the user did not accept the authorization
+                // in this case we should inform the use and give a link to the extension
+                this.connectWalletFail();
+                return false;
+            }
+
+            // 获取钱包所有帐户信息
+            let allAccounts = await web3Accounts({
+                ss58Format: 2 // 默认42-Substrate, 0-polkdot, 2-Kusama
+            });
+
+            if (allAccounts.length === 0) {
+                return false;
+            }
+
+            this.setAccount(allAccounts);
         },
         // 校验浏览器环境，初始化Api
         async initApi() {

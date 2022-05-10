@@ -1,8 +1,8 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
-import router from './router'
+import App from './v2/App.vue';
+import router from './v2/router';
 import store from './store';
 import './assets/css/reset.css';
 import './assets/css/common.css';
@@ -35,21 +35,21 @@ Vue.prototype._ = _;
 Vue.use(VueI18n);
 
 const messages = {
-  en,
-  cn
+    en,
+    cn
 }
 
 const i18n = new VueI18n({
-  locale: 'cn', // set locale
-  messages, // set locale messages
+    locale: 'cn', // set locale
+    messages, // set locale messages
 })
 
 /* eslint-disable no-new */
 new Vue({
-  i18n,
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
+    i18n,
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 })

@@ -157,7 +157,7 @@ export default {
         if (type !== "images") {
             this.$nextTick(() => {
                 this.render = new threeRender(`#${this.renderThreeId}`, {
-                    bgColor: "0x000000"
+                    bgColor: "0xcfafff"
                 });
                 this.render.view(renderUrl, type);
             })
@@ -223,7 +223,7 @@ export default {
         padding-bottom: 100%;
         min-width: auto;
         overflow: hidden;
-        background-color: #000;
+        background-color: #CFAFFF;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
 
@@ -256,8 +256,8 @@ export default {
 
     .box-info {
         padding: 10px 12px;
-        background-color: rgba($color: #eee, $alpha: 0.95);
-        color: $fontColor-3;
+        background-color: rgba($color: #5A379B, $alpha: 1);
+        color: #fff;
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;
 
@@ -272,12 +272,12 @@ export default {
                 border-radius: 2px;
 
                 &.img {
-                    border-color: rgb(235, 48, 137);
-                    color: rgb(235, 48, 137);
+                    border-color: #B48AFF;;
+                    color: #B48AFF;;
                 }
                 &.three {
-                    border-color: rgb(128, 90, 213);
-                    color: rgb(128, 90, 213);
+                    border-color: #B48AFF;;
+                    color: #B48AFF;;
                 }
             }
         }

@@ -1,6 +1,6 @@
 export default {
     walletAccounts: [], // 维护所有钱包数据，默认加载 Polkadot已有钱包
-    curWalletIndex: 0, // 当前钱包索引
+    curWalletIndex: -1, // 当前钱包索引
     curQueryWallet: null, // 当前Url参数中的钱包数据
     isApp: false, // 是否移动端
     loading: false, // 全局Loading
@@ -18,7 +18,7 @@ export default {
             path: '/box'
         },
         {
-            name: 'Maketplace',
+            name: 'Marketplace',
             path: ''
         },
         {
@@ -37,4 +37,6 @@ export default {
     apiProvider: null, // 钱包环境Api
     loadingNftSta: -1, // 加载NFT状态, 0: Loading NFT, 1:有NFT, 2:空NFT
     kusamaPrice: 0, // 当前 Kusama 实时价格
+    mintType: '1',
+    curSwapData: null
 };

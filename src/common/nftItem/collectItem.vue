@@ -114,7 +114,7 @@ export default {
 
         if (type !== "images") {
             this.render = new threeRender(`#${this.renderThreeId}`, {
-                bgColor: this.customStyle?.bgColor || "0x121018"
+                bgColor: this.customStyle?.bgColor || "0xCFAFFF"
             });
             this.render.view(renderUrl, type);
         }
@@ -129,7 +129,7 @@ export default {
 .box-cat-item {
     position: relative;
     border-radius: 6px;
-    width: 600px;
+    width: 326px;
 
     &.app {
         width: 83px;
@@ -162,9 +162,10 @@ export default {
 
     main {
         position: relative;
-        height: 600px;
+        height: 326px;
         overflow: hidden;
-        background-color: #121018;
+        background: linear-gradient(0deg, #CFAFFF 0%, #AA85F3 100%);
+        border-radius: 12px;
 
         .box-cat-part-item {
             position: absolute;

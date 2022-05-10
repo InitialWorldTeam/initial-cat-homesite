@@ -1,5 +1,35 @@
 import { BaseNameSpace } from './const';
 
+export function getCountTime(endTime) {
+    const now = Date.now();
+    if (now > endTime) {
+        this.timeData = null;
+        return false;
+    }
+
+    const time = endTime - now;
+
+    let d = parseInt(time / 1000 / 60 / 60 / 24);//计算天
+    let h = parseInt(time / 1000 / 60 / 60 % 24);//计算时
+    let m = parseInt(time / 1000 / 60 % 60);//计算分
+    let s = parseInt(time / 1000 % 60);//计算秒
+
+
+    const displayD = ('0' + d).slice(-2);
+    const displayH = ('0' + h).slice(-2);
+    const displayM = ('0' + m).slice(-2);
+    const displayS = ('0' + s).slice(-2);
+
+    const res = [
+        { value: displayD, unit: 'Days' },
+        { value: displayH, unit: 'Hours' },
+        { value: displayM, unit: 'Mins' },
+        { value: displayS, unit: 'Secs' }
+    ]
+
+    return res;
+}
+
 const UTILS = {
     // 将数据存在本地LocalStorage中
     setLocal(key, value) {

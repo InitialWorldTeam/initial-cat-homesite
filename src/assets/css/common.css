@@ -73,6 +73,21 @@
     display: none;
 }
 
+.btn-back-v2 {
+    height: 16px;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-image: url(../img/common/img-back.png);
+    background-size: auto 100%;
+    margin-left: 45px;
+    padding-left: 22px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #545356;
+    line-height: 16px;
+    cursor: pointer;
+}
+
 .animate__animated {
     opacity: 0;
     transition: all .3s;

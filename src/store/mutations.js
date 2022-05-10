@@ -37,5 +37,11 @@ export default {
     },
     setKsmPrice(state, value) {
         state.kusamaPrice = value;
+    },
+    setMintType(state, value) {
+        state.mintType = value;
+    },
+    setSwapData(state, value) {
+        state.curSwapData = value;
     }
 };
