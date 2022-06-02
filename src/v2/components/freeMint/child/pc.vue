@@ -10,8 +10,8 @@
                 <h1>Free To Mint InitalCat</h1>
                 <div class="box-publish"></div>
                 <div class="box-time-start" v-if="timeData">
-                    <p>Remaining Amount<span>0/∞</span></p>
-                    <div class="box-left-time">
+                    <p>Remaining Amount<span>{{ amount }}/∞</span></p>
+                    <div class="box-left-time" v-if="false">
                         <span>Sale starts in</span>
                         <template v-for="item in timeData">
                             <i :key="item.id">{{ item.value }}</i>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="box-price">
                     <p>Price</p>
-                    <div class="content">0 KSM <span>≈ $ 0</span></div>
+                    <div class="content">{{ price }} KSM</div>
                 </div>
                 <div class="btn-mint" @click="handleShowMint">MINT NOW</div>
             </div>
@@ -31,7 +31,7 @@
             <!-- Description -->
             <div class="box-description">
                 <h2>Product Detail & Description</h2>
-                <div class="box-des-info">
+                <div class="box-des-info" v-if="false">
                     <div class="box-info-item">
                         <h3>Issue Price</h3>
                         <div class="content">
@@ -103,7 +103,8 @@
         <!-- confirm modal -->
         <common-confirm
             v-if="isShowConfirmPop"
-            ref="confirmMint" 
+            ref="confirmMint"
+            :price="price"
             @confirm="handleConfirmMint"
             @cancel="handelCancelMint"
         ></common-confirm>
@@ -140,7 +141,7 @@ export default {
 
 <style scoped lang="scss">
 .box-common-mint {
-    padding: 44px 104px 0 92px;
+    padding: 44px 100px 0 92px;
     height: 100%;
     position: relative;
 
@@ -256,7 +257,7 @@ export default {
                 background: #a06ff8;
                 border-radius: 8px;
                 @include flexCenter;
-                margin-top: 15px;
+                margin-top: 73px;
                 color: #fff;
                 font-size: 18px;
                 font-weight: bold;

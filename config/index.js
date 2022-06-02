@@ -12,7 +12,7 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/api': {
-                target: "https://tapiv1.initialworld.net",
+                target: "https://ttapiv1.initialworld.net",
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''
@@ -40,7 +40,7 @@ module.exports = {
                 }
             },
             '/saleApi': {
-                target: "https://tsale.initialworld.net",
+                target: "https://ttsale.initialworld.net",
                 changeOrigin: true,
                 pathRewrite: {
                     '^/saleApi': ''

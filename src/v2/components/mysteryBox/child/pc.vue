@@ -9,21 +9,17 @@
             <div class="box-right">
                 <h1>InitialWorld Mystery Box</h1>
                 <div class="box-publish"></div>
-                <div class="box-time-start" v-if="timeData">
-                    <p>Remaining Amount<span>0/∞</span></p>
-                    <div class="box-left-time">
-                        <span>Sale starts in</span>
-                        <template v-for="item in timeData">
-                            <i :key="item.id">{{ item.value }}</i>
-                            <span :key="item.id">{{ item.unit }}</span>
-                        </template>
-                    </div>
+                <div class="box-time-start">
+                    <p>Remaining Amount<span>{{ amount }}/∞</span></p>
                 </div>
                 <div class="box-price">
                     <p>Price</p>
-                    <div class="content">0 KSM <span>≈ $ 0</span></div>
+                    <div class="content">{{ price }} KSM </div>
                 </div>
-                <div class="btn-mint" @click="handleShowMint">MINT NOW</div>
+                <div class="box-btns">
+                    <div class="btn-item btn-key" @click="handleShowKeyList">USE KEY</div>
+                    <div class="btn-item btn-mint" @click="handleShowMint">MINT NOW</div>
+                </div>
             </div>
         </div>
 
@@ -31,7 +27,7 @@
             <!-- Description -->
             <div class="box-description">
                 <h2>Product Detail & Description</h2>
-                <div class="box-des-info">
+                <div class="box-des-info" v-if="false">
                     <div class="box-info-item">
                         <h3>Issue Price</h3>
                         <div class="content">
@@ -91,6 +87,7 @@
         <!-- confirm modal -->
         <common-confirm
             v-if="isShowConfirmPop"
+            :price="price"
             ref="confirmMint" 
             @confirm="handleConfirmMint"
             @cancel="handelCancelMint"
@@ -128,7 +125,7 @@ export default {
 
 <style scoped lang="scss">
 .box-common-mint {
-    padding: 44px 104px 0 92px;
+    padding: 44px 100px 0 92px;
     height: 100%;
     position: relative;
 
@@ -136,7 +133,6 @@ export default {
         height: calc(100% - 340px);
         padding-top: 35px;
         overflow-y: auto;
-        // padding-bottom: 188px;
         margin-top: 10px;
     }
 
@@ -239,17 +235,29 @@ export default {
                 }
             }
 
-            .btn-mint {
-                height: 50px;
-                background: #a06ff8;
-                border-radius: 8px;
-                @include flexCenter;
-                margin-top: 15px;
-                color: #fff;
-                font-size: 18px;
-                font-weight: bold;
-                line-height: 24px;
-                cursor: pointer;
+            .box-btns {
+                display: flex;
+                margin-top: 75px;
+                
+                .btn-item {
+                    width: 196px;
+                    height: 50px;
+                    border-radius: 8px;
+                    @include flexCenter;
+                    color: #fff;
+                    font-size: 18px;
+                    font-weight: bold;
+                    line-height: 24px;
+                    cursor: pointer;
+                }
+
+                .btn-mint {
+                    background: #a06ff8;
+                }
+                .btn-key {
+                    background: #01A28D;
+                    margin-right: 8px;
+                }
             }
         }
 

@@ -52,4 +52,19 @@ export default {
      * @param {string} address
      * */
     getSwapKeyList: `${baseurl}/sale/onprice/swap/keylist`,
+
+    /**
+     * get sale price
+     * Post
+     * @param {string} nftType
+     * */
+    getSalePrice: `${baseurl}/sale/basic/price`,
+
+    /**
+     * get sale report
+     * Post
+     * @param {string} nftType
+     * */
+    getSaleReport: `${baseurl}/sale/basic/report`,
+    
 }

@@ -15,7 +15,12 @@ export default {
     //部件
     components: {},
     //静态
-    props: {},
+    props: {
+        price: {
+            type: String,
+            defautl: '0'
+        }
+    },
     //对象内部的属性监听，也叫深度监听
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
@@ -142,7 +147,9 @@ export default {
                         signer: injector.signer
                     },
                     async ({ events = [], status }) => {
-                        // console.log("status:", status);
+                        console.log("status:", status);
+
+                        return;
 
                         if (status.isFinalized || status.isInBlock) {
                             unsubscribe();

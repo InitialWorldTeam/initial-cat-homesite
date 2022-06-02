@@ -1,7 +1,7 @@
 <template>
     <div>
-        <app v-if="isApp" ref="pop" @confirm="confirm" @cancel="cancel"></app>
-        <pc v-else ref="pop" @confirm="confirm" @cancel="cancel"></pc>
+        <app v-if="isApp" ref="pop" @confirm="confirm" @cancel="cancel" :price="price"></app>
+        <pc v-else ref="pop" @confirm="confirm" @cancel="cancel" :price="price"></pc>
     </div>
 </template>
 
@@ -9,8 +9,10 @@
 import {mapState} from 'vuex';
 import pc from './child/pc';
 import app from './child/app';
+import Base from './child/base';
 
 export default {
+    mixins: [ Base ],
     //部件
     components: {
         app,

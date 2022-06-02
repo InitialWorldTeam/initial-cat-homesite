@@ -40,12 +40,12 @@ export default {
             let url = SaleApi.getSwapKeyList;
 
             return this.$http
-                .post(url, config, "json")
+                .post(url, config)
                 .then(res => {
-                    console.log(res);
+                    console.log('keys:', JSON.stringify(res));
                     if (res.data) {
                         this.keyList = res.data[this.curSwapData.swapType];
-                        console.log(this.keyList);
+                        console.log('keylist: ', JSON.stringify(this.keyList));
                         return this.keyList;
                     }
                     return false;

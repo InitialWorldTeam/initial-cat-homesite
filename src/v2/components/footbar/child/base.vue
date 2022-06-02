@@ -21,7 +21,7 @@ export default {
           navList: [
               { name: 'Introduction', img: require('../img/icon-introduction.png'), path: '/introduction' },
               { name: 'My NFTs', img: require('../img/icon-myNft.png'), path: '/myNft/' },
-              { name: 'Event', img: require('../img/icon-event.png'), path: '/event' },
+              { name: 'Event', img: require('../img/icon-event.png'), path: '' },
               { name: 'Document', img: require('../img/icon-document.png'), path: '' },
               { name: 'Email', img: require('../img/icon-email.png'), path: '/email' },
               { name: 'Free Mint', img: require('../img/icon-freeMint.png'), path: '/freeMint' },

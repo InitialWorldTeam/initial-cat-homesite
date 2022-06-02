@@ -14,6 +14,7 @@ import { stringToU8a, u8aToHex } from "@polkadot/util";
 import { mapMutations, mapState, mapGetters } from "vuex";
 import StatusApi from "@/config/statusApi";
 import StorageApi from "@/config/storageApi";
+import SalesApi from "@/config/salesmanApi";
 import UTILS from "@/config/util";
 import {
     Providers_Test,
@@ -100,6 +101,41 @@ export default {
             "setMintType",
             "setSwapData",
         ]),
+        getSalePrice(type) {
+            let config = {
+                nftType: type
+            };
+            let url = SalesApi.getSalePrice;
+
+            return this.$http
+                .post(url, config)
+                .then(res => {
+                    console.log('price: ', res);
+                    return res?.data || [];
+                })
+                .catch(err => {
+                    console.log("err:", err);
+
+                    return false;
+                });
+        },
+        getSaleReport(type) {
+            let config = {
+                nftType: type
+            };
+            let url = SalesApi.getSaleReport;
+
+            return this.$http
+                .post(url, config)
+                .then(res => {
+                    console.log('report: ', res);
+                    return res?.data || [];
+                })
+                .catch(err => {
+                    console.log("err:", err);
+                    return false;
+                });
+        },
         // 获取Kusama实时价格
         async getKusamaPrice() {
             let config = {
@@ -204,7 +240,8 @@ export default {
             return this.$http
                 .post(url, config, "json")
                 .then(res => {
-                    return res?.data;
+                    console.log('res', res);
+                    return res?.data || [];
                 })
                 .catch(err => {
                     console.log("err:", err);
@@ -395,6 +432,7 @@ export default {
         async queryNftAsset(add) {
             this.setLoadingNftSta(0);
             let ALL_NFTS = await this.getAllNfts(add);
+            console.log("ALL_NFTS", ALL_NFTS);
             ALL_NFTS = this.filterNftId(ALL_NFTS).reverse();
 
             this.queryCurPageData(this.curPage, ALL_NFTS);
@@ -414,6 +452,8 @@ export default {
             };
             // 设置查询钱包为当前钱包
             this.setQueryWallet(wallet);
+
+            console.log('wallet', wallet);
 
             this.$nextTick(() => {
                 this.queryNftAsset(add);

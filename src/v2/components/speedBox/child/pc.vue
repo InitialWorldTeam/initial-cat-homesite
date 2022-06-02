@@ -10,8 +10,8 @@
                 <h1>SpeedBoat Box</h1>
                 <div class="box-publish"></div>
                 <div class="box-time-start" v-if="timeData">
-                    <p>Remaining Amount<span>0/∞</span></p>
-                    <div class="box-left-time">
+                    <p>Remaining Amount<span>{{ amount }}/∞</span></p>
+                    <div class="box-left-time" v-if="false">
                         <span>Sale starts in</span>
                         <template v-for="item in timeData">
                             <i :key="item.id">{{ item.value }}</i>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="box-price">
                     <p>Price</p>
-                    <div class="content">0 KSM <span>≈ $ 0</span></div>
+                    <div class="content">{{ price }} KSM</div>
                 </div>
                 <div class="box-btns">
                     <div class="btn-item btn-key" @click="handleShowKeyList">USE KEY</div>
@@ -34,7 +34,7 @@
             <!-- Description -->
             <div class="box-description">
                 <h2>Product Detail & Description</h2>
-                <div class="box-des-info">
+                <div class="box-des-info" v-if="fasle">
                     <div class="box-info-item">
                         <h3>Issue Price</h3>
                         <div class="content">
@@ -97,6 +97,7 @@
         <!-- confirm modal -->
         <common-confirm
             v-if="isShowConfirmPop"
+            :price="price"
             ref="confirmMint" 
             @confirm="handleConfirmMint"
             @cancel="handelCancelMint"
@@ -134,7 +135,7 @@ export default {
 
 <style scoped lang="scss">
 .box-common-mint {
-    padding: 44px 104px 0 92px;
+    padding: 44px 100px 0 92px;
     height: 100%;
     position: relative;
 
@@ -246,7 +247,7 @@ export default {
 
             .box-btns {
                 display: flex;
-                margin-top: 15px;
+                margin-top: 75px;
                 
                 .btn-item {
                     width: 196px;
@@ -323,10 +324,7 @@ export default {
         p {
             font-size: 14px;
             line-height: 22px;
-            
-            &:not(:last-child) {
-                margin-bottom: 16px;
-            }
+            margin-top: 16px;
         }
     }
 

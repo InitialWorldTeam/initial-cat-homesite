@@ -21,6 +21,8 @@ export default {
     //数据
     data(){
       return {
+          price: 0,
+          amount: 0,
           isShowConfirmPop: false,
           startDate: '1652615862000',
           bannerImg: require('../img/img-banner.png').default,
@@ -94,7 +96,7 @@ export default {
             this.isShowConfirmPop = true;
         },
         handleConfirmMint() {
-            console.log('confirm');
+            console.log('free mint confirm');
             this.isShowConfirmPop = false;
         },
         handelCancelMint() {
@@ -113,8 +115,13 @@ export default {
     },
     //请求数据
     created() {},
-    mounted() {
-        this.stratCountDown();
+    async mounted() {
+        this.getSalePrice('V0_CAT_VEHICLE').then(res => {
+             this.price = res?.price || 0;
+        })
+        this.getSaleReport('V0_CAT_VEHICLE').then(res => {
+            this.amount = res?.countAvailable || 0;
+        })
     },
 }
 </script>

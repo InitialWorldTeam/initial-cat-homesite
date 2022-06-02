@@ -39,11 +39,11 @@ function checkCode(res, isToast) {
         return false;
     }
 
-    if (res.status === 404) {
-        Toast.fail(res.statusText);
+    if (res?.status === 404) {
+        Toast.fail(res?.statusText);
         return Promise.reject('404');
     }
-    const { code, msg } = res.data;
+    const { code, msg } = res?.data;
     /* Toast错误信息 */
     if (code === '0000') {
         return Promise.resolve(res?.data);
@@ -55,7 +55,6 @@ function checkCode(res, isToast) {
         }
         return Promise.reject(res?.data);
     }
-
 }
 // 请求方式的配置
 export default {
