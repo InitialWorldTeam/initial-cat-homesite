@@ -88,6 +88,7 @@
         <common-confirm
             v-if="isShowConfirmPop"
             :price="price"
+            :type="1"
             ref="confirmMint" 
             @confirm="handleConfirmMint"
             @cancel="handelCancelMint"

@@ -19,6 +19,10 @@ export default {
         price: {
             type: String,
             defautl: '0'
+        },
+        type: {
+            type: String,
+            defautl: '1'
         }
     },
     //对象内部的属性监听，也叫深度监听
@@ -81,8 +85,6 @@ export default {
                 return;
             }
 
-            // this.mintAble = false;
-
             this.setLoading(true);
 
             // 请求接口报错时不可点击
@@ -128,8 +130,10 @@ export default {
                 api = await this.initApi();
             }
 
+            const TITLE = this.curSwapData.title;
+            console.log('TITLE', TITLE);
             const remark = await api.tx.system.remark(
-                `INITWD::1.0.0::FREEMINT::${type}::${verifyCode}`
+                `INITWD::1.0.0::${TITLE}::${type}::${verifyCode}`
             );
 
             const tx = api.tx.utility.batchAll([

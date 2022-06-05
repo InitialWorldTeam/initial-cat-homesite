@@ -33,10 +33,10 @@ export default {
     myNftAssets: [], // 当前钱包拥有的所有NFT列表
     curPageNftList: [], // 当前页码展示的NFT列表
     curPage: 1, // 当前页码
-    nftPageSize: 10, // 每页显示NFT条目个数
+    nftPageSize: 4, // 每页显示NFT条目个数
     apiProvider: null, // 钱包环境Api
     loadingNftSta: -1, // 加载NFT状态, 0: Loading NFT, 1:有NFT, 2:空NFT
     kusamaPrice: 0, // 当前 Kusama 实时价格
-    mintType: '1',
+    mintType: '1', // mint类型，1-free mint, 2-use swap key
     curSwapData: null
 };

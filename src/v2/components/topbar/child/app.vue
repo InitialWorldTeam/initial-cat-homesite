@@ -1,6 +1,11 @@
 <template>
-    <div>
-    
+    <div class="container-bottom-bar">
+        <div
+            class="box-tab-item"
+            v-for="item in communityListApp" 
+            :key="item.id">
+            <img :src="item.img" alt="">
+        </div>
     </div>
 </template>
 
@@ -30,5 +35,35 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.container-bottom-bar {
+    width: 84vw;
+    height: 70px;
+    background: rgba($color: #5122AE, $alpha: 0.5);
+    box-shadow: 0px 0px 14px 0px rgba(88, 55, 147, 0.57);
+    border-radius: 14px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 6vw;
+    transform: translate(-50%, 0);
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
+    .box-tab-item {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(0deg, #915AF5 0%, #A878FD 100%);
+        border-radius: 12px;
+        @include flexCenter;
+        cursor: pointer;
+
+        img {
+            width: 26px;
+            height: auto;
+            transform: translateZ(10px);
+        }
+    }
+}
 </style>

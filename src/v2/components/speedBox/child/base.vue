@@ -106,7 +106,6 @@ export default {
             this.isShowConfirmPop = true;
         },
         handleConfirmMint() {
-            console.log('Speed Boat Confirm');
             this.isShowConfirmPop = false;
         },
         handelCancelMint() {
@@ -126,6 +125,8 @@ export default {
     //请求数据
     created() {},
     async mounted() {
+        document.body.scrollIntoView(true);
+        
         this.getSalePrice('V0_CAT_VEHICLE').then(res => {
              this.price = res?.price || 0;
         })

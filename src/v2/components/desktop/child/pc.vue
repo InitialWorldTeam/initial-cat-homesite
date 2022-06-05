@@ -39,6 +39,7 @@ export default {
 .container-desktop {
     width: 100vw;
     height: 100vh;
+    min-width: 990px;
     @include bg-item;
     background-size: cover;
 }

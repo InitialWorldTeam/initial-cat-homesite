@@ -5,7 +5,9 @@
         v-loading="loading"
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"
-    >
+    >   
+        <div class="btn-back-v2" @click="goToBack">Back to My NFTs</div>
+
         <main v-if="collectibles">
             <!-- Display -->
             <div class="box-display">
@@ -20,19 +22,19 @@
                         <span :class="[renderType]" class="box-tag">
                             {{ TYPE[renderType] }}</span>
                     </h1>
-                    <h2>{{ collectibles.symbol }}</h2>
+                    <h2>{{ collectibles.sn }}</h2>
                     <div class="box-own">
                         Owned By: <span>{{collectibles.rootowner}}</span>
                     </div>
                 </div>
 
-                <div class="box-right flex">
+                <div class="box-right">
                     <div class="btn-item" @click="handleInspect(collectibles)">
-                        <span>Inspect</span><i class="inspect"></i>
+                        <span>Inspect</span>
                     </div>
 
-                    <div class="btn-item" v-if="isBurned">
-                        <span>Share</span><i class="share"></i>
+                    <div class="btn-item share">
+                        <span>Share</span>
                     </div>
 
                     <el-popover 
@@ -40,7 +42,7 @@
                         width="140" 
                         trigger="click" 
                         v-model="showPopover"
-                        v-else
+                        v-if="fasle"
                     >
                         <div>
                             <el-button 
@@ -59,7 +61,7 @@
 
 
             <!-- Sale -->
-            <div class="box-sale">
+            <div class="box-sale" v-if="false">
                 <el-tooltip
                     effect="dark"
                     content="Coming soon"
@@ -108,8 +110,8 @@ export default {
 
 <style scoped lang="scss">
 .container-collectibles {
-    padding-top: 10px;
-    min-height: 100vh;
+    padding-top: 26px;
+    height: 100%;
 
     &.burned {
         .btn-item, .box-sale-item {
@@ -121,13 +123,14 @@ export default {
     main {
         // @extend .common-pc-width;
         margin: 0 auto;
-        padding: 24px 18px 60px 18px;
+        padding: 26px 18px 0px 18px;
     }
 
     .box-display {
         @include flexCenter;
-        height: 300px;
-        margin: 0 auto 60px;
+        width: 70vw;
+        height: 70vw;
+        margin: 0 auto 34px;
 
         .box-cat-item {
             width: 100vw;
@@ -135,16 +138,13 @@ export default {
     }
 
     .box-info {
-        // display: flex;
-        // justify-content: space-between;
 
         .box-left {
             h1 {
-                font-size: 16px;
+                font-size: 17px;
                 line-height: 24px;
-                font-family: FuturaT;
                 font-weight: normal;
-                color: #ffffff;
+                color: #545356;
                 display: flex;
                 
                 .name {
@@ -154,12 +154,12 @@ export default {
             }
 
             h2 {
-                font-size: 14px;
-                line-height: 20px;
+                font-size: 11px;
+                line-height: 17px;
                 font-family: Myriad Pro;
                 font-weight: 400;
                 color: #818189;
-                margin-top: 10px;
+                margin-top: 8px;
             }
 
             .box-own {
@@ -167,12 +167,13 @@ export default {
                 line-height: 20px;
                 display: flex;
                 margin-top: 14px;
+                color: #545356;
 
                 span {
                     display: block;
-                    padding-left: 24px;
+                    // padding-left: 24px;
                     margin-left: 10px;
-                    background: url(../img/img-owner.png) no-repeat left center / 20px auto;
+                    // background: url(../img/img-owner.png) no-repeat left center / 20px auto;
                     width: calc(100% - 90px);
                     @include ellipsis;
                 }
@@ -181,18 +182,24 @@ export default {
 
         .box-right {
             height: 40px;
-            margin-top: 24px;
+            margin-top: 38px;
+            display: flex;
+            gap: 10px;
 
             .btn-item {
                 @include btn-common;
-                height: 40px;
-                width: 112px;
-                font-size: 16px;
+                height: 38px;
+                flex: 1;
+                font-size: 14px;
                 line-height: 20px;
                 padding: 0 10px;
-                color: #110f19;
-                letter-spacing: 0px;
-                margin-right: 16px;
+                background: #A06FF8;
+                color: #fff;
+                border-radius: 9px;
+
+                &.share {
+                    background: #ccc;
+                }
 
                 i {
                     display: block;

@@ -50,11 +50,16 @@ export default {
               { type: 8, name: 'POAP' },
           ],
           curType: 'All',
-          nftList: []
+          nftList: [],
+          isHideSinglePage: true, // 当只有一页时是否隐藏分页
       }
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        handlePageChange(page) {
+            this.setCurPage(page);
+            this.queryNftAsset(this.curQueryWallet.address);
+        },
         onCopy: function(e) {
             const text = 'Copied your address.'
             this.$toast(text);

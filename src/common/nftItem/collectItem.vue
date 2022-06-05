@@ -8,7 +8,7 @@
         :style="customStyle"
         v-if="nftItem.preview"
     >
-        <main :style="customStyle">
+        <main :style="customStyle" class="box-cat-item-main">
             <!-- NFT 2D展示 -->
             <div
                 class="box-cat-part-item"

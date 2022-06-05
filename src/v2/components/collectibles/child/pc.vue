@@ -23,7 +23,7 @@
                             TYPE[renderType]
                         }}</span>
                     </h1>
-                    <h2>{{ collectibles.symbol }}</h2>
+                    <h2>{{ collectibles.sn }}</h2>
                     <div class="box-own">
                         Owned By: <span>{{ collectibles.rootowner }}</span>
                     </div>
@@ -111,6 +111,7 @@ export default {
 <style scoped lang="scss">
 .container-collectibles {
     padding: 48px 0;
+    height: 100%;
 
     &.burned {
         .btn-item, .box-sale-item {

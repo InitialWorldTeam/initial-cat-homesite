@@ -7,6 +7,7 @@
 <script>
 import common from "@/common/common";
 import { getCountTime } from "@/config/util";
+import { Nft_Type_List } from "@/config/util/const";
 
 export default {
     mixins: [common],
@@ -92,34 +93,32 @@ export default {
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        handleShowKeyList() {
+            this.setSwapData(Nft_Type_List.equip);
+
+            this.$router.push({
+                path: '/usekey'
+            })
+        },
         handleShowMint() {
             this.isShowConfirmPop = true;
         },
         handleConfirmMint() {
-            console.log('confirm');
             this.isShowConfirmPop = false;
         },
         handelCancelMint() {
             this.isShowConfirmPop = false;
         },
-        stratCountDown() {
-            let timer = setInterval(() => {
-                let res = getCountTime(this.startDate);
-                if (!res) {
-                    clearInterval(res);
-                    return;
-                }
-                this.timeData = res;
-            }, 1000)
-        }
     },
     //请求数据
     created() {},
     async mounted() {
-        this.getSalePrice('V0_CAT_VEHICLE').then(res => {
+        document.body.scrollIntoView(true);
+        
+        this.getSalePrice('V0_CAT_EQUIP').then(res => {
              this.price = res?.price || 0;
         })
-        this.getSaleReport('V0_CAT_VEHICLE').then(res => {
+        this.getSaleReport('V0_CAT_EQUIP').then(res => {
             this.amount = res?.countAvailable || 0;
         })
     },

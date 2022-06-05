@@ -144,13 +144,34 @@ $width-900: 900px;
     box-sizing: border-box;
 }
 .commonToast-2 {
-    width: auto;
-    max-width: fit-content;
+    width: 85vw;
+    // max-width: fit-content;
     background-color: rgba(0, 0, 0, 1);
     padding: 14px 20px;
 }
+.common-btn-style {
+    width: 126px;
+    height: 40px;
+    border-radius: 8px;
+    @include flexCenter;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+    cursor: pointer;
+    background: #01A28D;
+    cursor: pointer;
+}
 .van-toast {
     @extend .commonToast-2;
+    width: auto;
+    max-width: fit-content;
+}
+.box-empty-nft {
+    height: 170px;
+    margin-top: 98px;
+    background: url(~@/assets/img/common/img-noNft.png) no-repeat center top /
+        240px auto;
 }
 
 .popper-coming {
@@ -185,12 +206,16 @@ $width-900: 900px;
     }
     .container-cat-common {
         width: 100vw;
-        min-width: 850px;
+        min-width: 990px;
         overflow: hidden;
         @include flexCenter;
     }
     #app {
-        min-width: 850px;
+        min-width: 990px;
+
+        &.app {
+            min-width: 100vw;
+        }
     }
     .section-nftList-pc {
         grid-template-columns: repeat(4, minmax(0px, 1fr));
@@ -246,5 +271,16 @@ $width-900: 900px;
         i {
             margin-right: 10px;
         }
+    }
+}
+
+.app {
+    .btn-back-v2 {
+        margin-left: 17px;
+    }
+
+    .box-swapkey-item .box-nft-show {
+        width: 39.2vw;
+        min-height: 39.2vw;
     }
 }

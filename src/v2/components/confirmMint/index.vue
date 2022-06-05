@@ -1,7 +1,7 @@
 <template>
     <div>
-        <app v-if="isApp" ref="pop" @confirm="confirm" @cancel="cancel" :price="price"></app>
-        <pc v-else ref="pop" @confirm="confirm" @cancel="cancel" :price="price"></pc>
+        <app v-if="isApp" ref="pop" @confirm="confirm" @cancel="cancel" :price="price" :type="type"></app>
+        <pc v-else ref="pop" @confirm="confirm" @cancel="cancel" :price="price" :type="type"></pc>
     </div>
 </template>
 

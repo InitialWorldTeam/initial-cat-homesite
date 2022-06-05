@@ -29,8 +29,7 @@ const Providers_Product = {
 }
 
 // 当前环境
-// const Env_Debug = process.env.NODE_ENV != 'production';
-const Env_Debug = true;
+const Env_Debug = process.env.NODE_ENV != 'production';
 
 // 已查询到钱包命名空间
 const OwnWalletNameSpace = 'Initial_World_Wallets';
@@ -39,7 +38,7 @@ const OwnWalletNameSpace = 'Initial_World_Wallets';
 const OwnWalletIdxNameSpace = 'Initial_World_Wallet_Index';
 
 // 可直接访问ipfs静态资源替换域名
-const IpfsSwitchDomain = 'https://initialworld.mypinata.cloud/';
+const IpfsSwitchDomain = Env_Debug ? 'https://test-initialworld.mypinata.cloud/' : 'https://initialworld.mypinata.cloud/';
 
 // 最低钱包Balance限制
 const Min_Ksm_Balance = 0.0015 * Math.pow(10, 12);
@@ -57,15 +56,18 @@ const Api_Host_Kusama = 'https://kusama.api.subscan.io';
 const Nft_Type_List = {
     'base': {
         name: 'V0_CAT',
-        swapType: null
+        swapType: null,
+        title: 'FREEMINT'
     },
     'equip': {
         name: 'V0_CAT_EQUIP',
-        swapType: 'MBK'
+        swapType: 'MBK',
+        title: 'MYSTERYBOX'
     },
     'vehicle': {
         name: 'V0_CAT_VEHICLE',
-        swapType: 'SBK'
+        swapType: 'SBK',
+        title: 'SPEEDBOATBOX'
     }
 }
 

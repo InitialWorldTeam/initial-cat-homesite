@@ -1,6 +1,8 @@
 <template>
     <div>
-        <app v-if="isApp"></app>
+        <app v-if="isApp">
+            <slot></slot>
+        </app>
         <pc v-else>
             <slot></slot>
         </pc>

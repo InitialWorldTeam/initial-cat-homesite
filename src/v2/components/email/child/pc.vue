@@ -2,8 +2,8 @@
     <div class="container-email">
         <h3>Stay up-to-date about new features and supported apps & games.</h3>
         <div class="box-sub">
-            <input type="text" :placeholder="placeholderText">
-            <div class="btn-sub">Subscribe</div>
+            <input type="text" :placeholder="placeholderText" v-model="userEmail">
+            <div class="btn-sub" @click="preventDoublePress(handleSubEmail)">Subscribe</div>
         </div>
     </div>
 </template>

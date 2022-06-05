@@ -6,6 +6,9 @@
 
 <script>
 import common from "@/common/common";
+import preventDoublePress from "@/config/preventDoublePress";
+import UTILS from "@/config/util";
+import mailApi from "@/config/mailApi";
 
 export default {
     mixins: [common],
@@ -20,11 +23,76 @@ export default {
     //数据
     data(){
       return {
-          placeholderText: 'Your e-mail address'
+          placeholderText: 'Your e-mail address',
+          userEmail: "",
+          subscribeEmailTip: {
+            tip1: "Please input your email",
+            tip2: "Your email address is missing @",
+            tip3: "Please enter the part after @",
+            tip4: "Please provide a valid email address.",
+            tip5: "Thank you, your sign-up request was successful! ",
+            tip6: "Something error, please try again"
+          },
       }
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
-    methods: {},
+    methods: {
+        preventDoublePress(callback, delay = 1500) {
+            preventDoublePress.onPress(callback, delay);
+        },
+        handleSubEmail() {
+            let email = this.userEmail;
+            if (!email) {
+                this.toastEmailTip(this.subscribeEmailTip.tip1);
+                return;
+            }
+
+            if (!email.includes("@")) {
+                this.toastEmailTip(this.subscribeEmailTip.tip2);
+                return;
+            }
+
+            if (email.indexOf("@") === email.length - 1) {
+                this.toastEmailTip(this.subscribeEmailTip.tip3);
+                return;
+            }
+
+            if (!UTILS.checkIsEmail(email)) {
+                this.toastEmailTip(this.subscribeEmailTip.tip4);
+                return;
+            }
+
+            this.subscribeEmail(email);
+        },
+        subscribeEmail(email) {
+            let config = {
+                email
+            };
+            let url = mailApi.subEmail;
+
+            this.$http
+                .post(url, config, "json")
+                .then(res => {
+                    const { code } = res;
+                    if (code === "0000") {
+                        this.toastEmailTip(this.subscribeEmailTip.tip5);
+                        this.checkEmailPass = true;
+                        this.userEmail = "";
+                    }
+                })
+                .catch(err => {
+                    console.log("err:", err);
+                    this.toastEmailTip(this.subscribeEmailTip.tip6);
+                    return false;
+                });
+        },
+        toastEmailTip(msg) {
+            this.$toast({
+                message: msg,
+                className: this.isApp ? 'commonToast-2' : '',
+            });
+        }
+    },
     //请求数据
     created() {},
     mounted() {},

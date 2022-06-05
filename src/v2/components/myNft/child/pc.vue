@@ -29,7 +29,7 @@
                     </span>
                 </div>
 
-                <main>
+                <main class="box-nft-list-content">
                     <!-- own NFT -->
                     <section
                         v-if="loadingNftSta === 1"
@@ -51,6 +51,18 @@
                         <div class="box-empty-nft"></div>
                     </template>
                 </main>
+
+                <!-- Pagination -->
+                <div class="box-pagination flexCenter">
+                    <el-pagination
+                        :hide-on-single-page="isHideSinglePage"
+                        layout="prev, pager, next"
+                        :page-size="nftPageSize"
+                        :current-page="curPage"
+                        @current-change="handlePageChange"
+                        :total="nftTotalNum">
+                    </el-pagination>
+                </div>
             </div>
         </template>
     </div>
@@ -85,6 +97,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.box-pagination {
+    margin-top: 20px;
+
+    .el-pagination {
+        color: #303133;
+
+        button {
+
+            &:disabled {
+                color: #303133;
+            }
+        }
+    }
+
+    .el-pager li, .el-pagination .btn-next, .el-pagination .btn-prev {
+        background: transparent;
+    }
+    .el-pagination .btn-next, .el-pagination .btn-prev {
+        color: #c0c4cc;
+    }
+}
 .container-my-nfts {
     padding: 45px;
 
@@ -123,6 +156,10 @@ export default {
                 }
             }
         }
+    }
+
+    .box-nft-list-content {
+        min-height: 280px;
     }
 
     .box-address {

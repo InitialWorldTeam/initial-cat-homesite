@@ -15,9 +15,14 @@ import MysteryBox from '@/v2/components/mysteryBox';
 import SpeedBox from '@/v2/components/speedBox';
 import UseKey from '@/v2/components/useKey';
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
+const router = new Router({
     mode: 'history',
     routes: [
         {
@@ -90,6 +95,13 @@ export default new Router({
             name: 'USE KEY',
             component: UseKey
         },
-        
+
     ]
 })
+
+router.afterEach((to, from) => {
+    const dom = document.querySelector('.box-common-mint');
+    dom && dom.scrollIntoView(true);
+})
+
+export default router;

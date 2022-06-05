@@ -1,6 +1,15 @@
 <template>
     <div class="container-foot-bar">
-    
+        <div
+            @click="goToNav(item)"
+            class="box-nav-item"
+            v-for="item in navList" 
+            :key="item.id">
+            <div class="box-img">
+                <img :src="item.img" alt="">
+            </div>
+            <p>{{ item.name }}</p>
+        </div>
     </div>
 </template>
 
@@ -30,5 +39,46 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.container-foot-bar {
+    position: fixed;
+    width: 84vw;
+    padding-top: 15vw;
+    left: 50%;
+    top: 0;
+    z-index: 1;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0px, 1fr));
+    gap: 6.4vw;
 
+    .box-nav-item {
+
+        .box-img {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(0deg, #915AF5 0%, #A878FD 100%);
+            box-shadow: 0px 1px 2px 0px rgba(88, 55, 147, 0.63);
+            border-radius: 14px;
+            margin: 0 auto;
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                transform: translateZ(10px);
+            }
+        }
+
+        p {
+            font-size: 10px;
+            font-family: MyriadPro;
+            font-weight: 600;
+            color: #FFFFFF;
+            line-height: 14px;
+            text-align: center;
+            margin-top: 7px;
+            letter-spacing: -0.2px;
+        }
+    }
+}
 </style>

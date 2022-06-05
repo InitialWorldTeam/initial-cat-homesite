@@ -53,6 +53,28 @@ export default {
                   img: require('../img/icon-github.png'),
                   url: null
               }
+          ],
+          communityListApp: [
+              {
+                  name: 'twitter',
+                  img: require('../img/icon-twitter.png'),
+                  url: "https://twitter.com/InitialWorldLab"
+              },
+              {
+                  name: 'discord',
+                  img: require('../img/icon-discord.png'),
+                  url: null
+              },
+              {
+                  name: 'medium',
+                  img: require('../img/icon-medium.png'),
+                  url: "https://medium.com/@InitialWorld"
+              },
+              {
+                  name: 'github',
+                  img: require('../img/icon-github.png'),
+                  url: null
+              }
           ]
       }
     },

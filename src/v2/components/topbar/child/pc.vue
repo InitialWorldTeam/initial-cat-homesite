@@ -58,6 +58,7 @@ export default {
     padding: 0 35px;
     position: absolute;
     width: 100vw;
+    min-width: 990px;
     left: 0;
     top: 0;
     z-index: 1;

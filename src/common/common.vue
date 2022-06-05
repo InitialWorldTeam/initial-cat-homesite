@@ -110,8 +110,7 @@ export default {
             return this.$http
                 .post(url, config)
                 .then(res => {
-                    console.log('price: ', res);
-                    return res?.data || [];
+                    return res?.data || false;
                 })
                 .catch(err => {
                     console.log("err:", err);
@@ -128,8 +127,7 @@ export default {
             return this.$http
                 .post(url, config)
                 .then(res => {
-                    console.log('report: ', res);
-                    return res?.data || [];
+                    return res?.data || false;
                 })
                 .catch(err => {
                     console.log("err:", err);
@@ -240,7 +238,6 @@ export default {
             return this.$http
                 .post(url, config, "json")
                 .then(res => {
-                    console.log('res', res);
                     return res?.data || [];
                 })
                 .catch(err => {
@@ -404,7 +401,7 @@ export default {
             let data = [];
             for (let item of nfts) {
                 const nftData = await this.getNftById(item);
-
+                
                 if (nftData) {
                     nftData.preview = await this.getImageSourceByNftId(nftData);
                     data.push(nftData);
@@ -414,11 +411,10 @@ export default {
         },
         // 查询当前页码NFT资产
         async queryCurPageData(page = 1, allNft) {
+            this.setLoadingNftSta(0);
             const IDX_START = (page - 1) * this.nftPageSize;
             const IDX_END = page * this.nftPageSize;
             const QUERY_NFT = allNft.slice(IDX_START, IDX_END);
-
-            console.log('QUERY_NFT', QUERY_NFT);
 
             this.setCurPageNft(QUERY_NFT);
             this.setAllNftList(allNft);
@@ -432,7 +428,6 @@ export default {
         async queryNftAsset(add) {
             this.setLoadingNftSta(0);
             let ALL_NFTS = await this.getAllNfts(add);
-            console.log("ALL_NFTS", ALL_NFTS);
             ALL_NFTS = this.filterNftId(ALL_NFTS).reverse();
 
             this.queryCurPageData(this.curPage, ALL_NFTS);
@@ -452,8 +447,6 @@ export default {
             };
             // 设置查询钱包为当前钱包
             this.setQueryWallet(wallet);
-
-            console.log('wallet', wallet);
 
             this.$nextTick(() => {
                 this.queryNftAsset(add);

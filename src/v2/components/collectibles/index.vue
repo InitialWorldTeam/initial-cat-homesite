@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-collect-out">
         <app v-if="isApp"></app>
         <pc v-else></pc>
     </div>
@@ -39,5 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.container-collect-out {
+    height: 100%;
+}
 </style>

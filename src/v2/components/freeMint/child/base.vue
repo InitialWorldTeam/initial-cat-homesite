@@ -7,6 +7,7 @@
 <script>
 import common from "@/common/common";
 import { getCountTime } from "@/config/util";
+import { Nft_Type_List } from "@/config/util/const";
 
 export default {
     mixins: [common],
@@ -97,6 +98,7 @@ export default {
         },
         handleConfirmMint() {
             console.log('free mint confirm');
+            this.setSwapData(Nft_Type_List.base);
             this.isShowConfirmPop = false;
         },
         handelCancelMint() {
@@ -116,10 +118,10 @@ export default {
     //请求数据
     created() {},
     async mounted() {
-        this.getSalePrice('V0_CAT_VEHICLE').then(res => {
+        this.getSalePrice('V0_CAT').then(res => {
              this.price = res?.price || 0;
         })
-        this.getSaleReport('V0_CAT_VEHICLE').then(res => {
+        this.getSaleReport('V0_CAT').then(res => {
             this.amount = res?.countAvailable || 0;
         })
     },

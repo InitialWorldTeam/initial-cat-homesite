@@ -1,7 +1,8 @@
 <template>
     <div class="container-common-confrim-mint">
         <main>
-            <h1>You will confirm to consume {{ price }} KSM to open a mystery box?</h1>
+            <h1 v-if="+type === 1">You will confirm to consume {{ price }} KSM to open a box?</h1>
+            <h1 v-if="+type === 2">You will confirm to use key to open a box?</h1>
             <div class="box-btns">
                 <div class="btn-item btn-confirm" @click="handleConfirm">Confirm</div>
                 <div class="btn-item btn-cancel" @click="handleCancel">Cancel</div>
