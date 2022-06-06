@@ -29,7 +29,8 @@ const Providers_Product = {
 }
 
 // 当前环境
-const Env_Debug = process.env.NODE_ENV != 'production';
+// const Env_Debug = process.env.NODE_ENV != 'production';
+const Env_Debug = true;
 
 // 已查询到钱包命名空间
 const OwnWalletNameSpace = 'Initial_World_Wallets';
