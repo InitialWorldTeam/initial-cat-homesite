@@ -1,18 +1,34 @@
 <template>
     <div>
-        <app v-if="isApp" ref="pop" @confirm="confirm" @cancel="cancel" :price="price" :type="type"></app>
-        <pc v-else ref="pop" @confirm="confirm" @cancel="cancel" :price="price" :type="type"></pc>
+        <app
+            v-if="isApp"
+            ref="pop"
+            @confirm="confirm"
+            @cancel="cancel"
+            @showNftResult="showNftResult"
+            :price="price"
+            :type="type"
+        ></app>
+        <pc
+            v-else
+            ref="pop"
+            @confirm="confirm"
+            @cancel="cancel"
+            @showNftResult="showNftResult"
+            :price="price"
+            :type="type"
+        ></pc>
     </div>
 </template>
 
 <script>
-import {mapState} from 'vuex';
-import pc from './child/pc';
-import app from './child/app';
-import Base from './child/base';
+import { mapState } from "vuex";
+import pc from "./child/pc";
+import app from "./child/app";
+import Base from "./child/base";
 
 export default {
-    mixins: [ Base ],
+    mixins: [Base],
     //部件
     components: {
         app,
@@ -24,13 +40,11 @@ export default {
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
     computed: {
-        ...mapState([
-            'isApp'
-        ])
+        ...mapState(["isApp"])
     },
     //数据
-    data(){
-      return {}
+    data() {
+        return {};
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
@@ -38,18 +52,16 @@ export default {
             this.$refs.pop.handleShow();
         },
         confirm() {
-            this.$emit('confirm');
+            this.$emit("confirm");
         },
         cancel() {
-            this.$emit('cancel');
+            this.$emit("cancel");
         }
     },
     //请求数据
     created() {},
-    mounted() {},
-}
+    mounted() {}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

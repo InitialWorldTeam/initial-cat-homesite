@@ -98,6 +98,7 @@ export default {
         },
         handleConfirmMint() {
             console.log('free mint confirm');
+            this.setMintType(1);
             this.setSwapData(Nft_Type_List.base);
             this.isShowConfirmPop = false;
         },

@@ -252,7 +252,7 @@ export default {
             this.isShowConfirmPop = false;
         },
         async handleConfirmMint() {
-            this.setMintType('2');
+            this.setMintType(2);
             this.isShowConfirmPop = false;
 
             this.initOrder();

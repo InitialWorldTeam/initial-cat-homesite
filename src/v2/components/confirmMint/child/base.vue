@@ -28,20 +28,228 @@ export default {
     //对象内部的属性监听，也叫深度监听
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
-    computed: {},
+    computed: {
+        nftType() {
+            return this.curSwapData.name;
+        },
+    },
     //数据
     data() {
-        return {};
+        return {
+            nftData: null,
+            checkNum: 0
+        };
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        showNftResult(data) {
+            this.$emit('showNftResult', data);
+        },
+        reset() {
+            this.setLoading(false);
+        },
+        // 检查订单状态
+        checkOrderStatus(orderId) {
+            let config = {
+                orderId
+            };
+            let url = SaleApi.checkBoxOrderStatus;
+
+            return this.$http
+                .post(url, config, "json")
+                .then(async res => {
+                    const { status, nftId } = res.data;
+                    if (status === "paid-confirmed" && nftId) {
+                        clearTimeout(this.timer);
+
+                        const NFT_DATA = await this.queryNftData([nftId]);
+                        this.nftData = NFT_DATA[0];
+
+                        this.$emit('showNftResult', this.nftData);
+
+                        this.reset();
+                    } else {
+                        this.checkNum++;
+                        
+                        if (this.checkNum >= 30) {
+                            this.checkNum = 0;
+                            clearTimeout(this.timer);
+                            this.reset();
+                            this.$toast('Please wait 2~3 minutes');
+                            return;
+                        }
+                        this.timer = setTimeout(() => {
+                            this.checkOrderStatus(orderId);
+                        }, 5000);
+                    }
+                })
+                .catch(err => {
+                    console.log("checkBoxOrderStatus err:", err);
+                    return false;
+                });
+        },
+        // tranfer token 成功后调用
+        confirmTransferSuccess(orderId) {
+            let config = {
+                address: this.curRootWallet.address,
+                orderId
+            };
+
+            let url = SaleApi.markBoxOrderPaid;
+
+            return this.$http
+                .post(url, config, "json")
+                .then(res => {
+                    return res;
+                })
+                .catch(err => {
+                    console.log("markBoxOrderPaid err:", err);
+                    return false;
+                });
+        },
+        // 发起 Transfer Token
+        async SendBatchTransfer(params) {
+            const { orderId, toAddress, price } = params;
+
+            let api = this.apiProvider;
+            if (!api) {
+                api = await this.initApi();
+            }
+
+            this.setLoading(true);
+
+            let tx;
+            const TITLE = this.curSwapData.title;
+
+            console.log('TITLE: ', TITLE);
+
+            const remark = await api.tx.system.remark(
+                `INITWD::1.0.0::${TITLE}::${this.nftType}::${orderId}`
+            );
+            const transferNum = +price * Math.pow(10, 12);
+
+            tx = api.tx.utility.batchAll([
+                remark,
+                api.tx.balances.transfer(toAddress, transferNum)
+            ]);
+
+            const SENDER = this.curRootWallet.address;
+            const injector = await web3FromAddress(SENDER);
+            const ORDER_ID = orderId;
+
+            let unsubscribe = await tx
+                .signAndSend(
+                    SENDER,
+                    {
+                        signer: injector.signer
+                    },
+                    async ({ events = [], status }) => {
+                        console.log("status:", status);
+
+                        if (status?.isFinalized || status?.isInBlock) {
+                            unsubscribe();
+
+                            events
+                                .filter(
+                                    ({ event: { section } }) =>
+                                        section === "system"
+                                )
+                                .forEach(
+                                    async ({ event: { data, method } }) => {
+                                        if (method === "ExtrinsicFailed") {
+                                            const [dispatchError] = data;
+                                            if (dispatchError.isModule) {
+                                                try {
+                                                    const mod =
+                                                        dispatchError.asModule;
+                                                    const error = data.registry.findMetaError(
+                                                        new Uint8Array([
+                                                            mod.index.toNumber(),
+                                                            mod.error.toNumber()
+                                                        ])
+                                                    );
+                                                    console.log(
+                                                        "错误提示:",
+                                                        error.name
+                                                    ); //错误提示
+                                                    this.$toast.fail(
+                                                        error.name
+                                                    );
+                                                } catch (error) {
+                                                    console.log(error);
+                                                    this.$toast.fail(
+                                                        error.message
+                                                    );
+                                                }
+                                            }
+                                            this.reset();
+                                        } else if (
+                                            method === "ExtrinsicSuccess"
+                                        ) {
+                                            // console.log("成功");
+                                            this.confirmTransferSuccess(
+                                                orderId
+                                            );
+                                            this.checkOrderStatus(orderId);
+                                        }
+                                    }
+                                );
+                        } else {
+                            this.confirmTransferSuccess(orderId);
+                            this.checkOrderStatus(orderId);
+                        }
+                    }
+                )
+                .catch(err => {
+                    console.log(err);
+                    this.$toast.fail(err.message);
+                    this.reset();
+                });
+        },
+        // 创建订单
+        async createOrder(add) {
+            this.setLoading(true);
+
+            let config = {
+                address: add,
+                nftType: this.nftType
+            };
+            let url = SaleApi.createBoxOrder;
+
+            return this.$http
+                .post(url, config, "json")
+                .then(res => {
+                    this.setLoading(false);
+                    return res;
+                })
+                .catch(err => {
+                    this.setLoading(false);
+                    console.log("err:", err);
+                    return false;
+                });
+        },
+        async initOrder() {
+            const orderData = await this.createOrder(
+                this.curRootWallet.address
+            );
+            if (!orderData) {
+                return;
+            };
+
+            this.SendBatchTransfer(orderData.data);
+        },
         handleCancel() {
             this.$emit("cancel");
         },
         handleConfirm() {
             this.$emit("confirm");
-            if (this.mintType === '1') {
+
+            if (this.mintType === 1) {
                 this.confirmMint();
+            }
+
+            if (this.mintType === 2) {
+                this.initOrder();
             }
         },
         resetMintStatus() {
@@ -131,7 +339,7 @@ export default {
             }
 
             const TITLE = this.curSwapData.title;
-            console.log('TITLE', TITLE);
+            console.log('TITLE:', TITLE);
             const remark = await api.tx.system.remark(
                 `INITWD::1.0.0::${TITLE}::${type}::${verifyCode}`
             );

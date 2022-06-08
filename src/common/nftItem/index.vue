@@ -1,7 +1,7 @@
 <template>
     <div
         class="box-cat-item"
-        :class="{ app: app }"
+        :class="{ app: isApp }"
         v-if="nftData"
     >
         <main @click="goToDetail">
@@ -58,7 +58,7 @@
     <div
         v-else
         class="box-cat-item"
-        :class="{ app: app, disable: source === 'list' }"
+        :class="{ app: isApp, disable: source === 'list' }"
         v-loading="isLoading"
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.8)"

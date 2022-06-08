@@ -37,6 +37,6 @@ export default {
     apiProvider: null, // 钱包环境Api
     loadingNftSta: -1, // 加载NFT状态, 0: Loading NFT, 1:有NFT, 2:空NFT
     kusamaPrice: 0, // 当前 Kusama 实时价格
-    mintType: '1', // mint类型，1-free mint, 2-use swap key
+    mintType: 1, // mint类型，1-free mint, 2-use swap key
     curSwapData: null
 };

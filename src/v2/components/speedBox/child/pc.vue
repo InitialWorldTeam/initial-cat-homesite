@@ -102,19 +102,32 @@
             ref="confirmMint" 
             @confirm="handleConfirmMint"
             @cancel="handelCancelMint"
+            @showNftResult="handleShowNftResult"
         ></common-confirm>
+
+        <!-- NFT Result -->
+        <transition name="fade">
+            <div class="box-nft-modal" v-if="isShowNftModal">
+                <main class="animate__animated animate__bounceIn">
+                    <NftShowItem :nftItem="nftData" :customStyle="nftStyle"></NftShowItem>
+                    <p @click="clearNftModal">Get it!</p>
+                </main>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
 import Base from "./base";
 import commonConfirm from '@/v2/components/confirmMint';
+import NftShowItem from "@/common/nftItem/collectItem";
 
 export default {
     mixins: [Base],
     //部件
     components: {
         commonConfirm,
+        NftShowItem
     },
     //静态
     props: {},

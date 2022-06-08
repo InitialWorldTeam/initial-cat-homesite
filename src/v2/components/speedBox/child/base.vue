@@ -18,10 +18,28 @@ export default {
     //对象内部的属性监听，也叫深度监听
     watch: {},
     //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
-    computed: {},
+    computed: {
+        nftStyle() {
+            let stylePc = {
+                width: "210px",
+                height: "210px",
+                bgColor: "0xAFBFFF",
+                'border-radius': '0'
+            };
+            let styleApp = {
+                width: "50vw",
+                height: "50vw",
+                bgColor: "0xAFBFFF",
+                'border-radius': '0'
+            };
+            return this.isApp ? styleApp : stylePc;
+        },
+    },
     //数据
     data(){
       return {
+          isShowNftModal: false,
+          nftData: null,
           price: 0,
           amount: 0,
           keyList: [],
@@ -95,6 +113,14 @@ export default {
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
     methods: {
+        clearNftModal() {
+            this.nftData = null;
+            this.isShowNftModal = false;
+        },
+        handleShowNftResult(nftData) {
+            this.isShowNftModal = true;
+            this.nftData = nftData;
+        },
         handleShowKeyList() {
             this.setSwapData(Nft_Type_List.vehicle);
 
@@ -106,6 +132,8 @@ export default {
             this.isShowConfirmPop = true;
         },
         handleConfirmMint() {
+            this.setSwapData(Nft_Type_List.vehicle);
+            this.setMintType(2);
             this.isShowConfirmPop = false;
         },
         handelCancelMint() {
@@ -125,8 +153,6 @@ export default {
     //请求数据
     created() {},
     async mounted() {
-        document.body.scrollIntoView(true);
-        
         this.getSalePrice('V0_CAT_VEHICLE').then(res => {
              this.price = res?.price || 0;
         })

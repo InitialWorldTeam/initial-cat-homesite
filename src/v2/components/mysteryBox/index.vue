@@ -14,7 +14,7 @@ export default {
     //部件
     components: {
         app,
-        pc
+        pc,
     },
     //静态
     props: {},
