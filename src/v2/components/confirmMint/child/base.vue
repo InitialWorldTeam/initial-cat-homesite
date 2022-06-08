@@ -119,9 +119,7 @@ export default {
             this.setLoading(true);
 
             let tx;
-            const TITLE = this.curSwapData.title;
-
-            console.log('TITLE: ', TITLE);
+            const TITLE = 'MYSTERYBOX';
 
             const remark = await api.tx.system.remark(
                 `INITWD::1.0.0::${TITLE}::${this.nftType}::${orderId}`

@@ -96,9 +96,9 @@
 
         <!-- confirm modal -->
         <common-confirm
-            v-if="isShowConfirmPop"
+            v-show="isShowConfirmPop"
             :price="price"
-            type="1"
+            :type="1"
             ref="confirmMint" 
             @confirm="handleConfirmMint"
             @cancel="handelCancelMint"

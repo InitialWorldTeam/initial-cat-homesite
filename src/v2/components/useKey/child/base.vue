@@ -128,9 +128,9 @@ export default {
             }
 
             let tx;
-            const TITLE = this.curSwapData.title;
+            const TITLE = 'MYSTERYBOX';
 
-             const remarkReason = await api.tx.system.remark(
+            const remarkReason = await api.tx.system.remark(
                 `INITWD::1.0.0::${TITLE}_SWAPKEY::${this.nftType}::${orderId}`
             );
             const remarkBurn = await api.tx.system.remark(

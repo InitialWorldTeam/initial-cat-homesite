@@ -60,6 +60,7 @@
                         :hide-on-single-page="isHideSinglePage"
                         layout="prev, pager, next"
                         :page-size="nftPageSize"
+                        :pager-count="5"
                         :current-page="curPage"
                         @current-change="handlePageChange"
                         :total="nftTotalNum">
