@@ -55,7 +55,8 @@ export default {
           confirmType: '2',
           useKeyList: [],
           cueKeyInfo: null,
-          nftData: null
+          nftData: null,
+          checkNum: 0
       }
     },
     //方法表示一个具体的操作，主要书写业务逻辑；
@@ -87,6 +88,16 @@ export default {
                         this.getUserSwapKeyList();
                         this.reset();
                     } else {
+                        this.checkNum++;
+                        
+                        if (this.checkNum >= 30) {
+                            this.checkNum = 0;
+                            clearTimeout(this.timer);
+                            this.reset();
+                            this.$toast('Please wait 2~3 minutes');
+                            return;
+                        }
+
                         this.timer = setTimeout(() => {
                             this.checkOrderStatus(orderId);
                         }, 5000);
@@ -118,14 +129,14 @@ export default {
         },
         // 发起 Transfer Token
         async SendBatchTransfer(params) {
-            this.setLoading(true);
-
             const { orderId, toAddress, price } = params;
 
             let api = this.apiProvider;
             if (!api) {
                 api = await this.initApi();
             }
+
+            this.setLoading(true);
 
             let tx;
             const TITLE = 'MYSTERYBOX';
@@ -241,6 +252,7 @@ export default {
             const orderData = await this.createOrder(
                 this.curRootWallet.address
             );
+
             if (!orderData) {
                 return;
             };
@@ -252,7 +264,7 @@ export default {
             this.isShowConfirmPop = false;
         },
         async handleConfirmMint() {
-            this.setMintType(2);
+            this.setMintType(3);
             this.isShowConfirmPop = false;
 
             this.initOrder();
